@@ -1,0 +1,84 @@
+:root {
+  /* Base surfaces — warm near-black, not pure gray */
+  --bg: #0d0c0a;
+  --surface: #17140f;
+  --surface-raised: #211c15;
+  --border: #362e22;
+
+  /* Full-color bento blocks, pulled from the dark palette set */
+  --block-navy: #24485a;
+  --block-maroon: #7a2420;
+  --block-teal: #2c6b66;
+  --block-amber: #a9761f;
+  --block-green: #2f5c30;
+
+  --cream: #f1ecdf;
+  --cream-dim: #c7c0ae;
+  --cream-faint: #8b8471;
+
+  --correct: #4f9a5c;
+  --incorrect: #c15a4f;
+
+  /* Type: heavy condensed grotesk for headlines, plain sans for body/UI */
+  --font-display: "Archivo Black", "Archivo", sans-serif;
+  --font-body: "Archivo", "IBM Plex Sans", sans-serif;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --gap: 20px;
+  --max-width: 1040px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+h1 { font-size: 44px; }
+h2 { font-size: 28px; }
+h3 { font-size: 20px; }
+
+p { margin: 0 0 12px; color: var(--cream-dim); max-width: 60ch; }
+
+a { color: var(--cream); }
+
+button {
+  font-family: var(--font-body);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cream-faint);
+  font-weight: 500;
+}
+
+::selection { background: var(--block-maroon); color: var(--cream); }
+
+:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

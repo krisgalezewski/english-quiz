@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Self-practice — English Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="page">
+  <nav class="top-nav">
+    <a class="brand" href="index.html">English Quiz<span class="sub">with Kris</span></a>
+  </nav>
+
+  <a class="btn btn-outline" href="index.html" style="display:inline-block;margin-bottom:24px;text-decoration:none">← Back to home</a>
+
+  <!-- Intro -->
+  <div id="intro-view" class="panel">
+    <h2>Self-practice</h2>
+    <p>Go through a quiz on your own. You'll see the right answer right after each question.</p>
+    <div class="field">
+      <label for="quiz-select">Choose a quiz</label>
+      <select id="quiz-select"></select>
+    </div>
+    <button id="start-btn" class="btn">Start</button>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz-view" class="panel" style="display:none">
+    <div class="question-header">
+      <span class="muted" id="progress"></span>
+      <span class="muted" id="running-score"></span>
+    </div>
+    <div id="question-container"></div>
+    <button id="next-btn" class="btn" style="display:none;margin-top:16px">Next</button>
+  </div>
+
+  <!-- Done -->
+  <div id="done-view" class="panel" style="display:none">
+    <h2>Nice work!</h2>
+    <p>Final score: <strong id="final-score">0</strong></p>
+    <button id="retry-btn" class="btn">Practice again</button>
+  </div>
+</div>
+
+<script type="module" src="js/practice.js"></script>
+</body>
+</html>

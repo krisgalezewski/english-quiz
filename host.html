@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Host a quiz — English Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div class="page">
+  <nav class="top-nav">
+    <a class="brand" href="index.html">English Quiz<span class="sub">with Kris</span></a>
+  </nav>
+
+  <a class="btn btn-outline" href="index.html" style="display:inline-block;margin-bottom:24px;text-decoration:none">← Back to home</a>
+
+  <!-- Setup -->
+  <div id="setup-view" class="panel">
+    <h2>Host a live quiz</h2>
+    <div class="field">
+      <label for="quiz-select">Choose a quiz</label>
+      <select id="quiz-select"></select>
+    </div>
+    <div class="field">
+      <label for="time-limit-select">Time per question</label>
+      <select id="time-limit-select"></select>
+    </div>
+    <button id="start-session-btn" class="btn">Create room</button>
+  </div>
+
+  <!-- Lobby -->
+  <div id="lobby-view" class="panel" style="display:none">
+    <span class="eyebrow">Room code</span>
+    <div class="room-code" id="room-code">----</div>
+    <p>Students go to the Join page and enter this code.</p>
+    <h3>Players in the room</h3>
+    <div id="lobby-player-list" class="player-list"></div>
+    <button id="start-quiz-btn" class="btn" style="margin-top:20px" disabled>Start quiz</button>
+  </div>
+
+  <!-- Live question -->
+  <div id="question-view" class="panel" style="display:none">
+    <div class="question-header">
+      <span class="timer" id="timer">--</span>
+      <span class="muted" id="answer-count">0 answered</span>
+    </div>
+    <div id="question-container"></div>
+    <div id="answer-breakdown" class="player-list"></div>
+    <div style="margin-top:24px">
+      <button id="reveal-btn" class="btn">Reveal answer</button>
+      <button id="next-btn" class="btn" style="display:none">Next question</button>
+    </div>
+    <h3 style="margin-top:32px">Scoreboard</h3>
+    <div id="scoreboard" class="player-list"></div>
+  </div>
+
+  <!-- Finished -->
+  <div id="finished-view" class="panel" style="display:none">
+    <h2>Final results</h2>
+    <div id="final-leaderboard" class="player-list"></div>
+    <button id="enable-practice-btn" class="btn" style="margin-top:20px">Make available for self-practice</button>
+    <a class="btn-outline btn" href="host.html" style="display:inline-block;margin-top:20px;margin-left:8px;text-decoration:none">Start another quiz</a>
+  </div>
+</div>
+
+<script type="module" src="js/host.js"></script>
+</body>
+</html>
