@@ -14,6 +14,9 @@ const state = {
   hasAnsweredCurrent: false,
   stopTimer: null,
   celebrated: false,
+  allPlayers: [],
+  presentIds: new Set(),
+  presenceChannel: null,
 };
 
 const joinView = document.getElementById("join-view");
@@ -38,6 +41,7 @@ const finalScoreEl = document.getElementById("final-score");
 const finalRankEl = document.getElementById("final-rank");
 const finishedHeadlineEl = document.getElementById("finished-headline");
 const finishedTrophyEl = document.getElementById("finished-trophy");
+const finishedMessageEl = document.getElementById("finished-message");
 const practiceLinkEl = document.getElementById("practice-link");
 
 let selectedAvatar = DEFAULT_AVATARS[0];
@@ -126,6 +130,7 @@ joinBtn.addEventListener("click", async () => {
 
   subscribeToSession();
   subscribeToOtherPlayers();
+  subscribeToPresence();
 
   if (session.status === "lobby") {
     show(waitingView);
@@ -150,42 +155,82 @@ function subscribeToSession() {
     .subscribe();
 }
 
+async function refreshPlayers() {
+  const { data } = await supabase
+    .from("players")
+    .select("*")
+    .eq("session_id", state.session.id)
+    .order("joined_at");
+  state.allPlayers = data || [];
+  renderPlayerDisplays();
+  syncMyScore(state.allPlayers);
+}
+
 function subscribeToOtherPlayers() {
-  supabase
+  const channel = supabase
     .channel(`play-players:${state.session.id}`)
     .on(
       "postgres_changes",
       { event: "*", schema: "public", table: "players", filter: `session_id=eq.${state.session.id}` },
-      async () => {
-        const { data } = await supabase
-          .from("players")
-          .select("*")
-          .eq("session_id", state.session.id)
-          .order("joined_at");
-        otherPlayersEl.innerHTML = "";
-        (data || []).forEach((p) => {
-          const chip = el("div", "player-chip");
-          chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
-          otherPlayersEl.appendChild(chip);
-        });
-
-        playersRosterEl.innerHTML = "";
-        (data || []).forEach((p) => {
-          const isMe = state.player && p.id === state.player.id;
-          const avatarEl = document.createElement("span");
-          avatarEl.className = "roster-avatar" + (isMe ? " is-me" : "");
-          avatarEl.textContent = p.avatar;
-          avatarEl.title = isMe ? `${p.name} (you)` : p.name;
-          playersRosterEl.appendChild(avatarEl);
-        });
-        if (p_isMe(data)) syncMyScore(data);
-      }
+      () => refreshPlayers()
     )
-    .subscribe();
+    .subscribe((status) => {
+      if (status === "SUBSCRIBED") refreshPlayers(); // don't wait for the first change event - fetch now
+    });
 }
 
-function p_isMe(list) {
-  return (list || []).some((p) => p.id === state.player.id);
+// Tracks who's actively connected (tab open). Lets everyone's roster reflect
+// players who've dropped out, without needing them to explicitly "leave."
+function subscribeToPresence() {
+  const presenceChannel = supabase.channel(`presence:${state.session.id}`, {
+    config: { presence: { key: state.player.id } },
+  });
+  presenceChannel
+    .on("presence", { event: "sync" }, () => {
+      state.presentIds = new Set(Object.keys(presenceChannel.presenceState()));
+      renderPlayerDisplays();
+    })
+    .subscribe(async (status) => {
+      if (status === "SUBSCRIBED") {
+        await presenceChannel.track({ name: state.player.name, avatar: state.player.avatar });
+      }
+    });
+  state.presenceChannel = presenceChannel;
+}
+
+function renderPlayerDisplays() {
+  const visible = state.allPlayers.filter((p) => state.presentIds.size === 0 || state.presentIds.has(p.id));
+
+  otherPlayersEl.innerHTML = "";
+  visible.forEach((p) => {
+    const chip = el("div", "player-chip");
+    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
+    otherPlayersEl.appendChild(chip);
+  });
+
+  playersRosterEl.innerHTML = "";
+  visible.forEach((p) => {
+    const isMe = state.player && p.id === state.player.id;
+    const avatarEl = document.createElement("span");
+    avatarEl.className = "roster-avatar" + (isMe ? " is-me" : "");
+    avatarEl.textContent = p.avatar;
+    const label = isMe ? `${p.name} (you)` : p.name;
+    avatarEl.title = label; // desktop hover
+    avatarEl.tabIndex = 0;
+    avatarEl.addEventListener("click", () => showAvatarLabel(avatarEl, label)); // works on tap too
+    playersRosterEl.appendChild(avatarEl);
+  });
+}
+
+let labelTimeout = null;
+function showAvatarLabel(avatarEl, text) {
+  document.querySelectorAll(".roster-label").forEach((n) => n.remove());
+  const label = document.createElement("div");
+  label.className = "roster-label";
+  label.textContent = text;
+  avatarEl.appendChild(label);
+  clearTimeout(labelTimeout);
+  labelTimeout = setTimeout(() => label.remove(), 2000);
 }
 
 function syncMyScore(list) {
@@ -265,21 +310,43 @@ async function handleSubmit(response) {
   }
 }
 
+function resultMessage(correctCount, total) {
+  const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+  let line;
+  if (pct >= 90) line = "Outstanding work!";
+  else if (pct >= 70) line = "Great job!";
+  else if (pct >= 50) line = "Nice effort!";
+  else line = "Keep practicing — you'll get there!";
+  return `You got ${correctCount} out of ${total} questions right (${pct}%). ${line}`;
+}
+
 async function showFinalResult() {
-  const { data } = await supabase
+  const { data: players } = await supabase
     .from("players")
     .select("*")
     .eq("session_id", state.session.id)
     .order("score", { ascending: false });
-  const list = data || [];
+  const list = players || [];
   const me = list.find((p) => p.id === state.player.id);
   const rank = list.findIndex((p) => p.id === state.player.id) + 1;
   finalScoreEl.textContent = me ? me.score : state.player.score;
   finalRankEl.textContent = rank ? `${rank} / ${list.length}` : "";
   practiceLinkEl.href = `practice.html?code=${state.accessCode}`;
 
+  const { data: myAnswers } = await supabase
+    .from("answers")
+    .select("is_correct")
+    .eq("session_id", state.session.id)
+    .eq("player_id", state.player.id);
+  const correctCount = (myAnswers || []).filter((a) => a.is_correct).length;
+  finishedMessageEl.textContent = resultMessage(correctCount, state.questions.length);
+
   const isWinner = rank === 1 && me && me.score > 0;
-  if (isWinner) {
+
+  if (state.session.ended_early) {
+    finishedTrophyEl.textContent = "⏹️";
+    finishedHeadlineEl.textContent = "The host ended the quiz early";
+  } else if (isWinner) {
     finishedTrophyEl.textContent = "🏆";
     finishedHeadlineEl.textContent = "You won! 🎉";
   } else {

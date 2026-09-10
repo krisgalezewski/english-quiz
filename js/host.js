@@ -8,6 +8,7 @@ const state = {
   accessCode: null,
   questions: [],
   players: [],
+  presentIds: new Set(),
   answersForCurrent: [],
   stopTimer: null,
   currentHandle: null,
@@ -31,7 +32,10 @@ const startSessionBtn = document.getElementById("start-session-btn");
 const roomCodeEl = document.getElementById("room-code");
 const lobbyPlayerList = document.getElementById("lobby-player-list");
 const startQuizBtn = document.getElementById("start-quiz-btn");
+const endQuizBtnLobby = document.getElementById("end-quiz-btn-lobby");
+const endQuizBtn = document.getElementById("end-quiz-btn");
 const manageQuizzesEl = document.getElementById("manage-quizzes");
+const hostNoticeEl = document.getElementById("host-notice");
 
 const questionContainer = document.getElementById("question-container");
 const answerCountEl = document.getElementById("answer-count");
@@ -43,6 +47,7 @@ const nextBtn = document.getElementById("next-btn");
 const scoreboardEl = document.getElementById("scoreboard");
 
 const finalLeaderboard = document.getElementById("final-leaderboard");
+const gameStatsEl = document.getElementById("game-stats");
 const enablePracticeBtn = document.getElementById("enable-practice-btn");
 const soundToggleSetup = document.getElementById("sound-toggle");
 const soundToggleGame = document.getElementById("sound-toggle-game");
@@ -52,6 +57,16 @@ const finishedRoomCodeEl = document.getElementById("finished-room-code");
 function show(view) {
   [setupView, lobbyView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
   view.style.display = "block";
+}
+
+function showNotice(text) {
+  hostNoticeEl.textContent = text;
+  hostNoticeEl.style.display = "block";
+  // restart the fade animation
+  hostNoticeEl.style.animation = "none";
+  void hostNoticeEl.offsetWidth;
+  hostNoticeEl.style.animation = "";
+  setTimeout(() => (hostNoticeEl.style.display = "none"), 4000);
 }
 
 // Two sound checkboxes (setup screen + in-game) stay in sync with each other.
@@ -197,18 +212,21 @@ startSessionBtn.addEventListener("click", async () => {
   show(lobbyView);
   subscribeToSession();
   subscribeToPlayers();
+  subscribeToPresence();
 });
 
 // ---------- Lobby ----------
 
 function renderLobbyPlayers() {
   lobbyPlayerList.innerHTML = "";
-  state.players.forEach((p) => {
-    const chip = el("div", "player-chip");
-    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
-    lobbyPlayerList.appendChild(chip);
-  });
-  startQuizBtn.disabled = state.players.length === 0;
+  state.players
+    .filter((p) => state.presentIds.size === 0 || state.presentIds.has(p.id))
+    .forEach((p) => {
+      const chip = el("div", "player-chip");
+      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
+      lobbyPlayerList.appendChild(chip);
+    });
+  startQuizBtn.disabled = lobbyPlayerList.children.length === 0;
 }
 
 startQuizBtn.addEventListener("click", async () => {
@@ -217,6 +235,13 @@ startQuizBtn.addEventListener("click", async () => {
     .update({ status: "question", current_question: 0, question_started_at: new Date().toISOString() })
     .eq("id", state.session.id);
 });
+
+function endQuiz() {
+  if (!confirm("End this quiz now? Players will see the game finished early.")) return;
+  supabase.from("sessions").update({ status: "finished", ended_early: true }).eq("id", state.session.id);
+}
+endQuizBtnLobby.addEventListener("click", endQuiz);
+endQuizBtn.addEventListener("click", endQuiz);
 
 // ---------- Realtime subscriptions ----------
 
@@ -237,6 +262,28 @@ function subscribeToPlayers() {
         renderScoreboard();
       }
     )
+    .subscribe();
+}
+
+// Tracks who's actively connected (tab open), so we can show a notice and
+// visually mark players who drop out mid-game. Host doesn't "track" itself
+// here - it just listens.
+function subscribeToPresence() {
+  const presenceChannel = supabase.channel(`presence:${state.session.id}`, {
+    config: { presence: { key: "host-observer" } },
+  });
+  presenceChannel
+    .on("presence", { event: "sync" }, () => {
+      const presenceState = presenceChannel.presenceState();
+      state.presentIds = new Set(Object.keys(presenceState).filter((k) => k !== "host-observer"));
+      renderLobbyPlayers();
+      renderScoreboard();
+    })
+    .on("presence", { event: "leave" }, ({ key, leftPresences }) => {
+      if (key === "host-observer") return;
+      const info = leftPresences && leftPresences[0];
+      if (info) showNotice(`${info.avatar || ""} ${info.name || "A player"} left the game.`.trim());
+    })
     .subscribe();
 }
 
@@ -328,15 +375,20 @@ function onSessionChange() {
     answerBreakdownEl.innerHTML = "";
     state.players.forEach((p) => {
       const answer = state.answersForCurrent.find((a) => a.player_id === p.id);
-      const chip = el("div", "player-chip " + (answer && answer.is_correct ? "correct" : "incorrect"));
+      const isPresent = state.presentIds.size === 0 || state.presentIds.has(p.id);
+      const chip = el(
+        "div",
+        "player-chip " + (answer && answer.is_correct ? "correct" : "incorrect") + (isPresent ? "" : " is-left")
+      );
       const responseText = answer ? formatResponse(question, answer.response) : "(no answer)";
-      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}: ${responseText}</span>`;
+      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${isPresent ? "" : " (left)"}: ${responseText}</span>`;
       answerBreakdownEl.appendChild(chip);
     });
   } else if (state.session.status === "finished") {
     show(finishedView);
     renderFinalLeaderboard();
     syncPracticeButton();
+    renderGameStats();
     finishedRoomCodeEl.textContent = state.accessCode;
     if (!state.celebrated) {
       state.celebrated = true;
@@ -369,8 +421,9 @@ function renderScoreboard() {
   const sorted = [...state.players].sort((a, b) => b.score - a.score);
   scoreboardEl.innerHTML = "";
   sorted.forEach((p) => {
-    const chip = el("div", "player-chip");
-    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span><span class="score">${p.score}</span>`;
+    const isPresent = state.presentIds.size === 0 || state.presentIds.has(p.id);
+    const chip = el("div", "player-chip" + (isPresent ? "" : " is-left"));
+    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${isPresent ? "" : " (left)"}</span><span class="score">${p.score}</span>`;
     scoreboardEl.appendChild(chip);
   });
 }
@@ -392,6 +445,141 @@ function celebrate() {
     window.confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
     setTimeout(() => window.confetti({ particleCount: 60, spread: 120, origin: { y: 0.4 } }), 300);
   }
+}
+
+// ---------- End-of-game stats (computed fresh, never saved) ----------
+
+async function renderGameStats() {
+  gameStatsEl.innerHTML = `<div class="stat-row"><span class="stat-label">Loading stats…</span></div>`;
+
+  const { data: answers } = await supabase.from("answers").select("*").eq("session_id", state.session.id);
+  if (!answers || answers.length === 0 || state.questions.length === 0) {
+    gameStatsEl.innerHTML = "";
+    return;
+  }
+
+  const playerById = Object.fromEntries(state.players.map((p) => [p.id, p]));
+
+  const perQuestion = state.questions.map((q) => {
+    const qAnswers = answers.filter((a) => a.question_id === q.id);
+    const correct = qAnswers.filter((a) => a.is_correct);
+    const avgCorrectTime = correct.length
+      ? correct.reduce((sum, a) => sum + (a.time_taken_ms || 0), 0) / correct.length
+      : null;
+    const avgTime = qAnswers.length
+      ? qAnswers.reduce((sum, a) => sum + (a.time_taken_ms || 0), 0) / qAnswers.length
+      : 0;
+    return { question: q, total: qAnswers.length, correctCount: correct.length, avgCorrectTime, avgTime };
+  });
+
+  // Top question: everyone who answered got it right, fastest average time among those.
+  const perfectQuestions = perQuestion.filter((pq) => pq.total > 0 && pq.correctCount === pq.total);
+  let topQuestion = null;
+  if (perfectQuestions.length) {
+    topQuestion = perfectQuestions.reduce((best, pq) => (pq.avgCorrectTime < best.avgCorrectTime ? pq : best));
+  } else {
+    const answered = perQuestion.filter((pq) => pq.total > 0);
+    if (answered.length) {
+      topQuestion = answered.reduce((best, pq) => {
+        const bestRate = best.correctCount / best.total;
+        const rate = pq.correctCount / pq.total;
+        return rate > bestRate ? pq : best;
+      });
+    }
+  }
+
+  // Weakest question: nobody got it right > most people got it wrong > took longest on average.
+  const zeroCorrect = perQuestion.filter((pq) => pq.total > 0 && pq.correctCount === 0);
+  let weakQuestion = null;
+  if (zeroCorrect.length) {
+    weakQuestion = zeroCorrect.reduce((worst, pq) => (pq.total > worst.total ? pq : worst));
+  } else {
+    const answered = perQuestion.filter((pq) => pq.total > 0);
+    const anyWrong = answered.filter((pq) => pq.correctCount < pq.total);
+    if (anyWrong.length) {
+      weakQuestion = anyWrong.reduce((worst, pq) => (pq.total - pq.correctCount > worst.total - worst.correctCount ? pq : worst));
+    } else if (answered.length) {
+      weakQuestion = answered.reduce((worst, pq) => (pq.avgTime > worst.avgTime ? pq : worst));
+    }
+  }
+
+  // Quickest single correct answer of the game.
+  const correctAnswers = answers.filter((a) => a.is_correct && a.time_taken_ms != null);
+  const quickest = correctAnswers.length
+    ? correctAnswers.reduce((best, a) => (a.time_taken_ms < best.time_taken_ms ? a : best))
+    : null;
+
+  // Most accurate player.
+  const byPlayer = {};
+  answers.forEach((a) => {
+    if (!byPlayer[a.player_id]) byPlayer[a.player_id] = { correct: 0, total: 0, timeSum: 0, timeCount: 0 };
+    byPlayer[a.player_id].total += 1;
+    if (a.is_correct) byPlayer[a.player_id].correct += 1;
+    if (a.is_correct && a.time_taken_ms != null) {
+      byPlayer[a.player_id].timeSum += a.time_taken_ms;
+      byPlayer[a.player_id].timeCount += 1;
+    }
+  });
+  let mostAccurate = null;
+  let fastestAvg = null;
+  Object.entries(byPlayer).forEach(([playerId, stats]) => {
+    const player = playerById[playerId];
+    if (!player) return;
+    const accuracy = stats.correct / stats.total;
+    if (!mostAccurate || accuracy > mostAccurate.accuracy) mostAccurate = { player, accuracy };
+    if (stats.timeCount > 0) {
+      const avg = stats.timeSum / stats.timeCount;
+      if (!fastestAvg || avg < fastestAvg.avg) fastestAvg = { player, avg };
+    }
+  });
+  const perfectScorers = Object.entries(byPlayer)
+    .filter(([, s]) => s.total === state.questions.length && s.correct === s.total)
+    .map(([playerId]) => playerById[playerId])
+    .filter(Boolean);
+
+  const rows = [];
+  if (topQuestion) {
+    rows.push([
+      "🏆 Top question",
+      `"${truncate(topQuestion.question.prompt)}" — ${topQuestion.correctCount}/${topQuestion.total} correct`,
+    ]);
+  }
+  if (weakQuestion) {
+    rows.push([
+      "🧩 Toughest question",
+      `"${truncate(weakQuestion.question.prompt)}" — only ${weakQuestion.correctCount}/${weakQuestion.total} correct`,
+    ]);
+  }
+  if (quickest) {
+    const p = playerById[quickest.player_id];
+    rows.push([
+      "⚡ Quickest answer",
+      `${p ? p.avatar + " " + p.name : "Someone"} in ${(quickest.time_taken_ms / 1000).toFixed(1)}s`,
+    ]);
+  }
+  if (mostAccurate) {
+    rows.push([
+      "🎯 Most accurate",
+      `${mostAccurate.player.avatar} ${mostAccurate.player.name} — ${Math.round(mostAccurate.accuracy * 100)}% correct`,
+    ]);
+  }
+  if (fastestAvg) {
+    rows.push([
+      "🚀 Fastest average response",
+      `${fastestAvg.player.avatar} ${fastestAvg.player.name} — ${(fastestAvg.avg / 1000).toFixed(1)}s on average`,
+    ]);
+  }
+  if (perfectScorers.length) {
+    rows.push(["💯 Perfect score", perfectScorers.map((p) => `${p.avatar} ${p.name}`).join(", ")]);
+  }
+
+  gameStatsEl.innerHTML = rows
+    .map(([label, value]) => `<div class="stat-row"><div class="stat-label">${label}</div><div class="stat-value" style="text-transform:none;font-family:var(--font-body);font-weight:500">${value}</div></div>`)
+    .join("");
+}
+
+function truncate(text, max = 60) {
+  return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
 
 async function syncPracticeButton() {

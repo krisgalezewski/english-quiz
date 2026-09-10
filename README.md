@@ -157,3 +157,29 @@ regardless of speed.
 - **Quiz of the Day** picks from whatever's in the public list, seeded by
   today's date so it doesn't change on every reload — but it's still just
   one shared pick for everyone, not personalized.
+
+## Ending a quiz early, and players dropping out
+
+The host has an "End quiz now" button (lobby and live game) for cutting a
+session short. Students see a distinct "The host ended the quiz early"
+message rather than the normal finish screen.
+
+Separately, the app tracks who's actively connected using Supabase
+Realtime Presence (not just who's in the `players` table — someone can be
+in that table but have closed their tab). When a player's tab closes or
+they lose connection, their avatar disappears from the live "who's here"
+displays (lobby list, in-game avatar roster) for the host and other
+students, and the host gets a brief on-screen notice. Their score and
+answers-so-far are *not* deleted — the scoreboard still shows them,
+just dimmed with a "(left)" tag, so you don't lose track of a game
+in progress.
+
+## End-of-game stats (host only, never saved)
+
+On the host's finished screen, `renderGameStats` in `js/host.js`
+computes a handful of stats fresh from that session's `answers` — top
+question, toughest question, quickest single answer, most accurate
+player, fastest average responder, and any perfect scores. Nothing here
+is written back to the database; refresh the page and it's gone, by
+design (you didn't ask for a persistent analytics feature, just an
+end-of-game recap).

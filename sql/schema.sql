@@ -39,6 +39,7 @@ create table if not exists sessions (
   current_question int not null default 0,
   question_started_at timestamptz,
   time_limit_seconds int check (time_limit_seconds between 1 and 60), -- overrides each question's own limit when set
+  ended_early boolean not null default false, -- true if the host used "End quiz now" instead of finishing naturally
   created_at timestamptz not null default now()
 );
 

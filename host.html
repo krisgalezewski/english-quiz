@@ -19,6 +19,8 @@
 
   <a class="btn btn-outline" href="index.html" style="display:inline-block;margin-bottom:24px;text-decoration:none">← Back to home</a>
 
+  <div id="host-notice" class="host-notice" style="display:none"></div>
+
   <!-- Setup -->
   <div id="setup-view" class="panel">
     <h2>Host a live quiz</h2>
@@ -49,6 +51,7 @@
     <h3>Players in the room</h3>
     <div id="lobby-player-list" class="player-list"></div>
     <button id="start-quiz-btn" class="btn" style="margin-top:20px" disabled>Start quiz</button>
+    <button id="end-quiz-btn-lobby" class="btn btn-outline" style="margin-top:20px;margin-left:8px">Cancel room</button>
   </div>
 
   <!-- Live question -->
@@ -67,6 +70,7 @@
     <div style="margin-top:24px">
       <button id="reveal-btn" class="btn">Reveal answer</button>
       <button id="next-btn" class="btn" style="display:none">Next question</button>
+      <button id="end-quiz-btn" class="btn btn-outline" style="margin-left:8px">End quiz now</button>
     </div>
     <h3 style="margin-top:32px">Scoreboard</h3>
     <div id="scoreboard" class="player-list"></div>
@@ -80,6 +84,8 @@
       <p style="color:rgba(241,236,223,0.85);margin:0">Final results are in</p>
     </div>
     <div id="final-leaderboard" class="player-list"></div>
+
+    <div id="game-stats" class="quiz-manage-list" style="margin-top:24px"></div>
 
     <p class="muted" style="margin-top:24px">
       Room code <strong id="finished-room-code" style="color:var(--cream)"></strong> now works on the
