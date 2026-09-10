@@ -183,3 +183,23 @@ player, fastest average responder, and any perfect scores. Nothing here
 is written back to the database; refresh the page and it's gone, by
 design (you didn't ask for a persistent analytics feature, just an
 end-of-game recap).
+
+## Reconnecting after a disconnect
+
+Every player gets a `return_code` when they join (separate from the
+quiz's room code). If their tab closes or they lose connection, the host
+can find their dimmed entry on the scoreboard - it shows their return
+code right there. The student opens the Join page, expands "Got
+disconnected? Reconnect with your return code," and enters it. This
+reconnects them to their *same* player row (same score, same history) —
+it doesn't create a new player.
+
+## Scoring timing
+
+Points are calculated and written to `players.score` when the host
+reveals the answer, not the moment a student submits. The elapsed time
+used for the speed-based deduction is still the real submission time
+(captured client-side and stored in `answers.time_taken_ms`) — only the
+*writing* of the score is deferred. This avoids a subtle race where a
+disconnect between submit and reveal could otherwise award (or fail to
+award) points inconsistently.

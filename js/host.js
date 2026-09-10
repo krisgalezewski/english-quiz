@@ -236,9 +236,19 @@ startQuizBtn.addEventListener("click", async () => {
     .eq("id", state.session.id);
 });
 
-function endQuiz() {
+async function endQuiz() {
   if (!confirm("End this quiz now? Players will see the game finished early.")) return;
-  supabase.from("sessions").update({ status: "finished", ended_early: true }).eq("id", state.session.id);
+  const { error } = await supabase
+    .from("sessions")
+    .update({ status: "finished", ended_early: true })
+    .eq("id", state.session.id);
+  if (error) {
+    alert(
+      "Could not end the quiz: " +
+        error.message +
+        "\n\nIf this mentions 'ended_early', you likely need to run migration-006-ended-early.sql in Supabase."
+    );
+  }
 }
 endQuizBtnLobby.addEventListener("click", endQuiz);
 endQuizBtn.addEventListener("click", endQuiz);
@@ -278,6 +288,7 @@ function subscribeToPresence() {
       state.presentIds = new Set(Object.keys(presenceState).filter((k) => k !== "host-observer"));
       renderLobbyPlayers();
       renderScoreboard();
+      maybePlayAllAnsweredSound();
     })
     .on("presence", { event: "leave" }, ({ key, leftPresences }) => {
       if (key === "host-observer") return;
@@ -285,6 +296,16 @@ function subscribeToPresence() {
       if (info) showNotice(`${info.avatar || ""} ${info.name || "A player"} left the game.`.trim());
     })
     .subscribe();
+}
+
+function maybePlayAllAnsweredSound() {
+  if (state.session?.status !== "question") return;
+  const total = presentPlayers().length;
+  answerCountEl.textContent = `${state.answersForCurrent.length}/${total}`;
+  if (isSoundEnabled() && !state.soundPlayedForQuestion && total > 0 && state.answersForCurrent.length >= total) {
+    state.soundPlayedForQuestion = true;
+    playDing();
+  }
 }
 
 function subscribeToSession() {
@@ -308,16 +329,7 @@ function subscribeToSession() {
       (payload) => {
         if (payload.new.question_id === currentQuestion()?.id) {
           state.answersForCurrent.push(payload.new);
-          answerCountEl.textContent = `${state.answersForCurrent.length}/${state.players.length}`;
-          if (
-            isSoundEnabled() &&
-            !state.soundPlayedForQuestion &&
-            state.players.length > 0 &&
-            state.answersForCurrent.length >= state.players.length
-          ) {
-            state.soundPlayedForQuestion = true;
-            playDing();
-          }
+          maybePlayAllAnsweredSound();
         }
       }
     )
@@ -326,6 +338,10 @@ function subscribeToSession() {
 
 function currentQuestion() {
   return state.questions[state.session.current_question];
+}
+
+function presentPlayers() {
+  return state.players.filter((p) => state.presentIds.size === 0 || state.presentIds.has(p.id));
 }
 
 function effectiveTimeLimit() {
@@ -343,7 +359,7 @@ function onSessionChange() {
     show(questionView);
     revealBtn.style.display = "inline-block";
     nextBtn.style.display = "none";
-    answerCountEl.textContent = `0/${state.players.length}`;
+    answerCountEl.textContent = `0/${presentPlayers().length}`;
     answerBreakdownEl.innerHTML = "";
     questionProgressEl.textContent = `${state.session.current_question + 1}/${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), () => {}); // host doesn't answer, just displays
@@ -381,7 +397,8 @@ function onSessionChange() {
         "player-chip " + (answer && answer.is_correct ? "correct" : "incorrect") + (isPresent ? "" : " is-left")
       );
       const responseText = answer ? formatResponse(question, answer.response) : "(no answer)";
-      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${isPresent ? "" : " (left)"}: ${responseText}</span>`;
+      const leftTag = isPresent ? "" : ` (left${p.return_code ? " · code: " + p.return_code : ""})`;
+      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${leftTag}: ${responseText}</span>`;
       answerBreakdownEl.appendChild(chip);
     });
   } else if (state.session.status === "finished") {
@@ -423,7 +440,8 @@ function renderScoreboard() {
   sorted.forEach((p) => {
     const isPresent = state.presentIds.size === 0 || state.presentIds.has(p.id);
     const chip = el("div", "player-chip" + (isPresent ? "" : " is-left"));
-    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${isPresent ? "" : " (left)"}</span><span class="score">${p.score}</span>`;
+    const leftTag = isPresent ? "" : ` (left${p.return_code ? " · code: " + p.return_code : ""})`;
+    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${leftTag}</span><span class="score">${p.score}</span>`;
     scoreboardEl.appendChild(chip);
   });
 }
@@ -541,20 +559,23 @@ async function renderGameStats() {
   if (topQuestion) {
     rows.push([
       "🏆 Top question",
-      `"${truncate(topQuestion.question.prompt)}" — ${topQuestion.correctCount}/${topQuestion.total} correct`,
+      `Q${questionNumber(topQuestion.question)}: "${truncate(topQuestion.question.prompt)}" — ${topQuestion.correctCount}/${topQuestion.total} correct`,
     ]);
   }
   if (weakQuestion) {
     rows.push([
       "🧩 Toughest question",
-      `"${truncate(weakQuestion.question.prompt)}" — only ${weakQuestion.correctCount}/${weakQuestion.total} correct`,
+      `Q${questionNumber(weakQuestion.question)}: "${truncate(weakQuestion.question.prompt)}" — only ${weakQuestion.correctCount}/${weakQuestion.total} correct`,
     ]);
   }
   if (quickest) {
     const p = playerById[quickest.player_id];
+    const q = state.questions.find((qq) => qq.id === quickest.question_id);
     rows.push([
       "⚡ Quickest answer",
-      `${p ? p.avatar + " " + p.name : "Someone"} in ${(quickest.time_taken_ms / 1000).toFixed(1)}s`,
+      `${p ? p.avatar + " " + p.name : "Someone"} in ${(quickest.time_taken_ms / 1000).toFixed(1)}s${
+        q ? ` — Q${questionNumber(q)}: "${truncate(q.prompt)}"` : ""
+      }`,
     ]);
   }
   if (mostAccurate) {
@@ -580,6 +601,10 @@ async function renderGameStats() {
 
 function truncate(text, max = 60) {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
+}
+
+function questionNumber(question) {
+  return state.questions.findIndex((q) => q.id === question.id) + 1;
 }
 
 async function syncPracticeButton() {

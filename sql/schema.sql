@@ -49,6 +49,7 @@ create table if not exists players (
   name text not null,
   avatar text not null,        -- emoji or short code, see js/avatars.js
   score int not null default 0,
+  return_code text unique,     -- lets a disconnected player rejoin as themselves, not a new player
   joined_at timestamptz not null default now()
 );
 

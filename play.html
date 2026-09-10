@@ -40,6 +40,18 @@
     </div>
     <div class="error-text" id="join-error" style="display:none"></div>
     <button id="join-btn" class="btn">Join</button>
+
+    <details style="margin-top:20px">
+      <summary style="cursor:pointer;color:var(--cream-faint);font-size:13px">Got disconnected? Reconnect with your return code</summary>
+      <div style="margin-top:12px">
+        <div class="field">
+          <label for="reconnect-input">Return code (ask your teacher)</label>
+          <input id="reconnect-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
+        </div>
+        <div class="error-text" id="reconnect-error" style="display:none"></div>
+        <button id="reconnect-btn" class="btn btn-outline">Reconnect</button>
+      </div>
+    </details>
   </div>
 
   <!-- Waiting room -->
@@ -67,7 +79,7 @@
       <h2 id="finished-headline">Quiz finished!</h2>
       <p style="color:rgba(241,236,223,0.85);margin:0">Your score: <strong id="final-score">0</strong> · Rank: <span id="final-rank"></span></p>
     </div>
-    <p id="finished-message" class="muted" style="font-size:16px;color:var(--cream-dim)"></p>
+    <p id="finished-message" class="muted" style="font-size:16px;color:var(--cream-dim);text-align:center"></p>
     <a id="practice-link" class="btn" href="practice.html" style="display:inline-block;margin-top:12px;text-decoration:none">Practice this quiz solo</a>
   </div>
 </div>

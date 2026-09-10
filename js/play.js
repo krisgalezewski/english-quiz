@@ -1,7 +1,7 @@
 import { supabase } from "./supabase-client.js";
 import { renderQuestion, gradeResponse } from "./question-types.js";
 import { DEFAULT_AVATARS, MORE_AVATARS } from "./avatars.js";
-import { el, startCountdown } from "./utils.js";
+import { el, startCountdown, generateRoomCode } from "./utils.js";
 import { playFanfare } from "./sound.js";
 
 const state = {
@@ -11,7 +11,9 @@ const state = {
   questions: [],
   currentHandle: null,
   currentResponse: null,
+  currentElapsedMs: null,
   hasAnsweredCurrent: false,
+  scoreAwardedForQuestion: false,
   stopTimer: null,
   celebrated: false,
   allPlayers: [],
@@ -30,6 +32,9 @@ const avatarPicker = document.getElementById("avatar-picker");
 const avatarPickerMore = document.getElementById("avatar-picker-more");
 const joinBtn = document.getElementById("join-btn");
 const joinError = document.getElementById("join-error");
+const reconnectInput = document.getElementById("reconnect-input");
+const reconnectBtn = document.getElementById("reconnect-btn");
+const reconnectError = document.getElementById("reconnect-error");
 
 const otherPlayersEl = document.getElementById("other-players");
 const playersRosterEl = document.getElementById("players-roster");
@@ -108,7 +113,7 @@ joinBtn.addEventListener("click", async () => {
 
   const { data: player, error: joinErr } = await supabase
     .from("players")
-    .insert({ session_id: session.id, name, avatar: selectedAvatar })
+    .insert({ session_id: session.id, name, avatar: selectedAvatar, return_code: generateRoomCode() })
     .select()
     .single();
   if (joinErr) {
@@ -125,6 +130,59 @@ joinBtn.addEventListener("click", async () => {
 
   state.session = session;
   state.accessCode = code;
+  state.player = player;
+  state.questions = questions || [];
+
+  subscribeToSession();
+  subscribeToOtherPlayers();
+  subscribeToPresence();
+
+  if (session.status === "lobby") {
+    show(waitingView);
+  } else {
+    onSessionChange();
+  }
+});
+
+// ---------- Reconnect (after a disconnect) ----------
+
+reconnectBtn.addEventListener("click", async () => {
+  reconnectError.style.display = "none";
+  const returnCode = reconnectInput.value.trim().toUpperCase();
+  if (!returnCode) {
+    reconnectError.textContent = "Enter your return code.";
+    reconnectError.style.display = "block";
+    return;
+  }
+
+  const { data: player, error: playerErr } = await supabase
+    .from("players")
+    .select("*, sessions:session_id(*)")
+    .eq("return_code", returnCode)
+    .single();
+  if (playerErr || !player || !player.sessions) {
+    reconnectError.textContent = "No player found with that code.";
+    reconnectError.style.display = "block";
+    return;
+  }
+  const session = player.sessions;
+  if (session.status === "finished") {
+    reconnectError.textContent = "That game has already finished.";
+    reconnectError.style.display = "block";
+    return;
+  }
+
+  const { data: questions } = await supabase
+    .from("questions")
+    .select("*")
+    .eq("quiz_id", session.quiz_id)
+    .order("position");
+
+  const { data: quiz } = await supabase.from("quizzes").select("access_code").eq("id", session.quiz_id).single();
+
+  delete player.sessions;
+  state.session = session;
+  state.accessCode = quiz ? quiz.access_code : "";
   state.player = player;
   state.questions = questions || [];
 
@@ -257,6 +315,8 @@ function onSessionChange() {
   } else if (state.session.status === "question") {
     state.hasAnsweredCurrent = false;
     state.currentResponse = null;
+    state.currentElapsedMs = null;
+    state.scoreAwardedForQuestion = false;
     show(questionView);
     questionProgressEl.textContent = `${state.session.current_question + 1}/${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), handleSubmit);
@@ -271,6 +331,7 @@ function onSessionChange() {
         ? gradeResponse(currentQuestion(), state.currentResponse)
         : false;
       state.currentHandle.showFeedback(state.currentResponse, correct);
+      awardPointsIfDue(correct);
     }
   } else if (state.session.status === "finished") {
     show(finishedView);
@@ -290,8 +351,9 @@ async function handleSubmit(response) {
   const correct = gradeResponse(question, response);
   const startedAt = new Date(state.session.question_started_at).getTime();
   const elapsedMs = Math.max(0, Date.now() - startedAt);
+  state.currentElapsedMs = elapsedMs;
 
-  const { error } = await supabase.from("answers").insert({
+  await supabase.from("answers").insert({
     session_id: state.session.id,
     player_id: state.player.id,
     question_id: question.id,
@@ -299,15 +361,25 @@ async function handleSubmit(response) {
     is_correct: correct,
     time_taken_ms: elapsedMs,
   });
-  if (error) return; // likely already answered (unique constraint) — safe to ignore
+  // Points are awarded once the host reveals the answer, not here - see
+  // awardPointsIfDue, called from the "reveal" branch of onSessionChange.
+}
 
-  if (correct) {
-    const basePoints = question.points || 100;
-    const tensOfSecondsElapsed = Math.floor(elapsedMs / 1000 / 10);
-    const awarded = Math.max(basePoints - tensOfSecondsElapsed * 10, 10);
-    const newScore = state.player.score + awarded;
-    await supabase.from("players").update({ score: newScore }).eq("id", state.player.id);
-  }
+// Called when the host reveals the answer. Only awards points once per
+// question, and only for a locally-submitted correct answer with a known
+// elapsed time (a reconnecting player who missed the question entirely
+// has neither, so nothing is awarded).
+async function awardPointsIfDue(correct) {
+  if (state.scoreAwardedForQuestion) return;
+  if (!correct || !state.hasAnsweredCurrent || state.currentElapsedMs == null) return;
+  state.scoreAwardedForQuestion = true;
+
+  const question = currentQuestion();
+  const basePoints = question.points || 100;
+  const tensOfSecondsElapsed = Math.floor(state.currentElapsedMs / 1000 / 10);
+  const awarded = Math.max(basePoints - tensOfSecondsElapsed * 10, 10);
+  const newScore = state.player.score + awarded;
+  await supabase.from("players").update({ score: newScore }).eq("id", state.player.id);
 }
 
 function resultMessage(correctCount, total) {
