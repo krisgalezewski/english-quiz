@@ -9,6 +9,15 @@ function normalize(s) {
 
 // ---------- Multiple choice ----------
 
+function shuffledIndices(n) {
+  const order = Array.from({ length: n }, (_, i) => i);
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
+}
+
 function renderMCQ(container, question, onSubmit) {
   const { options } = question.payload;
   container.innerHTML = `
@@ -16,18 +25,20 @@ function renderMCQ(container, question, onSubmit) {
     <div class="options-grid"></div>
   `;
   const grid = container.querySelector(".options-grid");
-  const buttons = options.map((opt, i) => {
+  const buttons = new Array(options.length);
+
+  shuffledIndices(options.length).forEach((originalIndex) => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
     btn.type = "button";
-    btn.textContent = opt;
+    btn.textContent = options[originalIndex];
     btn.addEventListener("click", () => {
       buttons.forEach((b) => (b.disabled = true));
       btn.classList.add("selected");
-      onSubmit({ index: i });
+      onSubmit({ index: originalIndex });
     });
     grid.appendChild(btn);
-    return btn;
+    buttons[originalIndex] = btn;
   });
 
   return {
@@ -48,11 +59,19 @@ function gradeMCQ(question, response) {
 
 // ---------- Gap fill ----------
 
+function buildHint(answer) {
+  return answer
+    .split(" ")
+    .map((word) => (word.length <= 1 ? word : word[0] + " " + Array(word.length - 1).fill("_").join(" ")))
+    .join("&nbsp;&nbsp;&nbsp;&nbsp;");
+}
+
 function renderGapFill(container, question, onSubmit) {
   const { sentence } = question.payload;
   const [before, after] = sentence.split("___");
   container.innerHTML = `
     <div class="question-prompt">${before ?? ""}<span class="muted">____</span>${after ?? ""}</div>
+    <div class="muted" style="margin-bottom:16px;letter-spacing:2px">${buildHint(question.payload.answer)}</div>
     <input class="gap-fill-input" type="text" placeholder="Type the missing word" autocomplete="off" />
     <div class="error-text" style="display:none"></div>
     <button class="btn" type="button" style="margin-top:12px">Submit</button>
@@ -102,33 +121,46 @@ function gradeGapFill(question, response) {
 
 // ---------- Word builder (unscramble) ----------
 
+function shuffleLetters(str) {
+  const letters = str.split("");
+  let attempts = 0;
+  let shuffled = letters;
+  do {
+    shuffled = [...letters];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    attempts++;
+  } while (shuffled.join("") === letters.join("") && letters.length > 1 && attempts < 10);
+  return shuffled;
+}
+
 function renderWordBuilder(container, question, onSubmit) {
-  const { scrambled } = question.payload;
-  const letters = scrambled.split("");
+  const letters = shuffleLetters(question.payload.answer.replace(/\s+/g, ""));
   container.innerHTML = `
     <div class="question-prompt">${question.prompt}</div>
     <div class="answer-preview"></div>
     <div class="scramble-tiles"></div>
     <div class="error-text" style="display:none"></div>
-    <button class="btn" type="button" style="margin-top:4px" disabled>Submit</button>
-    <button class="btn" type="button" style="margin-left:8px">Clear</button>
+    <button class="btn" type="button" data-role="submit" style="margin-top:4px" disabled>Submit</button>
+    <button class="btn" type="button" data-role="clear" style="margin-left:8px">Clear</button>
   `;
   const preview = container.querySelector(".answer-preview");
   const tileRow = container.querySelector(".scramble-tiles");
   const error = container.querySelector(".error-text");
-  const submitBtn = container.querySelector(".btn");
-  const clearBtn = container.querySelectorAll("button")[1];
+  const submitBtn = container.querySelector('[data-role="submit"]');
+  const clearBtn = container.querySelector('[data-role="clear"]');
 
   let built = [];
-  const tiles = letters.map((ch, i) => {
-    if (ch === " ") return null;
+  const tiles = letters.map((ch) => {
     const tile = document.createElement("button");
     tile.type = "button";
     tile.className = "tile";
     tile.textContent = ch;
     tile.addEventListener("click", () => {
       if (tile.classList.contains("used")) return;
-      built.push({ ch, i });
+      built.push({ ch });
       tile.classList.add("used");
       renderPreview();
     });

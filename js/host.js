@@ -10,6 +10,7 @@ const state = {
   answersForCurrent: [],
   stopTimer: null,
   currentHandle: null,
+  practiceEnabled: false,
 };
 
 const setupView = document.getElementById("setup-view");
@@ -27,6 +28,7 @@ const startQuizBtn = document.getElementById("start-quiz-btn");
 const questionContainer = document.getElementById("question-container");
 const answerCountEl = document.getElementById("answer-count");
 const timerEl = document.getElementById("timer");
+const questionProgressEl = document.getElementById("question-progress");
 const answerBreakdownEl = document.getElementById("answer-breakdown");
 const revealBtn = document.getElementById("reveal-btn");
 const nextBtn = document.getElementById("next-btn");
@@ -180,6 +182,7 @@ function onSessionChange() {
     nextBtn.style.display = "none";
     answerCountEl.textContent = `0 / ${state.players.length} answered`;
     answerBreakdownEl.innerHTML = "";
+    questionProgressEl.textContent = `Question ${state.session.current_question + 1} / ${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), () => {}); // host doesn't answer, just displays
     disableHostQuestionInputs();
     renderScoreboard();
@@ -217,6 +220,7 @@ function onSessionChange() {
   } else if (state.session.status === "finished") {
     show(finishedView);
     renderFinalLeaderboard();
+    syncPracticeButton();
   }
 }
 
@@ -258,18 +262,33 @@ function renderFinalLeaderboard() {
         `<div class="player-chip"><span class="avatar">${p.avatar}</span><span>${i + 1}. ${p.name}</span><span class="score">${p.score}</span></div>`
     )
     .join("");
-  enablePracticeBtn.disabled = false;
-  enablePracticeBtn.textContent = "Make available for self-practice";
+}
+
+async function syncPracticeButton() {
+  const { data } = await supabase
+    .from("quizzes")
+    .select("available_for_practice")
+    .eq("id", state.session.quiz_id)
+    .single();
+  state.practiceEnabled = !!(data && data.available_for_practice);
+  updatePracticeButtonLabel();
+}
+
+function updatePracticeButtonLabel() {
+  enablePracticeBtn.textContent = state.practiceEnabled
+    ? "✓ Available for self-practice (click to remove)"
+    : "Make available for self-practice";
 }
 
 enablePracticeBtn.addEventListener("click", async () => {
+  const newValue = !state.practiceEnabled;
   const { error } = await supabase
     .from("quizzes")
-    .update({ available_for_practice: true })
+    .update({ available_for_practice: newValue })
     .eq("id", state.session.quiz_id);
   if (!error) {
-    enablePracticeBtn.disabled = true;
-    enablePracticeBtn.textContent = "Available for self-practice ✓";
+    state.practiceEnabled = newValue;
+    updatePracticeButtonLabel();
   }
 });
 

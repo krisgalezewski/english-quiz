@@ -20,6 +20,6 @@ from new_quiz
 union all
 select id, 2, 'word_builder',
   'Unscramble the letters to find the phrasal verb particle + verb.',
-  '{"scrambled": "PU EVIG", "answer": "GIVE UP"}'::jsonb,
+  '{"answer": "GIVE UP"}'::jsonb,
   25, 150
 from new_quiz;

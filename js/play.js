@@ -27,6 +27,7 @@ const joinError = document.getElementById("join-error");
 const otherPlayersEl = document.getElementById("other-players");
 const questionContainer = document.getElementById("question-container");
 const timerEl = document.getElementById("timer");
+const questionProgressEl = document.getElementById("question-progress");
 const myScoreEl = document.getElementById("my-score");
 const finalScoreEl = document.getElementById("final-score");
 const finalRankEl = document.getElementById("final-rank");
@@ -176,6 +177,7 @@ function onSessionChange() {
     state.hasAnsweredCurrent = false;
     state.currentResponse = null;
     show(questionView);
+    questionProgressEl.textContent = `Question ${state.session.current_question + 1} / ${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), handleSubmit);
     const seconds = state.session.time_limit_seconds || currentQuestion().time_limit_seconds || 20;
     state.stopTimer = startCountdown(timerEl, state.session.question_started_at, seconds, () => {
