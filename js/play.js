@@ -2,6 +2,7 @@ import { supabase } from "./supabase-client.js";
 import { renderQuestion, gradeResponse } from "./question-types.js";
 import { AVATARS } from "./avatars.js";
 import { el, startCountdown } from "./utils.js";
+import { playFanfare } from "./sound.js";
 
 const state = {
   session: null,
@@ -11,6 +12,7 @@ const state = {
   currentResponse: null,
   hasAnsweredCurrent: false,
   stopTimer: null,
+  celebrated: false,
 };
 
 const joinView = document.getElementById("join-view");
@@ -31,6 +33,9 @@ const questionProgressEl = document.getElementById("question-progress");
 const myScoreEl = document.getElementById("my-score");
 const finalScoreEl = document.getElementById("final-score");
 const finalRankEl = document.getElementById("final-rank");
+const finishedHeadlineEl = document.getElementById("finished-headline");
+const finishedTrophyEl = document.getElementById("finished-trophy");
+const practiceLinkEl = document.getElementById("practice-link");
 
 let selectedAvatar = AVATARS[0];
 
@@ -177,7 +182,7 @@ function onSessionChange() {
     state.hasAnsweredCurrent = false;
     state.currentResponse = null;
     show(questionView);
-    questionProgressEl.textContent = `Question ${state.session.current_question + 1} / ${state.questions.length}`;
+    questionProgressEl.textContent = `${state.session.current_question + 1}/${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), handleSubmit);
     const seconds = state.session.time_limit_seconds || currentQuestion().time_limit_seconds || 20;
     state.stopTimer = startCountdown(timerEl, state.session.question_started_at, seconds, () => {
@@ -193,7 +198,10 @@ function onSessionChange() {
     }
   } else if (state.session.status === "finished") {
     show(finishedView);
-    showFinalResult();
+    if (!state.celebrated) {
+      state.celebrated = true;
+      showFinalResult();
+    }
   }
 }
 
@@ -231,4 +239,19 @@ async function showFinalResult() {
   const rank = list.findIndex((p) => p.id === state.player.id) + 1;
   finalScoreEl.textContent = me ? me.score : state.player.score;
   finalRankEl.textContent = rank ? `${rank} / ${list.length}` : "";
+  practiceLinkEl.href = `practice.html?code=${state.session.code}`;
+
+  const isWinner = rank === 1 && me && me.score > 0;
+  if (isWinner) {
+    finishedTrophyEl.textContent = "🏆";
+    finishedHeadlineEl.textContent = "You won! 🎉";
+  } else {
+    finishedTrophyEl.textContent = "🎉";
+    finishedHeadlineEl.textContent = "Quiz finished!";
+  }
+
+  playFanfare();
+  if (window.confetti) {
+    window.confetti({ particleCount: isWinner ? 140 : 70, spread: isWinner ? 100 : 70, origin: { y: 0.6 } });
+  }
 }

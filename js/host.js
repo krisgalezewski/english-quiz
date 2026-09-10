@@ -1,6 +1,7 @@
 import { supabase } from "./supabase-client.js";
 import { renderQuestion, formatResponse, correctAnswerText } from "./question-types.js";
 import { generateRoomCode, el, startCountdown } from "./utils.js";
+import { playDing, playFanfare } from "./sound.js";
 
 const state = {
   session: null,
@@ -11,6 +12,8 @@ const state = {
   stopTimer: null,
   currentHandle: null,
   practiceEnabled: false,
+  soundPlayedForQuestion: false,
+  celebrated: false,
 };
 
 const setupView = document.getElementById("setup-view");
@@ -36,6 +39,9 @@ const scoreboardEl = document.getElementById("scoreboard");
 
 const finalLeaderboard = document.getElementById("final-leaderboard");
 const enablePracticeBtn = document.getElementById("enable-practice-btn");
+const soundToggle = document.getElementById("sound-toggle");
+const winnerNameEl = document.getElementById("winner-name");
+const finishedRoomCodeEl = document.getElementById("finished-room-code");
 
 function show(view) {
   [setupView, lobbyView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
@@ -155,7 +161,16 @@ function subscribeToSession() {
       (payload) => {
         if (payload.new.question_id === currentQuestion()?.id) {
           state.answersForCurrent.push(payload.new);
-          answerCountEl.textContent = `${state.answersForCurrent.length} / ${state.players.length} answered`;
+          answerCountEl.textContent = `${state.answersForCurrent.length}/${state.players.length}`;
+          if (
+            soundToggle.checked &&
+            !state.soundPlayedForQuestion &&
+            state.players.length > 0 &&
+            state.answersForCurrent.length >= state.players.length
+          ) {
+            state.soundPlayedForQuestion = true;
+            playDing();
+          }
         }
       }
     )
@@ -177,12 +192,13 @@ function onSessionChange() {
   }
   if (state.session.status === "question") {
     state.answersForCurrent = [];
+    state.soundPlayedForQuestion = false;
     show(questionView);
     revealBtn.style.display = "inline-block";
     nextBtn.style.display = "none";
-    answerCountEl.textContent = `0 / ${state.players.length} answered`;
+    answerCountEl.textContent = `0/${state.players.length}`;
     answerBreakdownEl.innerHTML = "";
-    questionProgressEl.textContent = `Question ${state.session.current_question + 1} / ${state.questions.length}`;
+    questionProgressEl.textContent = `${state.session.current_question + 1}/${state.questions.length}`;
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), () => {}); // host doesn't answer, just displays
     disableHostQuestionInputs();
     renderScoreboard();
@@ -221,6 +237,11 @@ function onSessionChange() {
     show(finishedView);
     renderFinalLeaderboard();
     syncPracticeButton();
+    finishedRoomCodeEl.textContent = state.session.code;
+    if (!state.celebrated) {
+      state.celebrated = true;
+      celebrate();
+    }
   }
 }
 
@@ -259,9 +280,18 @@ function renderFinalLeaderboard() {
   finalLeaderboard.innerHTML = sorted
     .map(
       (p, i) =>
-        `<div class="player-chip"><span class="avatar">${p.avatar}</span><span>${i + 1}. ${p.name}</span><span class="score">${p.score}</span></div>`
+        `<div class="player-chip${i === 0 && p.score > 0 ? " is-winner" : ""}"><span class="avatar">${p.avatar}</span><span>${i + 1}. ${p.name}</span><span class="score">${p.score}</span></div>`
     )
     .join("");
+  winnerNameEl.textContent = sorted.length && sorted[0].score > 0 ? `${sorted[0].avatar} ${sorted[0].name} wins!` : "Great game!";
+}
+
+function celebrate() {
+  playFanfare();
+  if (window.confetti) {
+    window.confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
+    setTimeout(() => window.confetti({ particleCount: 60, spread: 120, origin: { y: 0.4 } }), 300);
+  }
 }
 
 async function syncPracticeButton() {
@@ -276,8 +306,8 @@ async function syncPracticeButton() {
 
 function updatePracticeButtonLabel() {
   enablePracticeBtn.textContent = state.practiceEnabled
-    ? "✓ Available for self-practice (click to remove)"
-    : "Make available for self-practice";
+    ? "✓ In the public self-practice list (click to remove)"
+    : "Also add to the public self-practice list";
 }
 
 enablePracticeBtn.addEventListener("click", async () => {

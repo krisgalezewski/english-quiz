@@ -7,6 +7,15 @@ function normalize(s) {
   return (s || "").trim().toLowerCase().replace(/\s+/g, " ");
 }
 
+// Mobile browsers can leave a stray focus/tap-highlight on an element from
+// the previous question if it isn't explicitly cleared before the DOM under
+// it gets replaced. Call this at the top of every renderer.
+function clearStickyFocus() {
+  if (document.activeElement && document.activeElement.blur) {
+    document.activeElement.blur();
+  }
+}
+
 // ---------- Multiple choice ----------
 
 function shuffledIndices(n) {
@@ -19,9 +28,11 @@ function shuffledIndices(n) {
 }
 
 function renderMCQ(container, question, onSubmit) {
+  clearStickyFocus();
   const { options } = question.payload;
   container.innerHTML = `
     <div class="question-prompt">${question.prompt}</div>
+    <div class="task-instruction">Tap the correct answer.</div>
     <div class="options-grid"></div>
   `;
   const grid = container.querySelector(".options-grid");
@@ -67,18 +78,31 @@ function buildHint(answer) {
 }
 
 function renderGapFill(container, question, onSubmit) {
+  clearStickyFocus();
   const { sentence } = question.payload;
   const [before, after] = sentence.split("___");
   container.innerHTML = `
     <div class="question-prompt">${before ?? ""}<span class="muted">____</span>${after ?? ""}</div>
-    <div class="muted" style="margin-bottom:16px;letter-spacing:2px">${buildHint(question.payload.answer)}</div>
-    <input class="gap-fill-input" type="text" placeholder="Type the missing word" autocomplete="off" />
+    <div class="muted" style="margin-bottom:12px;letter-spacing:2px">${buildHint(question.payload.answer)}</div>
+    <div class="task-instruction">Type the whole word or phrase (including the first letter shown above), then press Submit.</div>
+    <div class="input-row">
+      <div class="input-wrap pulse-highlight">
+        <input class="gap-fill-input" type="text" placeholder="Type here" autocomplete="off" />
+      </div>
+      <button class="btn" type="button" data-role="submit">Submit</button>
+    </div>
     <div class="error-text" style="display:none"></div>
-    <button class="btn" type="button" style="margin-top:12px">Submit</button>
   `;
   const input = container.querySelector("input");
+  const inputWrap = container.querySelector(".input-wrap");
   const error = container.querySelector(".error-text");
-  const submitBtn = container.querySelector("button");
+  const submitBtn = container.querySelector('[data-role="submit"]');
+
+  function focusSubmitNext() {
+    inputWrap.classList.remove("pulse-highlight");
+    submitBtn.classList.add("pulse-highlight");
+  }
+  input.addEventListener("focus", focusSubmitNext, { once: true });
 
   function submit() {
     const value = input.value;
@@ -90,6 +114,7 @@ function renderGapFill(container, question, onSubmit) {
     error.style.display = "none";
     input.disabled = true;
     submitBtn.disabled = true;
+    submitBtn.classList.remove("pulse-highlight");
     onSubmit({ text: value });
   }
 
@@ -103,6 +128,8 @@ function renderGapFill(container, question, onSubmit) {
     showFeedback(response, correct) {
       input.disabled = true;
       submitBtn.disabled = true;
+      inputWrap.classList.remove("pulse-highlight");
+      submitBtn.classList.remove("pulse-highlight");
       const banner = document.createElement("div");
       banner.className = "feedback-banner " + (correct ? "correct" : "incorrect");
       banner.textContent = correct
@@ -137,14 +164,16 @@ function shuffleLetters(str) {
 }
 
 function renderWordBuilder(container, question, onSubmit) {
+  clearStickyFocus();
   const letters = shuffleLetters(question.payload.answer.replace(/\s+/g, ""));
   container.innerHTML = `
     <div class="question-prompt">${question.prompt}</div>
+    <div class="task-instruction">Tap the letters in order to spell the answer. Tap a letter you've already placed to remove just that one, or use Clear to start over.</div>
     <div class="answer-preview"></div>
     <div class="scramble-tiles"></div>
     <div class="error-text" style="display:none"></div>
     <button class="btn" type="button" data-role="submit" style="margin-top:4px" disabled>Submit</button>
-    <button class="btn" type="button" data-role="clear" style="margin-left:8px">Clear</button>
+    <button class="btn btn-outline" type="button" data-role="clear" style="margin-left:8px">Clear</button>
   `;
   const preview = container.querySelector(".answer-preview");
   const tileRow = container.querySelector(".scramble-tiles");
@@ -152,7 +181,7 @@ function renderWordBuilder(container, question, onSubmit) {
   const submitBtn = container.querySelector('[data-role="submit"]');
   const clearBtn = container.querySelector('[data-role="clear"]');
 
-  let built = [];
+  let built = []; // { ch, tile }
   const tiles = letters.map((ch) => {
     const tile = document.createElement("button");
     tile.type = "button";
@@ -160,7 +189,7 @@ function renderWordBuilder(container, question, onSubmit) {
     tile.textContent = ch;
     tile.addEventListener("click", () => {
       if (tile.classList.contains("used")) return;
-      built.push({ ch });
+      built.push({ ch, tile });
       tile.classList.add("used");
       renderPreview();
     });
@@ -169,13 +198,32 @@ function renderWordBuilder(container, question, onSubmit) {
   });
 
   function renderPreview() {
-    preview.textContent = built.map((b) => b.ch).join("");
+    preview.innerHTML = "";
+    built.forEach((entry, idx) => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "tile placed";
+      chip.textContent = entry.ch;
+      chip.title = "Tap to remove";
+      chip.addEventListener("click", () => {
+        entry.tile.classList.remove("used");
+        built.splice(idx, 1);
+        renderPreview();
+      });
+      preview.appendChild(chip);
+    });
     submitBtn.disabled = built.length === 0;
+    if (built.length > 0) {
+      submitBtn.classList.add("pulse-highlight");
+    } else {
+      submitBtn.classList.remove("pulse-highlight");
+    }
   }
+  renderPreview();
 
   clearBtn.addEventListener("click", () => {
     built = [];
-    tiles.forEach((t) => t && t.classList.remove("used"));
+    tiles.forEach((t) => t.classList.remove("used"));
     renderPreview();
   });
 
@@ -186,8 +234,9 @@ function renderWordBuilder(container, question, onSubmit) {
       return;
     }
     error.style.display = "none";
-    tiles.forEach((t) => t && (t.disabled = true));
+    tiles.forEach((t) => (t.disabled = true));
     submitBtn.disabled = true;
+    submitBtn.classList.remove("pulse-highlight");
     clearBtn.disabled = true;
     onSubmit({ text: built.map((b) => b.ch).join("") });
   }
@@ -196,8 +245,9 @@ function renderWordBuilder(container, question, onSubmit) {
 
   return {
     showFeedback(response, correct) {
-      tiles.forEach((t) => t && (t.disabled = true));
+      tiles.forEach((t) => (t.disabled = true));
       submitBtn.disabled = true;
+      submitBtn.classList.remove("pulse-highlight");
       clearBtn.disabled = true;
       const banner = document.createElement("div");
       banner.className = "feedback-banner " + (correct ? "correct" : "incorrect");

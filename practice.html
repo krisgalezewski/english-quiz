@@ -22,18 +22,28 @@
   <div id="intro-view" class="panel">
     <h2>Self-practice</h2>
     <p>Go through a quiz on your own. You'll see the right answer right after each question.</p>
+
+    <h3 style="margin-top:24px">Have a code from your lesson?</h3>
+    <div class="field">
+      <label for="code-input">Room code</label>
+      <input id="code-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
+    </div>
+    <div class="error-text" id="code-error" style="display:none"></div>
+    <button id="code-start-btn" class="btn">Practice with this code</button>
+
+    <h3 style="margin-top:32px">Or pick a public practice quiz</h3>
     <div class="field">
       <label for="quiz-select">Choose a quiz</label>
       <select id="quiz-select"></select>
     </div>
-    <button id="start-btn" class="btn">Start</button>
+    <button id="start-btn" class="btn btn-outline">Start</button>
   </div>
 
   <!-- Quiz -->
   <div id="quiz-view" class="panel" style="display:none">
-    <div class="question-header">
-      <span class="muted" id="progress"></span>
-      <span class="muted" id="running-score"></span>
+    <div class="header-chips">
+      <div class="header-chip chip-navy"><span class="label">Progress</span><span class="value" id="progress">-</span></div>
+      <div class="header-chip chip-amber"><span class="label">Score</span><span class="value" id="running-score">0</span></div>
     </div>
     <div id="question-container"></div>
     <button id="next-btn" class="btn" style="display:none;margin-top:16px">Next</button>

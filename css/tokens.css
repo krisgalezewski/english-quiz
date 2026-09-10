@@ -39,7 +39,10 @@ html, body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
 }
+
+button, a { -webkit-tap-highlight-color: transparent; }
 
 h1, h2, h3 {
   font-family: var(--font-display);

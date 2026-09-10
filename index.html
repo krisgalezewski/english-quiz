@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div class="page">
@@ -39,7 +40,33 @@
         <p>Go through a quiz you've already played, solo and at your own pace.</p>
       </div>
     </a>
+
+    <a class="bento-card wide block-teal" id="quiz-of-day-card" href="practice.html" style="display:none">
+      <div>
+        <span class="eyebrow">Quiz of the day</span>
+        <h2 id="quiz-of-day-title">Loading…</h2>
+        <p>Try today's featured practice quiz.</p>
+      </div>
+    </a>
+
+    <a class="bento-card block-external" href="https://krisgalezewski.github.io/english-lens/" target="_blank" rel="noopener">
+      <div>
+        <span class="eyebrow">Also by Kris ↗</span>
+        <h3>English Lens</h3>
+        <p>More reading and vocabulary practice.</p>
+      </div>
+    </a>
+
+    <a class="bento-card block-external" href="https://krisgalezewski.github.io/english-games/" target="_blank" rel="noopener">
+      <div>
+        <span class="eyebrow">Also by Kris ↗</span>
+        <h3>English Games</h3>
+        <p>More vocabulary games to play solo.</p>
+      </div>
+    </a>
   </div>
 </div>
+
+<script type="module" src="js/index.js"></script>
 </body>
 </html>

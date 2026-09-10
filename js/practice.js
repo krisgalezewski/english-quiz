@@ -16,6 +16,9 @@ const doneView = document.getElementById("done-view");
 
 const quizSelect = document.getElementById("quiz-select");
 const startBtn = document.getElementById("start-btn");
+const codeInput = document.getElementById("code-input");
+const codeStartBtn = document.getElementById("code-start-btn");
+const codeError = document.getElementById("code-error");
 
 const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("running-score");
@@ -45,7 +48,11 @@ async function loadQuizList() {
   startBtn.disabled = false;
 
   const preselect = getParam("quiz");
-  if (preselect) quizSelect.value = preselect;
+  if (preselect && data.some((q) => q.id === preselect)) {
+    quizSelect.value = preselect;
+    await loadQuestions(preselect);
+    beginQuiz();
+  }
 }
 
 async function loadQuestions(quizId) {
@@ -59,8 +66,38 @@ async function loadQuestions(quizId) {
   state.questions = questions || [];
 }
 
-startBtn.addEventListener("click", async () => {
-  await loadQuestions(quizSelect.value);
+async function startWithCode(code) {
+  codeError.style.display = "none";
+  if (!code) {
+    codeError.textContent = "Enter a room code.";
+    codeError.style.display = "block";
+    return;
+  }
+  const { data: session, error } = await supabase
+    .from("sessions")
+    .select("id, status, quiz_id")
+    .eq("code", code.trim().toUpperCase())
+    .single();
+  if (error || !session) {
+    codeError.textContent = "No session found with that code.";
+    codeError.style.display = "block";
+    return;
+  }
+  if (session.status !== "finished") {
+    codeError.textContent = "This quiz hasn't been played live yet — ask your teacher to finish the live session first.";
+    codeError.style.display = "block";
+    return;
+  }
+  await loadQuestions(session.quiz_id);
+  beginQuiz();
+}
+
+codeStartBtn.addEventListener("click", () => startWithCode(codeInput.value));
+codeInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") startWithCode(codeInput.value);
+});
+
+function beginQuiz() {
   state.index = 0;
   state.score = 0;
   if (state.questions.length === 0) {
@@ -69,21 +106,26 @@ startBtn.addEventListener("click", async () => {
   }
   show(quizView);
   renderCurrent();
+}
+
+startBtn.addEventListener("click", async () => {
+  await loadQuestions(quizSelect.value);
+  beginQuiz();
 });
 
 function renderCurrent() {
   state.answered = false;
   nextBtn.style.display = "none";
   const question = state.questions[state.index];
-  progressEl.textContent = `Question ${state.index + 1} / ${state.questions.length}`;
-  scoreEl.textContent = `Score: ${state.score}`;
+  progressEl.textContent = `${state.index + 1}/${state.questions.length}`;
+  scoreEl.textContent = state.score;
 
   const handle = renderQuestion(questionContainer, question, (response) => {
     if (state.answered) return;
     state.answered = true;
     const correct = gradeResponse(question, response);
     if (correct) state.score += question.points || 100;
-    scoreEl.textContent = `Score: ${state.score}`;
+    scoreEl.textContent = state.score;
     handle.showFeedback(response, correct);
     nextBtn.style.display = "inline-block";
     nextBtn.textContent = state.index + 1 < state.questions.length ? "Next question" : "Finish";
@@ -105,3 +147,9 @@ retryBtn.addEventListener("click", () => {
 });
 
 loadQuizList();
+
+const codeFromLink = getParam("code");
+if (codeFromLink) {
+  codeInput.value = codeFromLink;
+  startWithCode(codeFromLink);
+}

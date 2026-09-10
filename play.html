@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/style.css" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.js"></script>
 </head>
 <body>
 <div class="page">
@@ -46,20 +47,22 @@
 
   <!-- Live question -->
   <div id="question-view" class="panel" style="display:none">
-    <div class="question-header">
-      <span class="timer" id="timer">--</span>
-      <span class="muted" id="question-progress"></span>
-      <span class="muted">My score: <span id="my-score">0</span></span>
+    <div class="header-chips">
+      <div class="header-chip chip-navy"><span class="label">Time left</span><span class="value" id="timer">--</span></div>
+      <div class="header-chip chip-teal"><span class="label">Progress</span><span class="value" id="question-progress">-</span></div>
+      <div class="header-chip chip-amber"><span class="label">My score</span><span class="value" id="my-score">0</span></div>
     </div>
     <div id="question-container"></div>
   </div>
 
   <!-- Finished -->
   <div id="finished-view" class="panel" style="display:none">
-    <h2>Quiz finished!</h2>
-    <p>Your score: <strong id="final-score">0</strong></p>
-    <p>Rank: <span id="final-rank"></span></p>
-    <a class="btn" href="practice.html" style="display:inline-block;margin-top:12px;text-decoration:none">Practice this quiz solo</a>
+    <div class="winner-banner" id="finished-banner">
+      <span class="trophy" id="finished-trophy">🎉</span>
+      <h2 id="finished-headline">Quiz finished!</h2>
+      <p style="color:rgba(241,236,223,0.85);margin:0">Your score: <strong id="final-score">0</strong> · Rank: <span id="final-rank"></span></p>
+    </div>
+    <a id="practice-link" class="btn" href="practice.html" style="display:inline-block;margin-top:12px;text-decoration:none">Practice this quiz solo</a>
   </div>
 </div>
 
