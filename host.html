@@ -38,6 +38,13 @@
     <button id="start-session-btn" class="btn">Create room</button>
   </div>
 
+  <!-- Manage quizzes -->
+  <div class="panel" style="margin-top:20px">
+    <h3>Your quizzes</h3>
+    <p class="muted" style="margin-bottom:0">Toggle a quiz public to add it to the open self-practice list and Quiz of the Day. Private quizzes still work for self-practice via their code, once played live at least once.</p>
+    <div id="manage-quizzes" class="quiz-manage-list"></div>
+  </div>
+
   <!-- Lobby -->
   <div id="lobby-view" class="panel" style="display:none">
     <span class="eyebrow">Room code</span>
@@ -50,6 +57,10 @@
 
   <!-- Live question -->
   <div id="question-view" class="panel" style="display:none">
+    <label class="sound-toggle">
+      <input type="checkbox" id="sound-toggle-game" checked />
+      Play a sound when everyone has answered
+    </label>
     <div class="header-chips">
       <div class="header-chip chip-navy"><span class="label">Time left</span><span class="value" id="timer">--</span></div>
       <div class="header-chip chip-teal"><span class="label">Progress</span><span class="value" id="question-progress">-</span></div>

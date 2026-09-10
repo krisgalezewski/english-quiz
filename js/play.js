@@ -6,6 +6,7 @@ import { playFanfare } from "./sound.js";
 
 const state = {
   session: null,
+  accessCode: null,
   player: null,
   questions: [],
   currentHandle: null,
@@ -70,14 +71,27 @@ joinBtn.addEventListener("click", async () => {
     return;
   }
 
-  const { data: session, error } = await supabase.from("sessions").select("*").eq("code", code).single();
-  if (error || !session) {
-    joinError.textContent = "No session found with that code.";
+  const { data: quiz, error: quizErr } = await supabase
+    .from("quizzes")
+    .select("id, title")
+    .eq("access_code", code)
+    .single();
+  if (quizErr || !quiz) {
+    joinError.textContent = "No quiz found with that code.";
     joinError.style.display = "block";
     return;
   }
-  if (session.status === "finished") {
-    joinError.textContent = "That session has already finished.";
+
+  const { data: session, error: sessErr } = await supabase
+    .from("sessions")
+    .select("*")
+    .eq("quiz_id", quiz.id)
+    .in("status", ["lobby", "question", "reveal"])
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (sessErr || !session) {
+    joinError.textContent = "No live game is running for this quiz right now — ask your teacher to start it.";
     joinError.style.display = "block";
     return;
   }
@@ -100,6 +114,7 @@ joinBtn.addEventListener("click", async () => {
     .order("position");
 
   state.session = session;
+  state.accessCode = code;
   state.player = player;
   state.questions = questions || [];
 
@@ -212,6 +227,8 @@ async function handleSubmit(response) {
 
   const question = currentQuestion();
   const correct = gradeResponse(question, response);
+  const startedAt = new Date(state.session.question_started_at).getTime();
+  const elapsedMs = Math.max(0, Date.now() - startedAt);
 
   const { error } = await supabase.from("answers").insert({
     session_id: state.session.id,
@@ -219,11 +236,15 @@ async function handleSubmit(response) {
     question_id: question.id,
     response,
     is_correct: correct,
+    time_taken_ms: elapsedMs,
   });
   if (error) return; // likely already answered (unique constraint) — safe to ignore
 
   if (correct) {
-    const newScore = state.player.score + (question.points || 100);
+    const basePoints = question.points || 100;
+    const tensOfSecondsElapsed = Math.floor(elapsedMs / 1000 / 10);
+    const awarded = Math.max(basePoints - tensOfSecondsElapsed * 10, 10);
+    const newScore = state.player.score + awarded;
     await supabase.from("players").update({ score: newScore }).eq("id", state.player.id);
   }
 }
@@ -239,7 +260,7 @@ async function showFinalResult() {
   const rank = list.findIndex((p) => p.id === state.player.id) + 1;
   finalScoreEl.textContent = me ? me.score : state.player.score;
   finalRankEl.textContent = rank ? `${rank} / ${list.length}` : "";
-  practiceLinkEl.href = `practice.html?code=${state.session.code}`;
+  practiceLinkEl.href = `practice.html?code=${state.accessCode}`;
 
   const isWinner = rank === 1 && me && me.score > 0;
   if (isWinner) {

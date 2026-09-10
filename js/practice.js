@@ -73,22 +73,29 @@ async function startWithCode(code) {
     codeError.style.display = "block";
     return;
   }
-  const { data: session, error } = await supabase
-    .from("sessions")
-    .select("id, status, quiz_id")
-    .eq("code", code.trim().toUpperCase())
+  const { data: quiz, error } = await supabase
+    .from("quizzes")
+    .select("id, title")
+    .eq("access_code", code.trim().toUpperCase())
     .single();
-  if (error || !session) {
-    codeError.textContent = "No session found with that code.";
+  if (error || !quiz) {
+    codeError.textContent = "No quiz found with that code.";
     codeError.style.display = "block";
     return;
   }
-  if (session.status !== "finished") {
+  const { data: playedSession } = await supabase
+    .from("sessions")
+    .select("id")
+    .eq("quiz_id", quiz.id)
+    .eq("status", "finished")
+    .limit(1)
+    .maybeSingle();
+  if (!playedSession) {
     codeError.textContent = "This quiz hasn't been played live yet — ask your teacher to finish the live session first.";
     codeError.style.display = "block";
     return;
   }
-  await loadQuestions(session.quiz_id);
+  await loadQuestions(quiz.id);
   beginQuiz();
 }
 

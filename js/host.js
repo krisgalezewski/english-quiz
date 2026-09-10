@@ -5,7 +5,7 @@ import { playDing, playFanfare } from "./sound.js";
 
 const state = {
   session: null,
-  quiz: null,
+  accessCode: null,
   questions: [],
   players: [],
   answersForCurrent: [],
@@ -27,6 +27,7 @@ const startSessionBtn = document.getElementById("start-session-btn");
 const roomCodeEl = document.getElementById("room-code");
 const lobbyPlayerList = document.getElementById("lobby-player-list");
 const startQuizBtn = document.getElementById("start-quiz-btn");
+const manageQuizzesEl = document.getElementById("manage-quizzes");
 
 const questionContainer = document.getElementById("question-container");
 const answerCountEl = document.getElementById("answer-count");
@@ -39,7 +40,8 @@ const scoreboardEl = document.getElementById("scoreboard");
 
 const finalLeaderboard = document.getElementById("final-leaderboard");
 const enablePracticeBtn = document.getElementById("enable-practice-btn");
-const soundToggle = document.getElementById("sound-toggle");
+const soundToggleSetup = document.getElementById("sound-toggle");
+const soundToggleGame = document.getElementById("sound-toggle-game");
 const winnerNameEl = document.getElementById("winner-name");
 const finishedRoomCodeEl = document.getElementById("finished-room-code");
 
@@ -47,6 +49,17 @@ function show(view) {
   [setupView, lobbyView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
   view.style.display = "block";
 }
+
+// Two sound checkboxes (setup screen + in-game) stay in sync with each other.
+function isSoundEnabled() {
+  return soundToggleSetup.checked;
+}
+soundToggleSetup.addEventListener("change", () => {
+  soundToggleGame.checked = soundToggleSetup.checked;
+});
+soundToggleGame.addEventListener("change", () => {
+  soundToggleSetup.checked = soundToggleGame.checked;
+});
 
 // ---------- Setup: pick a quiz ----------
 
@@ -67,15 +80,78 @@ function populateTimeLimitOptions() {
   timeLimitSelect.innerHTML = options.join("");
 }
 
+// ---------- Manage quizzes: public/private toggle + persistent codes ----------
+
+async function ensureAccessCode(quiz) {
+  if (quiz.access_code) return quiz.access_code;
+  const code = generateRoomCode();
+  await supabase.from("quizzes").update({ access_code: code }).eq("id", quiz.id);
+  return code;
+}
+
+async function loadManageQuizzes() {
+  const { data, error } = await supabase
+    .from("quizzes")
+    .select("id, title, access_code, available_for_practice")
+    .order("created_at");
+  if (error || !data) return;
+
+  for (const q of data) {
+    if (!q.access_code) q.access_code = await ensureAccessCode(q);
+  }
+
+  manageQuizzesEl.innerHTML = "";
+  data.forEach((q) => {
+    const row = el("div", "quiz-row");
+    row.innerHTML = `
+      <span class="title">${q.title}</span>
+      <span class="code-badge" ${q.available_for_practice ? 'style="display:none"' : ""}>
+        ${q.access_code}
+        <button type="button" class="btn btn-outline copy-btn" data-copy="${q.access_code}">Copy</button>
+      </span>
+      <label class="toggle-label">
+        <input type="checkbox" data-quiz-id="${q.id}" ${q.available_for_practice ? "checked" : ""} />
+        Public
+      </label>
+    `;
+    manageQuizzesEl.appendChild(row);
+  });
+
+  manageQuizzesEl.querySelectorAll("input[type=checkbox]").forEach((cb) => {
+    cb.addEventListener("change", async (e) => {
+      await supabase
+        .from("quizzes")
+        .update({ available_for_practice: e.target.checked })
+        .eq("id", e.target.dataset.quizId);
+      loadManageQuizzes();
+    });
+  });
+
+  manageQuizzesEl.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        const original = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = original), 1200);
+      } catch (e) {
+        alert("Code: " + btn.dataset.copy);
+      }
+    });
+  });
+}
+
 startSessionBtn.addEventListener("click", async () => {
   const quizId = quizSelect.value;
   if (!quizId) return;
 
-  const code = generateRoomCode();
+  const { data: quiz } = await supabase.from("quizzes").select("id, access_code").eq("id", quizId).single();
+  const accessCode = await ensureAccessCode(quiz);
+
   const overrideSeconds = timeLimitSelect.value ? Number(timeLimitSelect.value) : null;
   const { data: session, error } = await supabase
     .from("sessions")
-    .insert({ code, quiz_id: quizId, status: "lobby", current_question: 0, time_limit_seconds: overrideSeconds })
+    .insert({ quiz_id: quizId, status: "lobby", current_question: 0, time_limit_seconds: overrideSeconds })
     .select()
     .single();
 
@@ -91,9 +167,10 @@ startSessionBtn.addEventListener("click", async () => {
     .order("position");
 
   state.session = session;
+  state.accessCode = accessCode;
   state.questions = questions || [];
 
-  roomCodeEl.textContent = session.code;
+  roomCodeEl.textContent = accessCode;
   show(lobbyView);
   subscribeToSession();
   subscribeToPlayers();
@@ -163,7 +240,7 @@ function subscribeToSession() {
           state.answersForCurrent.push(payload.new);
           answerCountEl.textContent = `${state.answersForCurrent.length}/${state.players.length}`;
           if (
-            soundToggle.checked &&
+            isSoundEnabled() &&
             !state.soundPlayedForQuestion &&
             state.players.length > 0 &&
             state.answersForCurrent.length >= state.players.length
@@ -237,7 +314,7 @@ function onSessionChange() {
     show(finishedView);
     renderFinalLeaderboard();
     syncPracticeButton();
-    finishedRoomCodeEl.textContent = state.session.code;
+    finishedRoomCodeEl.textContent = state.accessCode;
     if (!state.celebrated) {
       state.celebrated = true;
       celebrate();
@@ -319,8 +396,10 @@ enablePracticeBtn.addEventListener("click", async () => {
   if (!error) {
     state.practiceEnabled = newValue;
     updatePracticeButtonLabel();
+    loadManageQuizzes();
   }
 });
 
 populateTimeLimitOptions();
 loadQuizzes();
+loadManageQuizzes();

@@ -10,7 +10,8 @@ create table if not exists quizzes (
   title text not null,
   description text,
   tags text[] not null default '{}',
-  available_for_practice boolean not null default false, -- only quizzes flagged true show up in self-practice
+  available_for_practice boolean not null default false, -- true = listed publicly (Quiz of the Day, public practice list)
+  access_code text unique, -- the one code students use, for both joining live and self-practice
   created_at timestamptz not null default now()
 );
 
@@ -32,7 +33,6 @@ create index if not exists questions_quiz_id_position_idx
 
 create table if not exists sessions (
   id uuid primary key default gen_random_uuid(),
-  code text unique not null,              -- short room code, e.g. "7HXQ"
   quiz_id uuid not null references quizzes(id),
   status text not null default 'lobby'    -- lobby | question | reveal | finished
     check (status in ('lobby', 'question', 'reveal', 'finished')),

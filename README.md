@@ -96,25 +96,27 @@ to row changes on `sessions`, `players`, and `answers`:
 This means the game state lives in the database, not just in memory — if
 your host tab reloads mid-lesson, the session and scores are still there.
 
-## Self-practice access — two paths, on purpose
+## Room codes and self-practice access
 
-Since you reuse quizzes across different groups, self-practice is gated
-so a group can't see a quiz before *their own* live session with you:
+Each quiz has its own **permanent** code (`quizzes.access_code`) — not a
+new random code every time you host. That one code is what students use
+both to join the live game and, once it's been played live at least
+once, to self-practice:
 
-1. **Room code (default, private to that group)**: once a live session's
-   status is `finished`, its room code works on the self-practice page too.
-   Each group only ever has their own code, so this naturally doesn't leak
-   across groups — nothing to toggle, nothing to remember to lock again.
-2. **Public list + "Quiz of the Day" (opt-in, host-controlled)**: on the
-   host's finished screen, "Also add to the public self-practice list"
-   flips `quizzes.available_for_practice` to `true`. This is for quizzes
-   you're genuinely fine with anyone browsing anytime — it's what powers
-   the public dropdown on the practice page and the homepage's Quiz of the
-   Day card. It's a real toggle (click again to remove it), and defaults
-   to off for every quiz.
-
-Use path 1 for anything tied to a specific group's lesson. Use path 2
-only for quizzes you'd be happy for any student, from any group, to find.
+- **On the host page**, the "Your quizzes" list shows every quiz with its
+  code and a Public/Private toggle. You can look up and copy a quiz's
+  code any time — days later, for a different group — without an active
+  session open.
+- **Joining live**: a student's code finds your quiz, then finds whichever
+  session for that quiz is currently in `lobby`/`question`/`reveal`. If
+  none is running, they're told to wait for you to start it.
+- **Self-practice by code**: the same code works once *any* session for
+  that quiz has reached `finished`. Since each quiz's code only ever goes
+  to the group you gave it to, this naturally doesn't leak across groups —
+  nothing to remember to lock again between classes.
+- **Public toggle** is separate and opt-in: flip a quiz to Public and it
+  also shows up in the open self-practice dropdown and Quiz of the Day,
+  for quizzes you're happy for anyone to find, no code required.
 
 ## Security note
 
@@ -123,6 +125,15 @@ trust model as Kahoot. Row Level Security policies are intentionally
 permissive (any player can read/write session data) since this is built
 for small, known groups of students. If you ever open this up beyond
 your own classes, tighten the RLS policies in `sql/schema.sql` first.
+
+## Scoring
+
+A correct answer earns a question's `points` value, minus 10 for every
+full 10 seconds it took to answer, down to a floor of 10 points. So a
+100-point question answered in 8 seconds is worth 100; answered in 25
+seconds it's worth 80 (two full 10-second chunks elapsed); it never goes
+below 10 as long as the answer is correct. Wrong answers always earn 0,
+regardless of speed.
 
 ## Sound and celebration
 

@@ -15,7 +15,7 @@ function tone(freq, startTime, duration, gainPeak = 0.15, type = "sine") {
   osc.type = type;
   osc.frequency.value = freq;
   gain.gain.setValueAtTime(0, startTime);
-  gain.gain.linearRampToValueAtTime(gainPeak, startTime + 0.02);
+  gain.gain.linearRampToValueAtTime(gainPeak, startTime + 0.03);
   gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
@@ -23,26 +23,37 @@ function tone(freq, startTime, duration, gainPeak = 0.15, type = "sine") {
   osc.stop(startTime + duration + 0.05);
 }
 
-// A short, gentle two-note chime - used to tell the host everyone's answered.
+// Plays the same note through two waveforms at once, softly - a bit closer
+// to a real instrument's overtones than a single bare oscillator.
+function warmTone(freq, startTime, duration, gainPeak = 0.1) {
+  tone(freq, startTime, duration, gainPeak * 0.7, "sine");
+  tone(freq, startTime, duration * 0.9, gainPeak * 0.35, "triangle");
+}
+
+// A soft, unobtrusive chime - tells the host everyone's answered without
+// startling anyone.
 export function playDing() {
   try {
     const audioCtx = getCtx();
     const now = audioCtx.currentTime;
-    tone(880, now, 0.15, 0.12);
-    tone(1318.5, now + 0.1, 0.25, 0.12);
+    warmTone(987.77, now, 0.5, 0.05); // B5, single gentle note
   } catch (e) {
     /* ignore - audio isn't essential */
   }
 }
 
-// A brief, tasteful ascending fanfare for the end-of-game celebration.
+// A short, warm fanfare for the end-of-game celebration - a rising phrase
+// resolving into a full chord, layered across two waveforms for a fuller,
+// less "beepy" sound.
 export function playFanfare() {
   try {
     const audioCtx = getCtx();
     const now = audioCtx.currentTime;
-    const notes = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
-    notes.forEach((freq, i) => tone(freq, now + i * 0.14, 0.35, 0.14, "triangle"));
-    tone(1046.5, now + notes.length * 0.14 + 0.05, 0.5, 0.16, "triangle");
+    const run = [523.25, 659.25, 783.99, 1046.5]; // C5 E5 G5 C6
+    run.forEach((freq, i) => warmTone(freq, now + i * 0.15, 0.4, 0.12));
+
+    const chordStart = now + run.length * 0.15 + 0.05;
+    [659.25, 783.99, 1046.5].forEach((freq) => warmTone(freq, chordStart, 0.9, 0.09)); // E-G-C chord
   } catch (e) {
     /* ignore */
   }
