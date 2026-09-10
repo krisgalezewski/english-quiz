@@ -14,6 +14,9 @@ const state = {
   practiceEnabled: false,
   soundPlayedForQuestion: false,
   celebrated: false,
+  allQuizzes: [],
+  sortMode: "chronological", // "chronological" | "alphabetical"
+  activeQuizId: null,
 };
 
 const setupView = document.getElementById("setup-view");
@@ -22,6 +25,7 @@ const questionView = document.getElementById("question-view");
 const finishedView = document.getElementById("finished-view");
 
 const quizSelect = document.getElementById("quiz-select");
+const sortToggleBtn = document.getElementById("sort-toggle-btn");
 const timeLimitSelect = document.getElementById("time-limit-select");
 const startSessionBtn = document.getElementById("start-session-btn");
 const roomCodeEl = document.getElementById("room-code");
@@ -64,13 +68,30 @@ soundToggleGame.addEventListener("change", () => {
 // ---------- Setup: pick a quiz ----------
 
 async function loadQuizzes() {
-  const { data, error } = await supabase.from("quizzes").select("id, title").order("created_at");
+  const { data, error } = await supabase.from("quizzes").select("id, title, created_at").order("created_at");
   if (error) {
     quizSelect.innerHTML = `<option>Could not load quizzes (${error.message})</option>`;
     return;
   }
-  quizSelect.innerHTML = data.map((q) => `<option value="${q.id}">${q.title}</option>`).join("");
+  state.allQuizzes = data;
+  renderQuizSelectOptions();
 }
+
+function renderQuizSelectOptions() {
+  const previousValue = quizSelect.value;
+  const sorted = [...state.allQuizzes].sort((a, b) => {
+    if (state.sortMode === "alphabetical") return a.title.localeCompare(b.title);
+    return new Date(b.created_at) - new Date(a.created_at); // newest first
+  });
+  quizSelect.innerHTML = sorted.map((q) => `<option value="${q.id}">${q.title}</option>`).join("");
+  if (sorted.some((q) => q.id === previousValue)) quizSelect.value = previousValue;
+  sortToggleBtn.textContent = state.sortMode === "alphabetical" ? "Sort: A–Z" : "Sort: Newest";
+}
+
+sortToggleBtn.addEventListener("click", () => {
+  state.sortMode = state.sortMode === "alphabetical" ? "chronological" : "alphabetical";
+  renderQuizSelectOptions();
+});
 
 function populateTimeLimitOptions() {
   const options = [`<option value="">Use each question's own time limit</option>`];
@@ -102,9 +123,9 @@ async function loadManageQuizzes() {
 
   manageQuizzesEl.innerHTML = "";
   data.forEach((q) => {
-    const row = el("div", "quiz-row");
+    const row = el("div", "quiz-row" + (q.id === state.activeQuizId ? " active-quiz" : ""));
     row.innerHTML = `
-      <span class="title">${q.title}</span>
+      <span class="title">${q.title}${q.id === state.activeQuizId ? ' <span class="eyebrow">— in play now</span>' : ""}</span>
       <span class="code-badge" ${q.available_for_practice ? 'style="display:none"' : ""}>
         ${q.access_code}
         <button type="button" class="btn btn-outline copy-btn" data-copy="${q.access_code}">Copy</button>
@@ -169,6 +190,8 @@ startSessionBtn.addEventListener("click", async () => {
   state.session = session;
   state.accessCode = accessCode;
   state.questions = questions || [];
+  state.activeQuizId = quizId;
+  loadManageQuizzes();
 
   roomCodeEl.textContent = accessCode;
   show(lobbyView);

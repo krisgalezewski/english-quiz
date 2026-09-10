@@ -33,6 +33,10 @@
     <div class="field">
       <label>Pick an avatar</label>
       <div id="avatar-picker" class="scramble-tiles"></div>
+      <details style="margin-top:8px">
+        <summary style="cursor:pointer;color:var(--cream-faint);font-size:13px">More avatars…</summary>
+        <div id="avatar-picker-more" class="scramble-tiles" style="margin-top:10px"></div>
+      </details>
     </div>
     <div class="error-text" id="join-error" style="display:none"></div>
     <button id="join-btn" class="btn">Join</button>
@@ -52,6 +56,7 @@
       <div class="header-chip chip-teal"><span class="label">Progress</span><span class="value" id="question-progress">-</span></div>
       <div class="header-chip chip-amber"><span class="label">My score</span><span class="value" id="my-score">0</span></div>
     </div>
+    <div id="players-roster" class="player-list" style="margin-bottom:20px"></div>
     <div id="question-container"></div>
   </div>
 

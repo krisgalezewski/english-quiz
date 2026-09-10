@@ -1,6 +1,6 @@
 import { supabase } from "./supabase-client.js";
 import { renderQuestion, gradeResponse } from "./question-types.js";
-import { AVATARS } from "./avatars.js";
+import { DEFAULT_AVATARS, MORE_AVATARS } from "./avatars.js";
 import { el, startCountdown } from "./utils.js";
 import { playFanfare } from "./sound.js";
 
@@ -24,10 +24,12 @@ const finishedView = document.getElementById("finished-view");
 const codeInput = document.getElementById("code-input");
 const nameInput = document.getElementById("name-input");
 const avatarPicker = document.getElementById("avatar-picker");
+const avatarPickerMore = document.getElementById("avatar-picker-more");
 const joinBtn = document.getElementById("join-btn");
 const joinError = document.getElementById("join-error");
 
 const otherPlayersEl = document.getElementById("other-players");
+const playersRosterEl = document.getElementById("players-roster");
 const questionContainer = document.getElementById("question-container");
 const timerEl = document.getElementById("timer");
 const questionProgressEl = document.getElementById("question-progress");
@@ -38,7 +40,7 @@ const finishedHeadlineEl = document.getElementById("finished-headline");
 const finishedTrophyEl = document.getElementById("finished-trophy");
 const practiceLinkEl = document.getElementById("practice-link");
 
-let selectedAvatar = AVATARS[0];
+let selectedAvatar = DEFAULT_AVATARS[0];
 
 function show(view) {
   [joinView, waitingView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
@@ -47,16 +49,20 @@ function show(view) {
 
 // ---------- Avatar picker ----------
 
-AVATARS.forEach((a) => {
+function addAvatarTile(container, a) {
   const btn = el("button", "tile", a);
   btn.type = "button";
   btn.addEventListener("click", () => {
     selectedAvatar = a;
-    avatarPicker.querySelectorAll(".tile").forEach((t) => t.classList.remove("selected"));
+    document.querySelectorAll("#avatar-picker .tile, #avatar-picker-more .tile").forEach((t) => t.classList.remove("selected"));
     btn.classList.add("selected");
   });
-  avatarPicker.appendChild(btn);
-});
+  container.appendChild(btn);
+  return btn;
+}
+
+DEFAULT_AVATARS.forEach((a) => addAvatarTile(avatarPicker, a));
+MORE_AVATARS.forEach((a) => addAvatarTile(avatarPickerMore, a));
 avatarPicker.firstChild?.classList.add("selected");
 
 // ---------- Join ----------
@@ -161,6 +167,16 @@ function subscribeToOtherPlayers() {
           const chip = el("div", "player-chip");
           chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
           otherPlayersEl.appendChild(chip);
+        });
+
+        playersRosterEl.innerHTML = "";
+        (data || []).forEach((p) => {
+          const isMe = state.player && p.id === state.player.id;
+          const avatarEl = document.createElement("span");
+          avatarEl.className = "roster-avatar" + (isMe ? " is-me" : "");
+          avatarEl.textContent = p.avatar;
+          avatarEl.title = isMe ? `${p.name} (you)` : p.name;
+          playersRosterEl.appendChild(avatarEl);
         });
         if (p_isMe(data)) syncMyScore(data);
       }

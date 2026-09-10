@@ -24,7 +24,10 @@
     <h2>Host a live quiz</h2>
     <div class="field">
       <label for="quiz-select">Choose a quiz</label>
-      <select id="quiz-select"></select>
+      <div style="display:flex;gap:8px;align-items:center">
+        <select id="quiz-select" style="flex:1"></select>
+        <button type="button" id="sort-toggle-btn" class="btn btn-outline" style="white-space:nowrap">Sort: Newest</button>
+      </div>
     </div>
     <div class="field">
       <label for="time-limit-select">Time per question</label>
@@ -36,13 +39,6 @@
     </label>
     <br />
     <button id="start-session-btn" class="btn">Create room</button>
-  </div>
-
-  <!-- Manage quizzes -->
-  <div class="panel" style="margin-top:20px">
-    <h3>Your quizzes</h3>
-    <p class="muted" style="margin-bottom:0">Toggle a quiz public to add it to the open self-practice list and Quiz of the Day. Private quizzes still work for self-practice via their code, once played live at least once.</p>
-    <div id="manage-quizzes" class="quiz-manage-list"></div>
   </div>
 
   <!-- Lobby -->
@@ -91,6 +87,13 @@
     </p>
     <button id="enable-practice-btn" class="btn" style="margin-top:8px">Also add to the public self-practice list</button>
     <a class="btn-outline btn" href="host.html" style="display:inline-block;margin-top:20px;margin-left:8px;text-decoration:none">Start another quiz</a>
+  </div>
+
+  <!-- Manage quizzes - always visible, below whichever stage is active above -->
+  <div class="panel" style="margin-top:20px">
+    <h3>Your quizzes</h3>
+    <p class="muted" style="margin-bottom:0">Toggle a quiz public to add it to the open self-practice list and Quiz of the Day. Private quizzes still work for self-practice via their code, once played live at least once. The quiz currently in play is highlighted.</p>
+    <div id="manage-quizzes" class="quiz-manage-list"></div>
   </div>
 </div>
 
