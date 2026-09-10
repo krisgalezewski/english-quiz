@@ -48,12 +48,19 @@ const finishedHeadlineEl = document.getElementById("finished-headline");
 const finishedTrophyEl = document.getElementById("finished-trophy");
 const finishedMessageEl = document.getElementById("finished-message");
 const practiceLinkEl = document.getElementById("practice-link");
+const myReturnCodeEl = document.getElementById("my-return-code");
 
 let selectedAvatar = DEFAULT_AVATARS[0];
 
 function show(view) {
   [joinView, waitingView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
   view.style.display = "block";
+}
+
+function showMyReturnCode(player) {
+  if (!player.return_code) return;
+  myReturnCodeEl.textContent = `Your return code (save this in case you get disconnected): ${player.return_code}`;
+  myReturnCodeEl.style.display = "block";
 }
 
 // ---------- Avatar picker ----------
@@ -132,6 +139,7 @@ joinBtn.addEventListener("click", async () => {
   state.accessCode = code;
   state.player = player;
   state.questions = questions || [];
+  showMyReturnCode(player);
 
   subscribeToSession();
   subscribeToOtherPlayers();
@@ -185,6 +193,7 @@ reconnectBtn.addEventListener("click", async () => {
   state.accessCode = quiz ? quiz.access_code : "";
   state.player = player;
   state.questions = questions || [];
+  showMyReturnCode(player);
 
   subscribeToSession();
   subscribeToOtherPlayers();
@@ -254,6 +263,19 @@ function subscribeToPresence() {
       }
     });
   state.presenceChannel = presenceChannel;
+
+  // Presence's own disconnect detection can take up to a minute (heartbeat
+  // based). Explicitly untracking on tab close/hide makes the host and
+  // other players see a departure within a second or two instead.
+  const announceLeaving = () => {
+    try {
+      presenceChannel.untrack();
+    } catch {
+      /* best effort - the tab is closing anyway */
+    }
+  };
+  window.addEventListener("pagehide", announceLeaving);
+  window.addEventListener("beforeunload", announceLeaving);
 }
 
 function renderPlayerDisplays() {

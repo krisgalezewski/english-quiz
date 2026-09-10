@@ -187,12 +187,20 @@ end-of-game recap).
 ## Reconnecting after a disconnect
 
 Every player gets a `return_code` when they join (separate from the
-quiz's room code). If their tab closes or they lose connection, the host
-can find their dimmed entry on the scoreboard - it shows their return
-code right there. The student opens the Join page, expands "Got
-disconnected? Reconnect with your return code," and enters it. This
-reconnects them to their *same* player row (same score, same history) —
-it doesn't create a new player.
+quiz's room code). Each player chip in the host's lobby and scoreboard
+has a small 🔑 button that copies that player's code — this works
+regardless of whether presence has correctly flagged them as away, since
+waiting on presence detection alone proved too slow/unreliable to be the
+only way to reach it. The dimmed "(left)" tag is a best-effort visual
+hint, not a gate on the code being available.
+
+Students also see their own return code right after joining (above the
+"Back to home" link), so they have it even if you're not immediately
+available to share it.
+
+The student reconnects via "Got disconnected? Reconnect with your return
+code" on the Join page — this restores their *same* player row (same
+score, same history), not a new player.
 
 ## Scoring timing
 

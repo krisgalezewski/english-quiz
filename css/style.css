@@ -577,3 +577,9 @@
   z-index: 5;
   pointer-events: none;
 }
+
+.code-btn {
+  padding: 4px 8px;
+  font-size: 13px;
+  margin-left: 4px;
+}

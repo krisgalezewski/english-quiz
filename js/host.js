@@ -219,14 +219,40 @@ startSessionBtn.addEventListener("click", async () => {
 
 function renderLobbyPlayers() {
   lobbyPlayerList.innerHTML = "";
-  state.players
-    .filter((p) => state.presentIds.size === 0 || state.presentIds.has(p.id))
-    .forEach((p) => {
-      const chip = el("div", "player-chip");
-      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}</span>`;
-      lobbyPlayerList.appendChild(chip);
-    });
-  startQuizBtn.disabled = lobbyPlayerList.children.length === 0;
+  state.players.forEach((p) => {
+    const isPresent = state.presentIds.size === 0 || state.presentIds.has(p.id);
+    lobbyPlayerList.appendChild(playerChip(p, { isPresent }));
+  });
+  startQuizBtn.disabled = state.players.filter((p) => state.presentIds.size === 0 || state.presentIds.has(p.id)).length === 0;
+}
+
+// One player chip, reused everywhere in the host view. Always includes a
+// small return-code button - we don't rely on presence detection (which
+// can take up to a minute to notice a closed tab) to decide whether the
+// code is available; it's just always there.
+function playerChip(p, { isPresent, showScore = false } = {}) {
+  const chip = el("div", "player-chip" + (isPresent ? "" : " is-left"));
+  chip.innerHTML = `
+    <span class="avatar">${p.avatar}</span>
+    <span>${p.name}${isPresent ? "" : " (left)"}</span>
+    ${showScore ? `<span class="score">${p.score}</span>` : ""}
+    <button type="button" class="btn btn-outline code-btn" data-code="${p.return_code || ""}" title="Get this player's return code">🔑</button>
+  `;
+  chip.querySelector(".code-btn").addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const code = e.currentTarget.dataset.code;
+    if (!code) {
+      alert(`${p.name} doesn't have a return code yet (they may have joined before this feature was added).`);
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(code);
+      showNotice(`Copied ${p.name}'s return code: ${code}`);
+    } catch {
+      alert(`${p.name}'s return code: ${code}`);
+    }
+  });
+  return chip;
 }
 
 startQuizBtn.addEventListener("click", async () => {
@@ -397,8 +423,7 @@ function onSessionChange() {
         "player-chip " + (answer && answer.is_correct ? "correct" : "incorrect") + (isPresent ? "" : " is-left")
       );
       const responseText = answer ? formatResponse(question, answer.response) : "(no answer)";
-      const leftTag = isPresent ? "" : ` (left${p.return_code ? " · code: " + p.return_code : ""})`;
-      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${leftTag}: ${responseText}</span>`;
+      chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${isPresent ? "" : " (left)"}: ${responseText}</span>`;
       answerBreakdownEl.appendChild(chip);
     });
   } else if (state.session.status === "finished") {
@@ -439,10 +464,7 @@ function renderScoreboard() {
   scoreboardEl.innerHTML = "";
   sorted.forEach((p) => {
     const isPresent = state.presentIds.size === 0 || state.presentIds.has(p.id);
-    const chip = el("div", "player-chip" + (isPresent ? "" : " is-left"));
-    const leftTag = isPresent ? "" : ` (left${p.return_code ? " · code: " + p.return_code : ""})`;
-    chip.innerHTML = `<span class="avatar">${p.avatar}</span><span>${p.name}${leftTag}</span><span class="score">${p.score}</span>`;
-    scoreboardEl.appendChild(chip);
+    scoreboardEl.appendChild(playerChip(p, { isPresent, showScore: true }));
   });
 }
 
