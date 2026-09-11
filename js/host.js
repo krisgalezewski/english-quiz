@@ -434,7 +434,7 @@ function onSessionChange() {
     finishedRoomCodeEl.textContent = state.accessCode;
     if (!state.celebrated) {
       state.celebrated = true;
-      celebrate();
+      if (!state.session.ended_early) celebrate();
     }
   }
 }

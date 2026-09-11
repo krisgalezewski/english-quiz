@@ -42,10 +42,9 @@ export function playDing() {
   }
 }
 
-// A short, warm fanfare for the end-of-game celebration - a rising phrase
-// resolving into a full chord, layered across two waveforms for a fuller,
-// less "beepy" sound.
-export function playFanfare() {
+// A brief, tasteful ascending fanfare - synthesized fallback, used only if
+// the real audio file (below) fails to load for some reason.
+function playSynthesizedFanfare() {
   try {
     const audioCtx = getCtx();
     const now = audioCtx.currentTime;
@@ -56,5 +55,20 @@ export function playFanfare() {
     [659.25, 783.99, 1046.5].forEach((freq) => warmTone(freq, chordStart, 0.9, 0.09)); // E-G-C chord
   } catch (e) {
     /* ignore */
+  }
+}
+
+// The real celebration sound - plays audio/fanfare.mp3. Falls back to a
+// synthesized chime if the file can't be played (blocked, missing, etc).
+export function playFanfare() {
+  try {
+    const audio = new Audio("audio/fanfare.mp3");
+    audio.volume = 0.8;
+    const playPromise = audio.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(() => playSynthesizedFanfare());
+    }
+  } catch (e) {
+    playSynthesizedFanfare();
   }
 }

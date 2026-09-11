@@ -448,8 +448,10 @@ async function showFinalResult() {
     finishedHeadlineEl.textContent = "Quiz finished!";
   }
 
-  playFanfare();
-  if (window.confetti) {
-    window.confetti({ particleCount: isWinner ? 140 : 70, spread: isWinner ? 100 : 70, origin: { y: 0.6 } });
+  if (!state.session.ended_early) {
+    playFanfare();
+    if (window.confetti) {
+      window.confetti({ particleCount: isWinner ? 140 : 70, spread: isWinner ? 100 : 70, origin: { y: 0.6 } });
+    }
   }
 }
