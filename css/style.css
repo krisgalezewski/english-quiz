@@ -425,6 +425,9 @@
 }
 
 .winner-banner .trophy { font-size: 48px; display: block; margin-bottom: 8px; }
+.winner-banner p { max-width: none; }
+
+#finished-message { max-width: none; text-align: center; }
 .winner-banner h2 { margin: 0 0 4px; }
 
 .player-chip.is-winner {
