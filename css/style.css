@@ -586,3 +586,29 @@
   font-size: 13px;
   margin-left: 4px;
 }
+
+/* ---------- Top nav links (Lens / Games) ---------- */
+
+.top-nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.top-nav-links a {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cream-faint);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.top-nav-links a:hover {
+  color: var(--cream);
+  border-bottom-color: var(--block-amber);
+}
+
+@media (max-width: 560px) {
+  .top-nav { flex-wrap: wrap; row-gap: 10px; }
+}

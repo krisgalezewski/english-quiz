@@ -36,7 +36,7 @@ from new_quiz
 -- 3
 union all
 select id, 2, 'mcq',
-  'She ___ her hand in surprise when she saw the party guests.',
+  'She ___ her head in surprise when she saw the party guests.',
   '{"options": ["shook", "shaken", "shake", "shaked"], "correctIndex": 0}'::jsonb,
   15, 100
 from new_quiz

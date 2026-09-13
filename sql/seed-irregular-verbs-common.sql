@@ -3,7 +3,7 @@
 -- be-was/were-been, have-had-had, do-did-done, say-said-said, get-got-got/gotten,
 -- make-made-made, go-went-gone, know-knew-known, take-took-taken, see-saw-seen,
 -- come-came-come, think-thought-thought, give-gave-given, find-found-found,
--- tell-told-told, become-became-become, show-showed-shown, leave-left-left,
+-- send-sent-sent, become-became-become, show-showed-shown, leave-left-left,
 -- feel-felt-felt, put-put-put
 -- Run this once in the Supabase SQL editor.
 
@@ -101,7 +101,7 @@ from new_quiz
 union all
 select id, 10, 'mcq',
   'She ___ him a letter last week explaining everything.',
-  '{"options": ["told", "telled", "tell", "telling"], "correctIndex": 0}'::jsonb,
+  '{"options": ["sent", "sended", "send", "sending"], "correctIndex": 0}'::jsonb,
   15, 100
 from new_quiz
 
