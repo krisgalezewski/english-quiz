@@ -4,6 +4,7 @@ import { getParam } from "./utils.js";
 
 const state = {
   title: "",
+  description: "",
   questions: [],
   index: 0,
   score: 0,
@@ -25,6 +26,10 @@ const confirmTitleEl = document.getElementById("confirm-title");
 const confirmDescEl = document.getElementById("confirm-desc");
 const confirmStartBtn = document.getElementById("confirm-start-btn");
 
+const playingHeader = document.getElementById("playing-header");
+const playingTitleEl = document.getElementById("playing-title");
+const playingDescEl = document.getElementById("playing-desc");
+
 const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("running-score");
 const questionContainer = document.getElementById("question-container");
@@ -39,6 +44,10 @@ function show(view) {
   // intro-view is a two-box bento row (display: grid in site-chrome.css);
   // everything else is a single stacked .panel.
   view.style.display = view === introView ? "grid" : "block";
+  // The "Now playing" title + description sits above the quiz window and
+  // stays up through the done screen, so the score screen still says
+  // which quiz it was for; it's irrelevant for the picker/confirm steps.
+  playingHeader.style.display = view === quizView || view === doneView ? "block" : "none";
 }
 
 async function loadQuizList() {
@@ -74,13 +83,14 @@ async function loadQuizList() {
 }
 
 async function loadQuestions(quizId) {
-  const { data: quiz } = await supabase.from("quizzes").select("title").eq("id", quizId).single();
+  const { data: quiz } = await supabase.from("quizzes").select("title, description").eq("id", quizId).single();
   const { data: questions } = await supabase
     .from("questions")
     .select("*")
     .eq("quiz_id", quizId)
     .order("position");
   state.title = quiz?.title || "Quiz";
+  state.description = quiz?.description || "";
   state.questions = questions || [];
 }
 
@@ -129,6 +139,9 @@ function beginQuiz() {
     alert("This quiz has no questions yet.");
     return;
   }
+  playingTitleEl.textContent = state.title;
+  playingDescEl.textContent = state.description;
+  playingDescEl.style.display = state.description ? "block" : "none";
   show(quizView);
   renderCurrent();
 }

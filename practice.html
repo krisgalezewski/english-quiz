@@ -31,10 +31,13 @@
 
   <a class="btn btn-outline" href="index.html" style="display:inline-block;margin-bottom:24px;text-decoration:none">← Back to home</a>
 
-  <div class="qz-hero" style="padding-left:0;padding-right:0">
-    <div class="qz-eyebrow">Quizzes</div>
-    <h1>Practice on your own</h1>
-    <p>Go through a quiz solo, any time — you'll see the right answer right after each question. Pick one below by category, or jump straight in with a code from your lesson.</p>
+  <!-- Now-playing title + description, shown only while a quiz is actually
+       in progress (or just finished) — sits directly above the quiz
+       window, so it's the first thing visible for that quiz. -->
+  <div id="playing-header" class="qz-hero" style="display:none;padding-left:0;padding-right:0">
+    <div class="qz-eyebrow">Now playing</div>
+    <h1 id="playing-title"></h1>
+    <p id="playing-desc"></p>
   </div>
 
   <!-- Quiz — placed first so the quiz in progress always renders at the
@@ -67,6 +70,12 @@
     <p id="confirm-desc"></p>
     <button id="confirm-start-btn" class="btn">Start the quiz</button>
     <a href="practice.html" class="btn btn-outline" style="display:inline-block;margin-left:8px;text-decoration:none">Choose a different quiz</a>
+  </div>
+
+  <div class="qz-hero" style="padding-left:0;padding-right:0;margin-top:32px">
+    <div class="qz-eyebrow">Quizzes</div>
+    <h1>Practice on your own</h1>
+    <p>Go through a quiz solo, any time — you'll see the right answer right after each question. Pick one below by category, or jump straight in with a code from your lesson.</p>
   </div>
 
   <!-- Intro — two boxes side by side (2:1 width): the quiz picker is the
