@@ -109,3 +109,23 @@
 @media (max-width: 720px) {
   .qz-hero, .qz-cat { padding-left: 20px; padding-right: 20px; }
 }
+
+/* ---------- Two-box bento rows (2:1 width) ----------
+   Used for practice.html's "pick a quiz" / "have a code" pair, and for
+   play.html's "join" / "reconnect" pair. Each box keeps the existing
+   .panel look; this class only arranges two of them side by side. ---------- */
+
+.qz-bento-row {
+  max-width: var(--wrap, var(--max-width));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+
+.qz-bento-row .panel { margin-top: 0; }
+
+@media (max-width: 720px) {
+  .qz-bento-row { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
+}

@@ -37,10 +37,47 @@
     <p>Go through a quiz solo, any time — you'll see the right answer right after each question. Pick one below by category, or jump straight in with a code from your lesson.</p>
   </div>
 
+  <!-- Ready-to-start confirmation, shown instead of intro-view when arriving
+       via practice.html?quiz=<id> (grid tiles, quiz-of-day link) so a quiz
+       never launches straight into question 1 without an explicit click.
+       Placed above the category grid so it's visible without scrolling the
+       moment a tile is clicked. -->
+  <div id="confirm-view" class="panel" style="display:none;margin-top:12px">
+    <h2 id="confirm-title">Ready?</h2>
+    <p id="confirm-desc"></p>
+    <button id="confirm-start-btn" class="btn">Start the quiz</button>
+    <a href="practice.html" class="btn btn-outline" style="display:inline-block;margin-left:8px;text-decoration:none">Choose a different quiz</a>
+  </div>
+
+  <!-- Intro — two boxes side by side (2:1 width): the quiz picker is the
+       main action, the lesson code is the secondary one. -->
+  <div id="intro-view" class="qz-bento-row" style="margin-top:12px">
+    <div class="panel">
+      <h2>Or pick any public practice quiz</h2>
+      <div class="field">
+        <label for="quiz-select">Choose a quiz</label>
+        <select id="quiz-select"></select>
+      </div>
+      <button id="start-btn" class="btn btn-outline">Start</button>
+    </div>
+
+    <div class="panel">
+      <h2>Have a code from your lesson?</h2>
+      <div class="field">
+        <label for="code-input">Room code</label>
+        <input id="code-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
+      </div>
+      <div class="error-text" id="code-error" style="display:none"></div>
+      <button id="code-start-btn" class="btn">Practice with this code</button>
+    </div>
+  </div>
+
+  <div class="qz-fallback__label" style="margin-top:44px">Or browse by category</div>
+
   <!-- Category grid — filled by js/quiz-browse.js from the quizzes table.
        Hidden automatically if no public quiz has a category set yet (see
        sql/migration-010-add-quiz-category.sql); the dropdown/code box
-       below always works regardless. -->
+       above always works regardless. -->
   <div id="quiz-categories">
     <div class="qz-cat" style="padding-left:0;padding-right:0">
       <div class="qz-cat__head"><h2 class="qz-cat__title">Grammar</h2><span class="qz-cat__count" id="countGrammar"></span></div>
@@ -54,39 +91,6 @@
       <div class="qz-cat__head"><h2 class="qz-cat__title">Use of English</h2><span class="qz-cat__count" id="countUseOfEnglish"></span></div>
       <div class="qz-grid" id="gridUseOfEnglish"></div>
     </div>
-  </div>
-
-  <div class="qz-fallback__label" style="margin-top:44px">Or jump straight to a quiz</div>
-
-  <!-- Ready-to-start confirmation, shown instead of intro-view when arriving
-       via practice.html?quiz=<id> (grid tiles, quiz-of-day link) so a quiz
-       never launches straight into question 1 without an explicit click. -->
-  <div id="confirm-view" class="panel" style="display:none;margin-top:12px">
-    <h2 id="confirm-title">Ready?</h2>
-    <p id="confirm-desc"></p>
-    <button id="confirm-start-btn" class="btn">Start the quiz</button>
-    <a href="practice.html" class="btn btn-outline" style="display:inline-block;margin-left:8px;text-decoration:none">Choose a different quiz</a>
-  </div>
-
-  <!-- Intro -->
-  <div id="intro-view" class="panel" style="margin-top:12px">
-    <h2>Self-practice</h2>
-    <p>Go through a quiz on your own. You'll see the right answer right after each question.</p>
-
-    <h3 style="margin-top:24px">Have a code from your lesson?</h3>
-    <div class="field">
-      <label for="code-input">Room code</label>
-      <input id="code-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
-    </div>
-    <div class="error-text" id="code-error" style="display:none"></div>
-    <button id="code-start-btn" class="btn">Practice with this code</button>
-
-    <h3 style="margin-top:32px">Or pick any public practice quiz</h3>
-    <div class="field">
-      <label for="quiz-select">Choose a quiz</label>
-      <select id="quiz-select"></select>
-    </div>
-    <button id="start-btn" class="btn btn-outline">Start</button>
   </div>
 
   <!-- Quiz -->

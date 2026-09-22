@@ -54,7 +54,9 @@ let selectedAvatar = DEFAULT_AVATARS[0];
 
 function show(view) {
   [joinView, waitingView, questionView, finishedView].forEach((v) => (v.style.display = "none"));
-  view.style.display = "block";
+  // join-view is a two-box bento row (display: grid in site-chrome.css);
+  // everything else is a single stacked .panel.
+  view.style.display = view === joinView ? "grid" : "block";
 }
 
 function showMyReturnCode(player) {

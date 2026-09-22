@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/site-chrome.css" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.js"></script>
 </head>
@@ -33,39 +34,41 @@
 
   <div id="my-return-code" class="muted" style="display:none;margin-bottom:16px"></div>
 
-  <!-- Join -->
-  <div id="join-view" class="panel">
-    <h2>Join a quiz</h2>
-    <div class="field">
-      <label for="code-input">Room code</label>
-      <input id="code-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
-    </div>
-    <div class="field">
-      <label for="name-input">Your name</label>
-      <input id="name-input" type="text" placeholder="Your name" />
-    </div>
-    <div class="field">
-      <label>Pick an avatar</label>
-      <div id="avatar-picker" class="scramble-tiles"></div>
-      <details style="margin-top:8px">
-        <summary style="cursor:pointer;color:var(--cream-faint);font-size:13px">More avatars…</summary>
-        <div id="avatar-picker-more" class="scramble-tiles" style="margin-top:10px"></div>
-      </details>
-    </div>
-    <div class="error-text" id="join-error" style="display:none"></div>
-    <button id="join-btn" class="btn">Join</button>
-
-    <details style="margin-top:20px">
-      <summary style="cursor:pointer;color:var(--cream-faint);font-size:13px">Got disconnected? Reconnect with your return code</summary>
-      <div style="margin-top:12px">
-        <div class="field">
-          <label for="reconnect-input">Return code (ask your teacher)</label>
-          <input id="reconnect-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
-        </div>
-        <div class="error-text" id="reconnect-error" style="display:none"></div>
-        <button id="reconnect-btn" class="btn btn-outline">Reconnect</button>
+  <!-- Join — two boxes side by side (2:1 width): the join form is the main
+       action, reconnecting with a return code is the secondary one. -->
+  <div id="join-view" class="qz-bento-row">
+    <div class="panel">
+      <h2>Join a quiz</h2>
+      <div class="field">
+        <label for="code-input">Room code</label>
+        <input id="code-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
       </div>
-    </details>
+      <div class="field">
+        <label for="name-input">Your name</label>
+        <input id="name-input" type="text" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label>Pick an avatar</label>
+        <div id="avatar-picker" class="scramble-tiles"></div>
+        <details style="margin-top:8px">
+          <summary style="cursor:pointer;color:var(--cream-faint);font-size:13px">More avatars…</summary>
+          <div id="avatar-picker-more" class="scramble-tiles" style="margin-top:10px"></div>
+        </details>
+      </div>
+      <div class="error-text" id="join-error" style="display:none"></div>
+      <button id="join-btn" class="btn">Join</button>
+    </div>
+
+    <div class="panel">
+      <h2>Got disconnected?</h2>
+      <p>Reconnect with your return code.</p>
+      <div class="field">
+        <label for="reconnect-input">Return code (ask your teacher)</label>
+        <input id="reconnect-input" type="text" maxlength="4" placeholder="ABCD" style="text-transform:uppercase" />
+      </div>
+      <div class="error-text" id="reconnect-error" style="display:none"></div>
+      <button id="reconnect-btn" class="btn btn-outline">Reconnect</button>
+    </div>
   </div>
 
   <!-- Waiting room -->

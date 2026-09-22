@@ -35,7 +35,9 @@ const retryBtn = document.getElementById("retry-btn");
 
 function show(view) {
   [introView, confirmView, quizView, doneView].forEach((v) => (v.style.display = "none"));
-  view.style.display = "block";
+  // intro-view is a two-box bento row (display: grid in site-chrome.css);
+  // everything else is a single stacked .panel.
+  view.style.display = view === introView ? "grid" : "block";
 }
 
 async function loadQuizList() {
