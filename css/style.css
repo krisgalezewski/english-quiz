@@ -622,8 +622,13 @@
 }
 
 /* ENGLISH VOICED — link back to the main site. Same size as Lens/Games,
-   but white and bold so it reads as the brand link. */
+   white, and unbold by default; bolds on hover so it doesn't outweigh the
+   category links but still reads as the brand link when noticed. */
 .top-nav-links a.top-nav-brand-link {
+  color: var(--cream);
+  font-weight: 400;
+}
+.top-nav-links a.top-nav-brand-link:hover {
   color: var(--cream);
   font-weight: 800;
 }
