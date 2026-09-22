@@ -85,12 +85,12 @@ Supabase SQL editor, which adds two columns to `quizzes`:
 - **`category`** — `'Grammar'`, `'Vocabulary'`, or `'Use of English'`.
   A quiz with no category still works fine via the dropdown/code box; it
   just won't appear in the grid.
-- **`slug`** — names the quiz's artwork file at `assets/art/<slug>.svg`,
-  the same convention `/lessons/` uses. Leave it `null` until you've made
-  art for that quiz with Claude Design — the card falls back to a plain
-  category-coloured placeholder panel (already in `assets/art/`) when
-  `slug` is null or the file 404s, so nothing ever looks broken while
-  art is pending.
+- **`slug`** — names the quiz's artwork file at `assets/art/<slug>.html`
+  (an HTML/CSS fragment, not an image — see below). Leave it `null` until
+  you've made art for that quiz with Claude Design — the card falls back
+  to a plain category-coloured placeholder SVG (already in `assets/art/`)
+  when `slug` is null or the file 404s, so nothing ever looks broken
+  while art is pending.
 
 So the insert statement I hand back for a new quiz going forward will
 include both, e.g.:
@@ -113,6 +113,27 @@ where title = 'Phrasal Verbs — Set 1';
 Only quizzes with `available_for_practice = true` (the existing Public
 toggle on the host page) are ever fetched for the grid, same as the
 dropdown already worked.
+
+### How the artwork itself works
+
+Each card's `.qz-tile__art` panel (fixed 160px tall, full-bleed at the top
+of the card, dot-texture background) is filled by fetching
+`assets/art/<slug>.html` and injecting its contents with `innerHTML` — the
+same technique `/lessons/` uses, just with a plain HTML/CSS fragment
+instead of an SVG. That's a deliberate choice from the Claude Design
+handoff: the artwork is built entirely from `<div>`/`<span>` markup with
+inline styles (text, pills, circles, sticky notes — no images, no SVG), so
+`js/quiz-browse.js` fetches it as text and drops it straight into the art
+panel, same as it would an SVG file. Each fragment only contains the
+artwork's own children — position, height, overflow and the dot texture
+all come from the shared `.qz-tile__art` CSS class in `css/site-chrome.css`,
+so a new fragment doesn't need to repeat them.
+
+To add a new artwork: design it the same way (Archivo Black display type,
+JetBrains Mono 500 captions, cream `#F6EBDD` ink at various alphas, one
+real example as the focal element plus a couple of supporting details),
+save it as `assets/art/<slug>.html`, and set that quiz's `slug` column to
+match.
 
 ## Adding a new question type later
 

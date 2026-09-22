@@ -17,9 +17,9 @@
 import { supabase } from "./supabase-client.js";
 
 const CATS = [
-  { key: "Grammar", grid: "gridGrammar", count: "countGrammar", card: "var(--cat-grammar)" },
-  { key: "Vocabulary", grid: "gridVocabulary", count: "countVocabulary", card: "var(--cat-vocabulary)" },
-  { key: "Use of English", grid: "gridUseOfEnglish", count: "countUseOfEnglish", card: "var(--cat-use-of-english)" },
+  { key: "Grammar", grid: "gridGrammar", count: "countGrammar", card: "var(--cat-grammar)", dotAlpha: "0.09" },
+  { key: "Vocabulary", grid: "gridVocabulary", count: "countVocabulary", card: "var(--cat-vocabulary)", dotAlpha: "0.09" },
+  { key: "Use of English", grid: "gridUseOfEnglish", count: "countUseOfEnglish", card: "var(--cat-use-of-english)", dotAlpha: "0.1" },
 ];
 
 function categoryFallbackSlug(category) {
@@ -28,14 +28,16 @@ function categoryFallbackSlug(category) {
   return "_placeholder-use-of-english";
 }
 
-// Fetch + inject each card's SVG art panel (rather than <img src>) so the
-// Archivo webfont applies to any text drawn inside it — same reasoning as
-// /lessons/'s loadArt. Falls back to the category placeholder when the
-// quiz has no slug yet, or its named file 404s (art not made yet either).
+// Fetch + inject each card's art panel as an HTML fragment (rather than
+// <img src>) so the Archivo/JetBrains Mono webfonts apply to any text
+// drawn inside it — same reasoning as /lessons/'s loadArt. Real per-quiz
+// art (from the Claude Design handoff) is plain HTML/CSS, not SVG — see
+// assets/art/README.md. Falls back to the category placeholder SVG when
+// the quiz has no slug yet, or its named file 404s (art not made yet).
 const artCache = {};
 function loadArt(el, quiz) {
   if (!el) return;
-  const primaryUrl = quiz.slug ? `assets/art/${quiz.slug}.svg` : null;
+  const primaryUrl = quiz.slug ? `assets/art/${quiz.slug}.html` : null;
   const fallbackUrl = `assets/art/${categoryFallbackSlug(quiz.category)}.svg`;
 
   function useFallback() {
@@ -86,14 +88,17 @@ function buildTile(quiz, cat) {
   a.href = `practice.html?quiz=${quiz.id}`;
   a.style.setProperty("--tile-card", cat.card);
   a.style.setProperty("--tile-ink", "var(--cat-ink)");
+  a.style.setProperty("--tile-dot-alpha", cat.dotAlpha);
 
   const count = Number.isFinite(quiz.questionCount) ? `${quiz.questionCount} Q` : "";
   a.innerHTML =
     '<div class="qz-tile__art" data-art></div>' +
+    '<div class="qz-tile__body">' +
     '<div class="qz-tile__kicker"><span>' + escapeHtml(quiz.category) + '</span><span>' + count + "</span></div>" +
     '<div class="qz-tile__title">' + escapeHtml(quiz.title) + "</div>" +
     '<div class="qz-tile__desc">' + escapeHtml(quiz.description || "") + "</div>" +
-    '<span class="qz-tile__cta">Practice quiz →</span>';
+    '<span class="qz-tile__cta">Practice quiz →</span>' +
+    "</div>";
 
   loadArt(a.querySelector("[data-art]"), quiz);
   return a;

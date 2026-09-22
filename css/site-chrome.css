@@ -46,7 +46,9 @@
 .qz-cat__title { font-size: 20px; font-weight: 700; margin: 0; text-transform: none; letter-spacing: 0; }
 .qz-cat__count { font-size: 13px; color: var(--cream-faint); }
 
-.qz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+/* Cards designed for 280–330px width — matches the Claude Design artwork
+   handoff (see assets/art/README in the design-handoff export). */
+.qz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 
 .qz-tile {
   position: relative;
@@ -55,43 +57,49 @@
   color: var(--tile-ink, var(--cream));
   background: var(--tile-card, var(--surface));
   border-radius: var(--radius);
-  padding: 16px;
+  overflow: hidden;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .qz-tile:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgb(0 0 0 / 0.28); }
 
+/* Full-bleed artwork panel — fixed 160px height (not aspect-ratio) per the
+   design spec. The dot texture lives here rather than in each artwork
+   fragment, since it's identical within a category; --tile-dot-alpha is
+   set per tile (Use of English is very slightly brighter: .1 vs .09). */
 .qz-tile__art {
-  border-radius: var(--radius-sm);
+  position: relative;
+  height: 160px;
   overflow: hidden;
-  margin-bottom: 14px;
-  background: rgb(0 0 0 / 0.15);
-  aspect-ratio: 552 / 221;
+  background-image: radial-gradient(rgba(255, 255, 255, var(--tile-dot-alpha, 0.09)) 1px, transparent 1.2px);
+  background-size: 14px 14px;
 }
-.qz-tile__art svg { display: block; width: 100%; height: 100%; }
+
+.qz-tile__body {
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
 .qz-tile__kicker {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  opacity: 0.85;
-  margin-bottom: 8px;
 }
 .qz-tile__title {
-  font-family: var(--font-display);
+  font-family: 'Archivo Black', var(--font-display);
   text-transform: none;
   font-weight: 400;
-  letter-spacing: -0.01em;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.2;
-  margin-bottom: 6px;
 }
-.qz-tile__desc { font-size: 13px; line-height: 1.5; opacity: 0.8; margin-bottom: 12px; max-width: none; color: inherit; }
-.qz-tile__cta { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; }
+.qz-tile__desc { font-size: 12.5px; line-height: 1.5; opacity: 0.9; }
+.qz-tile__cta { font-size: 12px; font-weight: 700; margin-top: 6px; }
 
 /* ---------- "Or jump straight to a quiz" section label, above the kept
    dropdown/code panel — so it reads as a deliberate, scalable fallback
