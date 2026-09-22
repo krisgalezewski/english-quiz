@@ -37,11 +37,31 @@
     <p>Go through a quiz solo, any time — you'll see the right answer right after each question. Pick one below by category, or jump straight in with a code from your lesson.</p>
   </div>
 
+  <!-- Quiz — placed first so the quiz in progress always renders at the
+       top of the page, above the picker boxes and the category grid
+       below, instead of wherever it happened to sit in the markup. -->
+  <div id="quiz-view" class="panel" style="display:none">
+    <div class="header-chips">
+      <div class="header-chip chip-navy"><span class="label">Progress</span><span class="value" id="progress">-</span></div>
+      <div class="header-chip chip-amber"><span class="label">Score</span><span class="value" id="running-score">0</span></div>
+    </div>
+    <div id="question-container"></div>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button id="next-btn" class="btn" style="display:none">Next</button>
+      <button id="end-quiz-btn" class="btn btn-outline">End quiz</button>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div id="done-view" class="panel" style="display:none">
+    <h2>Nice work!</h2>
+    <p>Final score: <strong id="final-score">0</strong></p>
+    <button id="retry-btn" class="btn">Practice again</button>
+  </div>
+
   <!-- Ready-to-start confirmation, shown instead of intro-view when arriving
        via practice.html?quiz=<id> (grid tiles, quiz-of-day link) so a quiz
-       never launches straight into question 1 without an explicit click.
-       Placed above the category grid so it's visible without scrolling the
-       moment a tile is clicked. -->
+       never launches straight into question 1 without an explicit click. -->
   <div id="confirm-view" class="panel" style="display:none;margin-top:12px">
     <h2 id="confirm-title">Ready?</h2>
     <p id="confirm-desc"></p>
@@ -53,7 +73,7 @@
        main action, the lesson code is the secondary one. -->
   <div id="intro-view" class="qz-bento-row" style="margin-top:12px">
     <div class="panel">
-      <h2>Or pick any public practice quiz</h2>
+      <h2>Pick any public practice quiz</h2>
       <div class="field">
         <label for="quiz-select">Choose a quiz</label>
         <select id="quiz-select"></select>
@@ -91,23 +111,6 @@
       <div class="qz-cat__head"><h2 class="qz-cat__title">Use of English</h2><span class="qz-cat__count" id="countUseOfEnglish"></span></div>
       <div class="qz-grid" id="gridUseOfEnglish"></div>
     </div>
-  </div>
-
-  <!-- Quiz -->
-  <div id="quiz-view" class="panel" style="display:none">
-    <div class="header-chips">
-      <div class="header-chip chip-navy"><span class="label">Progress</span><span class="value" id="progress">-</span></div>
-      <div class="header-chip chip-amber"><span class="label">Score</span><span class="value" id="running-score">0</span></div>
-    </div>
-    <div id="question-container"></div>
-    <button id="next-btn" class="btn" style="display:none;margin-top:16px">Next</button>
-  </div>
-
-  <!-- Done -->
-  <div id="done-view" class="panel" style="display:none">
-    <h2>Nice work!</h2>
-    <p>Final score: <strong id="final-score">0</strong></p>
-    <button id="retry-btn" class="btn">Practice again</button>
   </div>
 </div>
 

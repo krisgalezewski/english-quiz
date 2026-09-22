@@ -29,6 +29,7 @@ const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("running-score");
 const questionContainer = document.getElementById("question-container");
 const nextBtn = document.getElementById("next-btn");
+const endQuizBtn = document.getElementById("end-quiz-btn");
 
 const finalScoreEl = document.getElementById("final-score");
 const retryBtn = document.getElementById("retry-btn");
@@ -168,6 +169,14 @@ nextBtn.addEventListener("click", () => {
 
 retryBtn.addEventListener("click", () => {
   show(introView);
+});
+
+// Let someone bail out of a quiz in progress rather than being stuck until
+// the last question — shows the same done screen, scored as far as they got.
+endQuizBtn.addEventListener("click", () => {
+  if (!confirm("End this quiz now? You'll see your score so far.")) return;
+  show(doneView);
+  finalScoreEl.textContent = state.score;
 });
 
 loadQuizList();

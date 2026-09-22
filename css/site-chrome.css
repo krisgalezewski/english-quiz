@@ -121,10 +121,19 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--gap);
-  align-items: start;
+  align-items: stretch;
 }
 
-.qz-bento-row .panel { margin-top: 0; }
+/* Equal-height boxes: stretch (above) makes both match the taller one;
+   the flex column + space-between then spreads each box's own content
+   (heading/fields up top, button at the bottom) instead of leaving one
+   big empty gap underneath the shorter box's content. */
+.qz-bento-row .panel {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 @media (max-width: 720px) {
   .qz-bento-row { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
