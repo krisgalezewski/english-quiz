@@ -30,6 +30,9 @@ const playingHeader = document.getElementById("playing-header");
 const playingTitleEl = document.getElementById("playing-title");
 const playingDescEl = document.getElementById("playing-desc");
 
+const heroSection = document.getElementById("hero-section");
+const fallbackLabel = document.getElementById("fallback-label");
+
 const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("running-score");
 const questionContainer = document.getElementById("question-container");
@@ -48,6 +51,31 @@ function show(view) {
   // stays up through the done screen, so the score screen still says
   // which quiz it was for; it's irrelevant for the picker/confirm steps.
   playingHeader.style.display = view === quizView || view === doneView ? "block" : "none";
+  // The big "Practice on your own" hero and its picker boxes are only
+  // useful when nothing is selected yet — once a quiz is confirmed,
+  // playing or finished, collapse it to a small combined label so it
+  // doesn't sit as dead weight between the quiz and the category grid.
+  const idle = view === introView;
+  heroSection.style.display = idle ? "block" : "none";
+  fallbackLabel.textContent = idle ? "Or browse by category" : "Quizzes — Browse by category";
+}
+
+let quizzesById = {};
+
+// Shared by the dropdown's "Go to quiz" button, a grid tile, and the
+// "Quiz of the day" link — all funnel through the same named confirmation
+// with an explicit "Start the quiz" button, rather than any of them
+// launching straight into question 1.
+function showConfirmFor(quizId) {
+  const quiz = quizzesById[quizId];
+  if (!quiz) return;
+  confirmTitleEl.textContent = quiz.title;
+  confirmDescEl.textContent = quiz.description || "";
+  show(confirmView);
+  confirmStartBtn.onclick = async () => {
+    await loadQuestions(quizId);
+    beginQuiz();
+  };
 }
 
 async function loadQuizList() {
@@ -61,24 +89,17 @@ async function loadQuizList() {
     startBtn.disabled = true;
     return;
   }
+  quizzesById = Object.fromEntries(data.map((q) => [q.id, q]));
   quizSelect.innerHTML = data.map((q) => `<option value="${q.id}">${q.title}</option>`).join("");
   startBtn.disabled = false;
 
   // Arriving via practice.html?quiz=<id> (a grid tile or the "Quiz of the
-  // day" link) — don't launch straight into question 1. Show a named
-  // confirmation instead, with an explicit "Start the quiz" button, same
-  // as picking a quiz from the dropdown already requires a "Start" click.
+  // day" link) — don't launch straight into question 1, show the same
+  // named confirmation the dropdown now uses.
   const preselect = getParam("quiz");
-  if (preselect && data.some((q) => q.id === preselect)) {
-    const picked = data.find((q) => q.id === preselect);
+  if (preselect && quizzesById[preselect]) {
     quizSelect.value = preselect;
-    confirmTitleEl.textContent = picked.title;
-    confirmDescEl.textContent = picked.description || "";
-    show(confirmView);
-    confirmStartBtn.onclick = async () => {
-      await loadQuestions(preselect);
-      beginQuiz();
-    };
+    showConfirmFor(preselect);
   }
 }
 
@@ -146,9 +167,8 @@ function beginQuiz() {
   renderCurrent();
 }
 
-startBtn.addEventListener("click", async () => {
-  await loadQuestions(quizSelect.value);
-  beginQuiz();
+startBtn.addEventListener("click", () => {
+  showConfirmFor(quizSelect.value);
 });
 
 function renderCurrent() {
