@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Self-practice — English Quiz</title>
+<meta name="description" content="Practice English quizzes solo, any time — grammar, vocabulary and use of English, organised by category.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="favicon-180.png">
@@ -11,26 +12,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/tokens.css" />
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/site-chrome.css" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-<div class="page">
-  <nav class="top-nav">
-    <a class="brand" href="index.html">English Quiz<span class="sub">with Kris</span></a>
-  <div class="top-nav-links">
-    <a href="index.html#quiz-of-day-card" class="quiz-nav-cat" style="--quiz-nav-accent: var(--block-teal)">Quiz of the day</a>
-    <a href="index.html#join-a-quiz-card" class="quiz-nav-cat" style="--quiz-nav-accent: var(--block-maroon)">Join a quiz</a>
-    <a href="index.html#self-practice-card" class="quiz-nav-cat" style="--quiz-nav-accent: var(--block-amber)">Self-practice</a>
-    <a href="https://englishvoiced.com/" class="top-nav-brand-link">ENGLISH VOICED</a>
+
+<div class="qz-site-header-wrap">
+  <header class="qz-site-header">
+    <a class="qz-logo" href="https://englishvoiced.com/" aria-label="English Voiced with Kris — home">
+      <span class="qz-logo__name">English Voiced</span>
+      <span class="qz-logo__by">with Kris</span>
+    </a>
+    <nav class="qz-site-nav" aria-label="Sections">
+      <a href="https://englishvoiced.com/#articles">Lens: Articles</a>
+      <a href="https://englishvoiced.com/#videos">Lens: Videos</a>
+      <a href="https://englishvoiced.com/#games">Games</a>
+      <a class="is-current" href="index.html">Quizzes</a>
+      <a href="https://englishvoiced.com/lessons/">Lessons</a>
+      <a href="https://englishvoiced.com/#courses">Courses</a>
+      <a class="qz-nav-book" href="https://englishvoiced.com/#book">Book a Lesson</a>
+    </nav>
+  </header>
+</div>
+<div class="qz-subbar">
+  <a class="qz-crumb" href="index.html">← All quizzes</a>
+  <div class="qz-subbar-links">
+    <a href="index.html#quiz-of-day-card" class="qz-nav-cat" style="--qz-nav-accent: var(--block-teal)">Quiz of the day</a>
+    <a href="play.html" class="qz-nav-cat" style="--qz-nav-accent: var(--block-maroon)">Join a quiz</a>
     <a href="https://krisgalezewski.github.io/english-lens/" target="_blank" rel="noopener">Lens</a>
     <a href="https://krisgalezewski.github.io/english-games/" target="_blank" rel="noopener">Games</a>
   </div>
-  </nav>
+</div>
 
-  <a class="btn btn-outline" href="index.html" style="display:inline-block;margin-bottom:24px;text-decoration:none">← Back to home</a>
+<div class="qz-hero">
+  <div class="qz-eyebrow">Quizzes</div>
+  <h1>Practice on your own</h1>
+  <p>Go through a quiz solo, any time — you'll see the right answer right after each question. Pick one below by category, or jump straight in with a code from your lesson.</p>
+</div>
+
+<!-- Category grid — filled by js/quiz-browse.js from the quizzes table.
+     Hidden automatically if no public quiz has a category set yet (see
+     sql/migration-010-add-quiz-category.sql); the dropdown/code box below
+     always works regardless. -->
+<div id="quiz-categories">
+  <div class="qz-cat">
+    <div class="qz-cat__head"><h2 class="qz-cat__title">Grammar</h2><span class="qz-cat__count" id="countGrammar"></span></div>
+    <div class="qz-grid" id="gridGrammar"></div>
+  </div>
+  <div class="qz-cat">
+    <div class="qz-cat__head"><h2 class="qz-cat__title">Vocabulary</h2><span class="qz-cat__count" id="countVocabulary"></span></div>
+    <div class="qz-grid" id="gridVocabulary"></div>
+  </div>
+  <div class="qz-cat">
+    <div class="qz-cat__head"><h2 class="qz-cat__title">Use of English</h2><span class="qz-cat__count" id="countUseOfEnglish"></span></div>
+    <div class="qz-grid" id="gridUseOfEnglish"></div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="qz-fallback__label" style="margin-top:44px">Or jump straight to a quiz</div>
 
   <!-- Intro -->
-  <div id="intro-view" class="panel">
+  <div id="intro-view" class="panel" style="margin-top:12px">
     <h2>Self-practice</h2>
     <p>Go through a quiz on your own. You'll see the right answer right after each question.</p>
 
@@ -42,7 +85,7 @@
     <div class="error-text" id="code-error" style="display:none"></div>
     <button id="code-start-btn" class="btn">Practice with this code</button>
 
-    <h3 style="margin-top:32px">Or pick a public practice quiz</h3>
+    <h3 style="margin-top:32px">Or pick any public practice quiz</h3>
     <div class="field">
       <label for="quiz-select">Choose a quiz</label>
       <select id="quiz-select"></select>
@@ -69,5 +112,6 @@
 </div>
 
 <script type="module" src="js/practice.js"></script>
+<script type="module" src="js/quiz-browse.js"></script>
 </body>
 </html>

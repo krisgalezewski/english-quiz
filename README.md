@@ -72,6 +72,48 @@ Workflow going forward: send me the new vocab/grammar point, I'll hand
 back a `quizzes` + `questions` insert statement (like `sql/seed-example.sql`)
 that you paste into the Supabase SQL editor. No code changes needed.
 
+## Category + artwork (practice.html's browse grid)
+
+practice.html now presents public quizzes as a `/lessons/`-style grid —
+one artwork card per quiz, grouped into Grammar / Vocabulary / Use of
+English — above the original dropdown and room-code box, which are kept
+exactly as they were as a fast fallback for once the list gets long.
+
+This needs `sql/migration-010-add-quiz-category.sql` run once in the
+Supabase SQL editor, which adds two columns to `quizzes`:
+
+- **`category`** — `'Grammar'`, `'Vocabulary'`, or `'Use of English'`.
+  A quiz with no category still works fine via the dropdown/code box; it
+  just won't appear in the grid.
+- **`slug`** — names the quiz's artwork file at `assets/art/<slug>.svg`,
+  the same convention `/lessons/` uses. Leave it `null` until you've made
+  art for that quiz with Claude Design — the card falls back to a plain
+  category-coloured placeholder panel (already in `assets/art/`) when
+  `slug` is null or the file 404s, so nothing ever looks broken while
+  art is pending.
+
+So the insert statement I hand back for a new quiz going forward will
+include both, e.g.:
+
+```sql
+insert into quizzes (title, description, tags, category, slug)
+values ('Phrasal Verbs — Set 1', 'Warm-up quiz for the phrasal verbs lesson',
+        array['phrasal-verbs', 'b1'], 'Vocabulary', 'phrasal-verbs-quiz')
+returning id;
+```
+
+To backfill an existing quiz:
+
+```sql
+update quizzes
+set category = 'Vocabulary', slug = 'phrasal-verbs-quiz'
+where title = 'Phrasal Verbs — Set 1';
+```
+
+Only quizzes with `available_for_practice = true` (the existing Public
+toggle on the host page) are ever fetched for the grid, same as the
+dropdown already worked.
+
 ## Adding a new question type later
 
 1. Add the type to the `check` constraint on `questions.type` in

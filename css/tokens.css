@@ -28,6 +28,26 @@
   --radius-sm: 12px;
   --gap: 20px;
   --max-width: 1040px;
+
+  /* ---- Site-nav + category-grid accents ----------------------------------
+     Added for the /lessons/-style chrome on practice.html and play.html.
+     Values are copied exactly from englishvoiced.com's shared brand tokens
+     (see krisgalezewski.github.io/lessons/assets/lesson-theme.css) so the
+     "Quizzes" nav link and the practice-page category cards read as the
+     same site rather than a bolted-on palette. --wrap matches the same
+     header max-width used there too. */
+  --wrap: 1300px;
+  --quizzes: #9c2f5e;
+  --quizzes-hi: #b23a6d;
+  --quizzes-tint: #e086ab;
+
+  /* Category card colours — same three brand hues /lessons/ uses for
+     Grammar and Vocabulary; "Use of English" reuses its Practical-use
+     amber so the two sites' section colours line up 1:1. */
+  --cat-grammar: #a4193d;
+  --cat-vocabulary: #116565;
+  --cat-use-of-english: #9a7b12;
+  --cat-ink: #f2efe6;
 }
 
 * { box-sizing: border-box; }

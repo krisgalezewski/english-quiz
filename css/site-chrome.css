@@ -1,0 +1,197 @@
+/* ==========================================================================
+   English Quiz — site chrome
+   Linked (after tokens.css + style.css) on practice.html and play.html only.
+   Adds the same full-site header + breadcrumb subbar used on
+   englishvoiced.com/lessons/, plus (practice.html only) the category
+   artwork grid that presents public quizzes the way /lessons/ presents
+   lessons — a coloured card per category with an art panel on top.
+
+   Everything here is namespaced with a `qz-` prefix so it can't collide
+   with the existing bento / panel / question-view classes in style.css;
+   this file is purely additive chrome around them, not a replacement.
+   Colours and spacing reuse the tokens appended to tokens.css (--wrap,
+   --quizzes*, --cat-*) rather than inventing a parallel palette, so the
+   header background is the same near-black as the rest of the app with
+   no visible seam.
+   ========================================================================== */
+
+/* ---------- Full site nav (matches /lessons/'s header exactly) ---------- */
+
+.qz-site-header-wrap { border-bottom: 1px solid var(--border); }
+
+.qz-site-header {
+  max-width: calc(var(--wrap) + 56px);
+  margin: 0 auto;
+  padding: 22px 24px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.qz-site-header a { text-decoration: none; }
+
+.qz-logo { display: flex; align-items: baseline; gap: 10px; }
+.qz-logo__name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.qz-logo__by {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}
+
+.qz-site-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.qz-site-nav a { color: var(--cream-dim); transition: opacity 0.15s, color 0.15s; }
+.qz-site-nav a:hover { opacity: 0.8; }
+.qz-site-nav a.is-current { color: var(--quizzes-tint); }
+.qz-site-nav a.qz-nav-book {
+  color: var(--bg);
+  background: var(--cream);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* ---------- Subbar: breadcrumb + quick mode / cross-site links ---------- */
+
+.qz-subbar {
+  max-width: calc(var(--wrap) + 56px);
+  margin: 0 auto;
+  padding: 14px 24px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.qz-crumb { font-size: 13px; color: var(--cream-faint); text-decoration: none; border-bottom: 1px solid transparent; }
+.qz-crumb:hover { color: var(--quizzes-tint); border-bottom-color: currentColor; }
+
+.qz-subbar-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.qz-subbar-links a {
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+.qz-subbar-links a:hover { color: var(--cream); }
+.qz-subbar-links a.qz-nav-cat {
+  color: var(--cream);
+  font-weight: 800;
+  border-bottom-color: var(--qz-nav-accent, var(--quizzes));
+}
+.qz-subbar-links a.qz-nav-cat:hover { color: var(--qz-nav-accent, var(--quizzes)); }
+
+/* ---------- Hero ---------- */
+
+.qz-hero { max-width: var(--max-width); margin: 0 auto; padding: 40px 24px 4px; }
+.qz-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--quizzes-tint);
+  margin-bottom: 10px;
+}
+.qz-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: none;
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+.qz-hero p { font-size: 15.5px; line-height: 1.6; color: var(--cream-dim); max-width: 640px; margin: 0; }
+
+/* ---------- Category sections + artwork tile grid ---------- */
+
+.qz-cat { max-width: var(--max-width); margin: 44px auto 0; padding: 0 24px; }
+.qz-cat__head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.qz-cat__title { font-size: 20px; font-weight: 700; margin: 0; text-transform: none; letter-spacing: 0; }
+.qz-cat__count { font-size: 13px; color: var(--cream-faint); }
+
+.qz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+
+.qz-tile {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: var(--tile-ink, var(--cream));
+  background: var(--tile-card, var(--surface));
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.qz-tile:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgb(0 0 0 / 0.28); }
+
+.qz-tile__art {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: rgb(0 0 0 / 0.15);
+  aspect-ratio: 552 / 221;
+}
+.qz-tile__art svg { display: block; width: 100%; height: 100%; }
+
+.qz-tile__kicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+.qz-tile__title {
+  font-family: var(--font-display);
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.qz-tile__desc { font-size: 13px; line-height: 1.5; opacity: 0.8; margin-bottom: 12px; max-width: none; color: inherit; }
+.qz-tile__cta { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; }
+
+/* ---------- "Or jump straight to a quiz" — the kept dropdown/code row ----
+   Same panel visual language as the rest of the app (.panel), just given
+   a section label so it reads as a deliberate, scalable fallback next to
+   the grid above rather than a leftover control. */
+
+.qz-fallback { max-width: var(--max-width); margin: 44px auto 0; padding: 0 24px; }
+.qz-fallback__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 720px) {
+  .qz-site-header, .qz-subbar, .qz-hero, .qz-cat, .qz-fallback { padding-left: 20px; padding-right: 20px; }
+}
