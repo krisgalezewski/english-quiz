@@ -11,6 +11,7 @@ const state = {
 };
 
 const introView = document.getElementById("intro-view");
+const confirmView = document.getElementById("confirm-view");
 const quizView = document.getElementById("quiz-view");
 const doneView = document.getElementById("done-view");
 
@@ -19,6 +20,10 @@ const startBtn = document.getElementById("start-btn");
 const codeInput = document.getElementById("code-input");
 const codeStartBtn = document.getElementById("code-start-btn");
 const codeError = document.getElementById("code-error");
+
+const confirmTitleEl = document.getElementById("confirm-title");
+const confirmDescEl = document.getElementById("confirm-desc");
+const confirmStartBtn = document.getElementById("confirm-start-btn");
 
 const progressEl = document.getElementById("progress");
 const scoreEl = document.getElementById("running-score");
@@ -29,14 +34,14 @@ const finalScoreEl = document.getElementById("final-score");
 const retryBtn = document.getElementById("retry-btn");
 
 function show(view) {
-  [introView, quizView, doneView].forEach((v) => (v.style.display = "none"));
+  [introView, confirmView, quizView, doneView].forEach((v) => (v.style.display = "none"));
   view.style.display = "block";
 }
 
 async function loadQuizList() {
   const { data, error } = await supabase
     .from("quizzes")
-    .select("id, title")
+    .select("id, title, description")
     .eq("available_for_practice", true)
     .order("created_at");
   if (error || !data || data.length === 0) {
@@ -47,11 +52,21 @@ async function loadQuizList() {
   quizSelect.innerHTML = data.map((q) => `<option value="${q.id}">${q.title}</option>`).join("");
   startBtn.disabled = false;
 
+  // Arriving via practice.html?quiz=<id> (a grid tile or the "Quiz of the
+  // day" link) — don't launch straight into question 1. Show a named
+  // confirmation instead, with an explicit "Start the quiz" button, same
+  // as picking a quiz from the dropdown already requires a "Start" click.
   const preselect = getParam("quiz");
   if (preselect && data.some((q) => q.id === preselect)) {
+    const picked = data.find((q) => q.id === preselect);
     quizSelect.value = preselect;
-    await loadQuestions(preselect);
-    beginQuiz();
+    confirmTitleEl.textContent = picked.title;
+    confirmDescEl.textContent = picked.description || "";
+    show(confirmView);
+    confirmStartBtn.onclick = async () => {
+      await loadQuestions(preselect);
+      beginQuiz();
+    };
   }
 }
 
