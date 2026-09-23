@@ -636,3 +636,10 @@
 @media (max-width: 560px) {
   .top-nav { flex-wrap: wrap; row-gap: 10px; }
 }
+
+/* ---------- Footer (matches englishvoiced.com/courses/) ---------- */
+.site-footer {
+  padding: 40px 0 0;
+  font-size: 12px;
+  color: var(--cream-dim);
+}
