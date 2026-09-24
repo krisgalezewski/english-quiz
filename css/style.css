@@ -91,7 +91,9 @@
   display: inline-block;
 }
 
-.btn:hover { background: #ffffff; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: #ffffff; }
+}
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .btn-outline {
@@ -224,7 +226,11 @@
   font-size: 16px;
 }
 
-.option-btn:hover:not(:disabled) { border-color: var(--cream-faint); }
+/* Hover only with a real mouse: on phones the "hover" sticks to whatever is
+   under the last tap, so the next question's answer got a white frame. */
+@media (hover: hover) and (pointer: fine) {
+  .option-btn:hover:not(:disabled) { border-color: var(--cream-faint); }
+}
 
 .option-btn.selected {
   border-color: var(--cream);
@@ -365,7 +371,9 @@
   cursor: pointer;
 }
 
-.tile.placed:hover { opacity: 0.85; }
+@media (hover: hover) and (pointer: fine) {
+  .tile.placed:hover { opacity: 0.85; }
+}
 
 .answer-preview {
   display: flex;

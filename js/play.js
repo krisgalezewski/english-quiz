@@ -346,6 +346,11 @@ function onSessionChange() {
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), handleSubmit);
     const seconds = state.session.time_limit_seconds || currentQuestion().time_limit_seconds || 20;
     state.stopTimer = startCountdown(timerEl, state.session.question_started_at, seconds, () => {
+      // Typed (or built) an answer but didn't manage to press Submit in time:
+      // send it anyway rather than counting it as "no answer".
+      const handle = state.currentHandle;
+      const pending = !state.hasAnsweredCurrent && handle && handle.pendingResponse && handle.pendingResponse();
+      if (pending) handleSubmit(pending);
       questionContainer.querySelectorAll("button, input").forEach((n) => (n.disabled = true));
     });
   } else if (state.session.status === "reveal") {
@@ -377,7 +382,7 @@ async function handleSubmit(response) {
   const elapsedMs = Math.max(0, Date.now() - startedAt);
   state.currentElapsedMs = elapsedMs;
 
-  await supabase.from("answers").insert({
+  const { error } = await supabase.from("answers").insert({
     session_id: state.session.id,
     player_id: state.player.id,
     question_id: question.id,
@@ -385,6 +390,17 @@ async function handleSubmit(response) {
     is_correct: correct,
     time_taken_ms: elapsedMs,
   });
+  if (error) {
+    // Didn't reach the server (e.g. a weak connection): let them try again
+    // instead of silently counting the question as unanswered.
+    console.warn("Answer not saved:", error.message);
+    state.hasAnsweredCurrent = false;
+    state.currentResponse = null;
+    state.currentElapsedMs = null;
+    if (state.currentHandle && state.currentHandle.allowRetry) {
+      state.currentHandle.allowRetry("Couldn't send your answer — check your connection and tap Submit again.");
+    }
+  }
   // Points are awarded once the host reveals the answer, not here - see
   // awardPointsIfDue, called from the "reveal" branch of onSessionChange.
 }

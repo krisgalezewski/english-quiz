@@ -53,6 +53,13 @@ function renderMCQ(container, question, onSubmit) {
   });
 
   return {
+    allowRetry(message) {
+      buttons.forEach((b) => { b.disabled = false; b.classList.remove("selected"); });
+      let err = container.querySelector(".error-text");
+      if (!err) { err = document.createElement("div"); err.className = "error-text"; container.appendChild(err); }
+      err.textContent = message;
+      err.style.display = "block";
+    },
     showFeedback(response, correct) {
       buttons.forEach((b) => (b.disabled = true));
       const correctIndex = question.payload.correctIndex;
@@ -87,7 +94,7 @@ function renderGapFill(container, question, onSubmit) {
     <div class="task-instruction">Type the whole word or phrase (including the first letter shown above), then press Submit.</div>
     <div class="input-row">
       <div class="input-wrap pulse-highlight">
-        <input class="gap-fill-input" type="text" placeholder="Type here" autocomplete="off" />
+        <input class="gap-fill-input" type="text" placeholder="Type here" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" />
       </div>
       <button class="btn" type="button" data-role="submit">Submit</button>
     </div>
@@ -104,7 +111,9 @@ function renderGapFill(container, question, onSubmit) {
   }
   input.addEventListener("focus", focusSubmitNext, { once: true });
 
+  let submitted = false;
   function submit() {
+    if (submitted || input.disabled) return;
     const value = input.value;
     if (!normalize(value)) {
       error.textContent = "Type an answer first.";
@@ -112,19 +121,37 @@ function renderGapFill(container, question, onSubmit) {
       return;
     }
     error.style.display = "none";
+    submitted = true;
     input.disabled = true;
     submitBtn.disabled = true;
     submitBtn.classList.remove("pulse-highlight");
     onSubmit({ text: value });
   }
 
+  // On iPhones the first tap on Submit while the keyboard is open closes the
+  // keyboard, the page jumps, and the "click" never reaches the button — the
+  // answer was silently lost. Reacting on pointerdown (and keeping the input
+  // focused so nothing moves) makes one tap enough; click stays as a fallback.
+  submitBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); submit(); });
   submitBtn.addEventListener("click", submit);
   input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") submit();
+    if (e.key === "Enter") { e.preventDefault(); submit(); }
     error.style.display = "none";
   });
 
   return {
+    // Something typed but not submitted yet (used when time runs out)
+    pendingResponse() {
+      return !submitted && normalize(input.value) ? { text: input.value } : null;
+    },
+    // Sending failed: let the student try again
+    allowRetry(message) {
+      submitted = false;
+      input.disabled = false;
+      submitBtn.disabled = false;
+      error.textContent = message;
+      error.style.display = "block";
+    },
     showFeedback(response, correct) {
       input.disabled = true;
       submitBtn.disabled = true;
@@ -238,12 +265,25 @@ function renderWordBuilder(container, question, onSubmit) {
     submitBtn.disabled = true;
     submitBtn.classList.remove("pulse-highlight");
     clearBtn.disabled = true;
+    submitted = true;
     onSubmit({ text: built.map((b) => b.ch).join("") });
   }
+  let submitted = false;
 
   submitBtn.addEventListener("click", submit);
 
   return {
+    pendingResponse() {
+      return !submitted && built.length ? { text: built.map((b) => b.ch).join("") } : null;
+    },
+    allowRetry(message) {
+      submitted = false;
+      tiles.forEach((t) => { if (!t.classList.contains("used")) t.disabled = false; });
+      submitBtn.disabled = false;
+      clearBtn.disabled = false;
+      error.textContent = message;
+      error.style.display = "block";
+    },
     showFeedback(response, correct) {
       tiles.forEach((t) => (t.disabled = true));
       submitBtn.disabled = true;
