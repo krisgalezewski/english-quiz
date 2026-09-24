@@ -3,6 +3,9 @@ import { renderQuestion, formatResponse, correctAnswerText } from "./question-ty
 import { generateRoomCode, el, startCountdown } from "./utils.js";
 import { playDing, playFanfare } from "./sound.js";
 
+// Running quizzes is teacher-only in the database: sign in first (see /teacher-login.js)
+if (window.EVTeacherGate) window.EVTeacherGate(supabase);
+
 const state = {
   session: null,
   accessCode: null,
