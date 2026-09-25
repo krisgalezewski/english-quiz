@@ -1,0 +1,458 @@
+{
+  "site-phrasal-verbs": {
+    "id": "272e449b-8135-5f3a-a021-ae04d6ea17d0",
+    "title": "Phrasal Verbs — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-phrasal-verbs.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-phrasal-verbs.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=272e449b-8135-5f3a-a021-ae04d6ea17d0"
+  },
+  "site-confusable-pairs": {
+    "id": "91d7fbc9-4e2d-5b0c-a8aa-c2c57f4564a3",
+    "title": "Confusable Pairs — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-confusable-pairs.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-confusable-pairs.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=91d7fbc9-4e2d-5b0c-a8aa-c2c57f4564a3"
+  },
+  "site-idioms": {
+    "id": "52329a05-2251-51bd-8585-ad5a1fff7e0f",
+    "title": "Idioms — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-idioms.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-idioms.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=52329a05-2251-51bd-8585-ad5a1fff7e0f"
+  },
+  "site-word-formation": {
+    "id": "551a7af4-2366-5a1a-b6f7-09bef210abe5",
+    "title": "Word Formation — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-word-formation.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-word-formation.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=551a7af4-2366-5a1a-b6f7-09bef210abe5"
+  },
+  "site-collocations": {
+    "id": "cd55b686-7dfc-57aa-a1ac-d292ac8b039e",
+    "title": "Collocations — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-collocations.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-collocations.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=cd55b686-7dfc-57aa-a1ac-d292ac8b039e"
+  },
+  "site-determiners": {
+    "id": "656e117d-b008-5567-97ef-661b35e30c37",
+    "title": "Determiners — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-determiners.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-determiners.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=656e117d-b008-5567-97ef-661b35e30c37"
+  },
+  "site-sentences-clauses": {
+    "id": "ddbe0ab5-1b8a-567b-9f80-4dc773ab8db8",
+    "title": "Sentences & Clauses — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-sentences-and-clauses.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-sentences-and-clauses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=ddbe0ab5-1b8a-567b-9f80-4dc773ab8db8"
+  },
+  "site-inversion": {
+    "id": "ad02ea0d-4e10-5469-bf55-3f2961fdd0d4",
+    "title": "Inversion & Negative Adverbials — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-inversion-negative-adverbials.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-inversion-negative-adverbials.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=ad02ea0d-4e10-5469-bf55-3f2961fdd0d4"
+  },
+  "site-cleft-sentences": {
+    "id": "ea11fb4c-1714-5afc-a754-c82f60e2e2a9",
+    "title": "Cleft Sentences — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-cleft-sentences.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-cleft-sentences.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=ea11fb4c-1714-5afc-a754-c82f60e2e2a9"
+  },
+  "site-conditionals": {
+    "id": "1f1a4e71-7efa-5ec3-a90a-9b7612c42d10",
+    "title": "Conditionals — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-conditionals.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-conditionals.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=1f1a4e71-7efa-5ec3-a90a-9b7612c42d10"
+  },
+  "site-verb-tenses": {
+    "id": "d5369334-11c1-52c9-a704-b6f05a1fc4e3",
+    "title": "Verb Tenses — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-verb-tenses.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-verb-tenses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=d5369334-11c1-52c9-a704-b6f05a1fc4e3"
+  },
+  "site-pronunciation": {
+    "id": "a99531d6-c60d-5af6-b0cb-bfcff53f77a5",
+    "title": "Pronunciation — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-pronunciation.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-pronunciation.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=a99531d6-c60d-5af6-b0cb-bfcff53f77a5"
+  },
+  "site-transitional-words": {
+    "id": "5d74f5e6-a984-5605-8e83-6ab84c342e48",
+    "title": "Transitional Words — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-transitional-words.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-transitional-words.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=5d74f5e6-a984-5605-8e83-6ab84c342e48"
+  },
+  "site-hedging-language": {
+    "id": "bdb2d329-98c5-52fd-a906-fa05b74c4215",
+    "title": "Hedging Language — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/english-hedging-language.html",
+    "lesson_url": "https://englishvoiced.com/lessons/english-hedging-language.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=bdb2d329-98c5-52fd-a906-fa05b74c4215"
+  },
+  "site-workplace-eq": {
+    "id": "b215141d-dd6f-57e8-b515-d3cb80bbb68f",
+    "title": "Workplace EQ — Lesson Quiz",
+    "course": "site",
+    "lesson": "/lessons/workplace-eq.html",
+    "lesson_url": "https://englishvoiced.com/lessons/workplace-eq.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b215141d-dd6f-57e8-b515-d3cb80bbb68f"
+  },
+  "b1-01": {
+    "id": "4a959c34-91ab-5a88-83bb-2e762a7df476",
+    "title": "Present Simple vs Present Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-01-present-simple-vs-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-01-present-simple-vs-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=4a959c34-91ab-5a88-83bb-2e762a7df476"
+  },
+  "b1-02": {
+    "id": "6b38b8e6-03fc-5cd7-a2e7-88b51e953236",
+    "title": "Past Simple vs Past Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-02-past-simple-vs-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-02-past-simple-vs-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=6b38b8e6-03fc-5cd7-a2e7-88b51e953236"
+  },
+  "b1-03": {
+    "id": "9307db9e-29f0-560f-a5e9-f31f3892a631",
+    "title": "Present Perfect vs Past Simple",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-03-present-perfect-vs-past-simple.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-03-present-perfect-vs-past-simple.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=9307db9e-29f0-560f-a5e9-f31f3892a631"
+  },
+  "b1-04": {
+    "id": "74bee7ca-1922-5948-9c15-f8ca69b43a54",
+    "title": "Present Perfect Simple vs Present Perfect Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-04-present-perfect-simple-vs-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-04-present-perfect-simple-vs-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=74bee7ca-1922-5948-9c15-f8ca69b43a54"
+  },
+  "b1-05": {
+    "id": "0b012328-f1d1-5018-bc08-e169e22f9fbd",
+    "title": "Past Perfect Simple vs Past Perfect Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-05-past-perfect-simple-vs-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-05-past-perfect-simple-vs-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=0b012328-f1d1-5018-bc08-e169e22f9fbd"
+  },
+  "b1-06": {
+    "id": "1aa7c602-95fa-5f37-8feb-a8495b56c609",
+    "title": "Future Forms: Will vs Going To vs Present Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-06-future-forms.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-06-future-forms.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=1aa7c602-95fa-5f37-8feb-a8495b56c609"
+  },
+  "b1-07": {
+    "id": "b570b9a4-847b-51d6-9f53-6c6756df4753",
+    "title": "Future Perfect, Future Perfect Continuous & Future Continuous",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-07-future-perfect-vs-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-07-future-perfect-vs-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b570b9a4-847b-51d6-9f53-6c6756df4753"
+  },
+  "b1-08": {
+    "id": "dc94976e-f456-5fdf-a4fd-cbe3d463824a",
+    "title": "Modals of Ability, Permission, Obligation & Prohibition",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-08-modals-ability-permission-obligation.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-08-modals-ability-permission-obligation.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=dc94976e-f456-5fdf-a4fd-cbe3d463824a"
+  },
+  "b1-09": {
+    "id": "745a97bd-aa69-5661-ae06-5c1171a31b28",
+    "title": "Modals of Deduction & Speculation",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-09-modals-deduction-speculation.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-09-modals-deduction-speculation.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=745a97bd-aa69-5661-ae06-5c1171a31b28"
+  },
+  "b1-10": {
+    "id": "5c81ab0b-2094-506e-ba4b-b556c5239b04",
+    "title": "Modal Perfect: Should Have, Could Have, Would Have",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-10-modal-perfect.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-10-modal-perfect.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=5c81ab0b-2094-506e-ba4b-b556c5239b04"
+  },
+  "b1-11": {
+    "id": "df6f4cd6-18bf-52ba-aa1b-02e189fb71e1",
+    "title": "Passive Voice: Core Forms Across Tenses",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-11-passive-voice.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-11-passive-voice.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=df6f4cd6-18bf-52ba-aa1b-02e189fb71e1"
+  },
+  "b1-12": {
+    "id": "6fb834aa-617e-5902-9d5f-551b3eb3ea1f",
+    "title": "Passive Extensions: Reporting Structures & Causative",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-12-passive-extensions.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-12-passive-extensions.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=6fb834aa-617e-5902-9d5f-551b3eb3ea1f"
+  },
+  "b1-13": {
+    "id": "24773652-cddf-5ebc-a8b7-2511ad65dafb",
+    "title": "Conditionals: Zero & First",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-13-conditionals-zero-first.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-13-conditionals-zero-first.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=24773652-cddf-5ebc-a8b7-2511ad65dafb"
+  },
+  "b1-14": {
+    "id": "3b329ecb-0c7b-5f31-bbb0-22399172861d",
+    "title": "Second Conditional",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-14-second-conditional.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-14-second-conditional.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=3b329ecb-0c7b-5f31-bbb0-22399172861d"
+  },
+  "b1-15": {
+    "id": "93406a25-be3c-50e9-a452-0a47804ea8be",
+    "title": "Third Conditional",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-15-third-conditional.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-15-third-conditional.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=93406a25-be3c-50e9-a452-0a47804ea8be"
+  },
+  "b1-16": {
+    "id": "d754c54e-155f-5432-b42d-e380917f43f1",
+    "title": "Mixed Conditionals",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-16-mixed-conditionals.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-16-mixed-conditionals.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=d754c54e-155f-5432-b42d-e380917f43f1"
+  },
+  "b1-17": {
+    "id": "549f02ed-96b4-5f2b-a01e-5795fae0146b",
+    "title": "Wish / If Only",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-17-wish-if-only.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-17-wish-if-only.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=549f02ed-96b4-5f2b-a01e-5795fae0146b"
+  },
+  "b1-18": {
+    "id": "633a94b6-8f3a-5a3d-b929-76d4497db3f7",
+    "title": "Reported Speech",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-18-reported-speech.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-18-reported-speech.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=633a94b6-8f3a-5a3d-b929-76d4497db3f7"
+  },
+  "b1-19": {
+    "id": "405b18be-1e1d-52d4-86b2-d0a4b91d30ea",
+    "title": "Relative Clauses: Defining vs Non-defining",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-19-relative-clauses.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-19-relative-clauses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=405b18be-1e1d-52d4-86b2-d0a4b91d30ea"
+  },
+  "b1-20": {
+    "id": "cb489e52-754c-56de-9939-5c1ef05495c5",
+    "title": "Gerunds vs Infinitives",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-20-gerunds-vs-infinitives.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-20-gerunds-vs-infinitives.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=cb489e52-754c-56de-9939-5c1ef05495c5"
+  },
+  "b1-21": {
+    "id": "ec92a6de-c233-50f0-9ea1-2c780c5b3ea4",
+    "title": "Articles & Determiners",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-21-articles-determiners.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-21-articles-determiners.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=ec92a6de-c233-50f0-9ea1-2c780c5b3ea4"
+  },
+  "b1-22": {
+    "id": "987c3376-d8fc-5d69-b7f9-ce960419366b",
+    "title": "Linking Words, Hedging & Cleft Sentences",
+    "course": "english-plus-b1-b2",
+    "lesson": "lesson-22-discourse-emphasis-capstone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-grammar-course/lesson-22-discourse-emphasis-capstone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=987c3376-d8fc-5d69-b7f9-ce960419366b"
+  },
+  "b2-01": {
+    "id": "57273d25-7c48-5a14-ab82-d6847a06a21e",
+    "title": "Narrative Tenses in Extended Storytelling",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-01-narrative-tenses.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-01-narrative-tenses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=57273d25-7c48-5a14-ab82-d6847a06a21e"
+  },
+  "b2-02": {
+    "id": "b631d7bb-a1be-58bb-9f0b-fbc006b0e62c",
+    "title": "Used To vs Would for Past Habits",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-02-used-to-vs-would.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-02-used-to-vs-would.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b631d7bb-a1be-58bb-9f0b-fbc006b0e62c"
+  },
+  "b2-03": {
+    "id": "9e5aecae-5530-5b27-8e20-b751b9dd804e",
+    "title": "Future in the Past + Future Perfect Continuous",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-03-future-in-the-past.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-03-future-in-the-past.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=9e5aecae-5530-5b27-8e20-b751b9dd804e"
+  },
+  "b2-04": {
+    "id": "cba44022-25db-569b-b512-7d7b756dac14",
+    "title": "Academic Hedging: Seem To, Appear To, Tend To, Be Likely To",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-04-academic-hedging.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-04-academic-hedging.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=cba44022-25db-569b-b512-7d7b756dac14"
+  },
+  "b2-05": {
+    "id": "da1d95ab-fdc4-56f9-b930-eae750766d7b",
+    "title": "Needn't Have vs Didn't Need To",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-05-neednt-have.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-05-neednt-have.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=da1d95ab-fdc4-56f9-b930-eae750766d7b"
+  },
+  "b2-06": {
+    "id": "d8211586-eb38-5ab9-9b8a-2f06dfbaf55c",
+    "title": "Deduction With Continuous Aspect",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-06-deduction-continuous.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-06-deduction-continuous.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=d8211586-eb38-5ab9-9b8a-2f06dfbaf55c"
+  },
+  "b2-07": {
+    "id": "47b07a34-7987-5a62-bc02-f97dd5877cce",
+    "title": "Inversion in Conditionals",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-07-inversion-conditionals.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-07-inversion-conditionals.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=47b07a34-7987-5a62-bc02-f97dd5877cce"
+  },
+  "b2-08": {
+    "id": "f9067777-2f4c-52b1-b72c-4e4b80bb4014",
+    "title": "Conditional Alternatives to If",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-08-conditional-alternatives.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-08-conditional-alternatives.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=f9067777-2f4c-52b1-b72c-4e4b80bb4014"
+  },
+  "b2-09": {
+    "id": "b26366a9-c1d2-5311-b214-b946427d3281",
+    "title": "Hypothetical Meaning Without If",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-09-hypothetical-without-if.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-09-hypothetical-without-if.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b26366a9-c1d2-5311-b214-b946427d3281"
+  },
+  "b2-10": {
+    "id": "196f6c6f-2120-5e67-9d7a-31e5ff45a3e7",
+    "title": "Advanced Wish / If Only",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-10-advanced-wish.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-10-advanced-wish.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=196f6c6f-2120-5e67-9d7a-31e5ff45a3e7"
+  },
+  "b2-11": {
+    "id": "d3b6781a-f70a-58c0-ac3b-7ff0747adacd",
+    "title": "Passive With Combined Aspects",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-11-passive-combined-aspects.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-11-passive-combined-aspects.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=d3b6781a-f70a-58c0-ac3b-7ff0747adacd"
+  },
+  "b2-12": {
+    "id": "0bfda39a-9007-50a5-95fb-b0a926ba4d82",
+    "title": "Impersonal Passive & Get-Passive",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-12-impersonal-get-passive.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-12-impersonal-get-passive.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=0bfda39a-9007-50a5-95fb-b0a926ba4d82"
+  },
+  "b2-13": {
+    "id": "6e8ef29a-4d40-5f51-87fa-d3e9ebf81228",
+    "title": "Nominalisation",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-13-nominalisation.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-13-nominalisation.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=6e8ef29a-4d40-5f51-87fa-d3e9ebf81228"
+  },
+  "b2-14": {
+    "id": "4d5f61a2-2ee0-518f-92b5-2bc03567123d",
+    "title": "Advanced Articles & Quantifiers",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-14-advanced-articles-quantifiers.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-14-advanced-articles-quantifiers.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=4d5f61a2-2ee0-518f-92b5-2bc03567123d"
+  },
+  "b2-15": {
+    "id": "07f18556-b09e-5c98-80f7-dd6fe8b20275",
+    "title": "Participle Clauses",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-15-participle-clauses.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-15-participle-clauses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=07f18556-b09e-5c98-80f7-dd6fe8b20275"
+  },
+  "b2-16": {
+    "id": "f486c18d-4468-51eb-9368-7d964bcd68a8",
+    "title": "Advanced Relative Clauses",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-16-advanced-relative-clauses.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-16-advanced-relative-clauses.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=f486c18d-4468-51eb-9368-7d964bcd68a8"
+  },
+  "b2-17": {
+    "id": "c32dd943-c7e9-55a0-a35d-1fec5a3ae3de",
+    "title": "Ellipsis & Substitution",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-17-ellipsis-substitution.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-17-ellipsis-substitution.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=c32dd943-c7e9-55a0-a35d-1fec5a3ae3de"
+  },
+  "b2-18": {
+    "id": "bb2574b4-a859-5770-ad29-b3fe3076f7af",
+    "title": "Negative Inversion for Emphasis",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-18-negative-inversion.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-18-negative-inversion.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=bb2574b4-a859-5770-ad29-b3fe3076f7af"
+  },
+  "b2-19": {
+    "id": "e22af0e2-f74a-57e1-b349-e538c4796369",
+    "title": "Fronting & Information Structure",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-19-fronting-information-structure.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-19-fronting-information-structure.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=e22af0e2-f74a-57e1-b349-e538c4796369"
+  },
+  "b2-20": {
+    "id": "b71e930a-d2d5-510a-92e7-434dfd91181c",
+    "title": "Formal Connectors: Nonetheless, Notwithstanding, Whereas",
+    "course": "english-plus-b2-c1",
+    "lesson": "lesson-20-discourse-capstone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-20-discourse-capstone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b71e930a-d2d5-510a-92e7-434dfd91181c"
+  }
+}

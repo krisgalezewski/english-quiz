@@ -656,3 +656,26 @@
   font-size: 12px;
   color: var(--cream-dim);
 }
+
+/* ---------- "Want to go further?" link on practice.html ----------------
+   Filled from quizzes.learn_more_* (migration-012) — e.g. the lesson or
+   course where this quiz's grammar is taught. Hidden when a quiz has none. */
+.learn-more {
+  margin-top: 24px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--quizzes-tint, #e086ab);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--cream-dim);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.learn-more a {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--quizzes-tint, #e086ab);
+  font-weight: 600;
+  text-decoration: none;
+}
+.learn-more a:hover { text-decoration: underline; }

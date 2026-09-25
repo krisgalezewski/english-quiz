@@ -72,6 +72,45 @@ Workflow going forward: send me the new vocab/grammar point, I'll hand
 back a `quizzes` + `questions` insert statement (like `sql/seed-example.sql`)
 that you paste into the Supabase SQL editor. No code changes needed.
 
+## Lesson quizzes (one per lesson)
+
+Every lesson on englishvoiced.com/lessons/ and every lesson in both English+
+courses has a public 12-question quiz — 57 new quizzes:
+
+- `sql/seed-lesson-quizzes-lessons.sql` — 15 /lessons/ pages. The Feelings and
+  Emotions lesson links to the two existing Feelings quizzes instead of a
+  near-duplicate new one.
+- `sql/seed-lesson-quizzes-english-plus-b1-b2.sql` — English+ B1+/B2, lessons 1–22
+- `sql/seed-lesson-quizzes-english-plus-b2-c1.sql` — English+ B2+/C1, lessons 1–20
+
+Run each once in the Supabase SQL editor. Every quiz and question has a fixed
+id, so running a file again updates the wording in place instead of adding
+duplicates — and each lesson page links straight to `practice.html?quiz=<id>`.
+Existing quizzes can also be linked by slug: `practice.html?slug=feelings-advanced`.
+
+Course quizzes are named after the grammar they test (e.g. "Present Perfect vs
+Past Simple"); the description says which course lesson teaches it.
+
+True/false and "spot the mistake" questions use the existing `mcq` type
+(options `True`/`False`, or the parts of the sentence), so no question-type
+code changed.
+
+### "Want to go further?" link
+
+`quizzes.learn_more_text`, `learn_more_link_text` and `learn_more_url`
+(migration-012, also included at the top of each lesson-quiz seed file) add a
+box to practice.html — before the quiz starts and on the score screen —
+pointing to the free lesson or to the course overview page. A quiz without a
+`learn_more_url` shows nothing extra, and if the columns don't exist yet the
+page simply works as before.
+
+### Editing the lesson quizzes
+
+The content lives in `tools/lesson-quizzes/` (one Python file per group of
+lessons). Edit a question there, run `python3 tools/lesson-quizzes/build.py`,
+and re-run the changed seed file. `lesson-quiz-links.json` lists every quiz id
+with its lesson.
+
 ## Category + artwork (practice.html's browse grid)
 
 practice.html now presents public quizzes as a `/lessons/`-style grid —

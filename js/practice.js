@@ -72,18 +72,66 @@ function showConfirmFor(quizId) {
   confirmTitleEl.textContent = quiz.title;
   confirmDescEl.textContent = quiz.description || "";
   show(confirmView);
+  loadLearnMore(quizId);
   confirmStartBtn.onclick = async () => {
     await loadQuestions(quizId);
     beginQuiz();
   };
 }
 
+// Optional "Want to go further?" link (quizzes.learn_more_*, migration-012)
+// — e.g. the free lesson or the course lesson where this grammar is taught.
+// Fetched separately so that if the columns don't exist yet, the query just
+// fails quietly and the page behaves exactly as before.
+const learnMoreEls = document.querySelectorAll("[data-learn-more]");
+let learnMoreFor = null;
+
+function renderLearnMore(info) {
+  const url = info && info.learn_more_url;
+  const ok = typeof url === "string" && /^https:\/\//.test(url);
+  learnMoreEls.forEach((box) => {
+    box.textContent = "";
+    box.style.display = ok ? "block" : "none";
+    if (!ok) return;
+    const text = document.createElement("div");
+    text.textContent = info.learn_more_text || "Want to go further?";
+    const link = document.createElement("a");
+    link.href = url;
+    link.textContent = (info.learn_more_link_text || "Learn more") + " →";
+    box.append(text, link);
+  });
+}
+
+async function loadLearnMore(quizId) {
+  if (learnMoreFor === quizId) return;
+  learnMoreFor = quizId;
+  renderLearnMore(null);
+  try {
+    const { data, error } = await supabase
+      .from("quizzes")
+      .select("learn_more_text, learn_more_link_text, learn_more_url")
+      .eq("id", quizId)
+      .maybeSingle();
+    if (learnMoreFor === quizId) renderLearnMore(error ? null : data);
+  } catch (e) {
+    renderLearnMore(null);
+  }
+}
+
 async function loadQuizList() {
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from("quizzes")
-    .select("id, title, description")
+    .select("id, title, description, slug")
     .eq("available_for_practice", true)
     .order("created_at");
+  if (error) {
+    // No slug column yet (pre migration-010) — same query as before.
+    ({ data, error } = await supabase
+      .from("quizzes")
+      .select("id, title, description")
+      .eq("available_for_practice", true)
+      .order("created_at"));
+  }
   if (error || !data || data.length === 0) {
     quizSelect.innerHTML = `<option value="">No quizzes available for practice yet</option>`;
     startBtn.disabled = true;
@@ -96,7 +144,14 @@ async function loadQuizList() {
   // Arriving via practice.html?quiz=<id> (a grid tile or the "Quiz of the
   // day" link) — don't launch straight into question 1, show the same
   // named confirmation the dropdown now uses.
-  const preselect = getParam("quiz");
+  // practice.html?slug=<slug> works the same way, for quizzes whose
+  // id isn't fixed (e.g. lesson pages linking to the older Feelings quizzes).
+  let preselect = getParam("quiz");
+  const slugParam = getParam("slug");
+  if (!preselect && slugParam) {
+    const bySlug = data.find((q) => q.slug === slugParam);
+    if (bySlug) preselect = bySlug.id;
+  }
   if (preselect && quizzesById[preselect]) {
     quizSelect.value = preselect;
     showConfirmFor(preselect);
@@ -104,6 +159,7 @@ async function loadQuizList() {
 }
 
 async function loadQuestions(quizId) {
+  loadLearnMore(quizId);
   const { data: quiz } = await supabase.from("quizzes").select("title, description").eq("id", quizId).single();
   const { data: questions } = await supabase
     .from("questions")

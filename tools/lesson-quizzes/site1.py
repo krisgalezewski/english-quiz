@@ -1,0 +1,73 @@
+from common import quiz
+
+quiz("site-phrasal-verbs", lesson="/lessons/english-phrasal-verbs.html",
+  title="Phrasal Verbs — Lesson Quiz", category="Vocabulary",
+  desc="High-frequency phrasal verbs with get, take, look, come, go, put, give, turn, break, call and set",
+  tags=["phrasal-verbs", "lesson-quiz"], qs=[
+  ("mcq", "The match was ___ because of heavy rain.", ["called off", "called back", "called on", "called out"], 0),
+  ("gap", "I can't ___ with this noise any longer.", "put up", []),
+  ("tf", "'Look after' is inseparable, so 'Look the children after' is correct.", False),
+  ("mcq", "She ___ the job offer without hesitation.", ["turned down", "turned up", "turned into", "turned out"], 0),
+  ("wb", "Unscramble the phrasal verb meaning 'establish': She ___ her own business at 25.", "SET UP"),
+  ("spot", "I'm looking forward to see you next week.", ["I'm looking", "forward to", "see", "next week"], 2),
+  ("gap", "It took her weeks to ___ the flu.", "get over", []),
+  ("mcq", "Fire ___ in the warehouse late last night.", ["broke out", "broke up", "broke down", "broke through"], 0),
+  ("tf", "In 'Turn the TV off', the particle can also go before the object: 'Turn off the TV'.", True),
+  ("mcq", "When the object is a pronoun, which word order is correct?", ["Turn it off.", "Turn off it."], 0),
+  ("wb", "Unscramble the missing word: She ___ up smoking last year.", "GAVE"),
+  ("gap", "A larger firm ___ the company last year.", "took over", []),
+])
+
+quiz("site-confusable-pairs", lesson="/lessons/english-confusable-pairs.html",
+  title="Confusable Pairs — Lesson Quiz", category="Vocabulary",
+  desc="since/for, lend/borrow, rise/raise, say/tell, despite/although, -ed/-ing adjectives and more",
+  tags=["confusable-pairs", "lesson-quiz"], qs=[
+  ("mcq", "You ___ tell him — it's supposed to be a surprise.", ["mustn't", "don't have to", "needn't", "haven't to"], 0),
+  ("gap", "She has been working here ___ she graduated.", "since", []),
+  ("tf", "'Despite' can be followed directly by a full clause, e.g. 'Despite it was raining…'.", False),
+  ("mcq", "Could you ___ me your notes before the exam?", ["lend", "borrow", "rent", "owe"], 0),
+  ("spot", "The lecture was so bored that I could barely keep my eyes open.", ["The lecture", "was so bored", "that I could", "keep my eyes open"], 1),
+  ("mcq", "Sales ___ significantly after the company cut its prices.", ["rose", "raised", "rised", "arose"], 0),
+  ("gap", "She ___ me the truth, even though it hurt.", "told", []),
+  ("wb", "Unscramble the missing word: I ___ a strange noise downstairs at midnight.", "HEARD"),
+  ("mcq", "There was ___ evidence to support the theory — the researchers were very disappointed.", ["little", "a little", "few", "a few"], 0),
+  ("tf", "'Whereas' always shows contrast, but 'while' can show either contrast or two things happening at the same time.", True),
+  ("spot", "She said me that she was leaving.", ["She", "said me", "that she", "was leaving"], 1),
+  ("gap", "This new car is much more ___ — it uses far less fuel. (ECONOMY)", "economical", []),
+])
+
+quiz("site-idioms", lesson="/lessons/english-idioms.html",
+  title="Idioms — Lesson Quiz", category="Vocabulary",
+  desc="High-frequency English idioms for money, health, opportunity, relationships and change",
+  tags=["idioms", "lesson-quiz"], qs=[
+  ("mcq", "The exam was ___ — I finished in thirty minutes.", ["a piece of cake", "an uphill battle", "a storm in a teacup", "touch and go"], 0),
+  ("gap", "Stop beating around the ___ and tell me what happened.", "bush", []),
+  ("mcq", "If you're 'under the weather', you're…", ["feeling slightly ill", "tired after a long trip", "upset about bad news", "caught in the rain"], 0),
+  ("tf", "'Let the cat out of the bag' means to accidentally reveal a secret.", True),
+  ("wb", "Unscramble the missing word: The repairs cost an arm and a ___.", "LEG"),
+  ("mcq", "The proposal was rejected, so it's back to the ___ board.", ["drawing", "black", "notice", "cutting"], 0),
+  ("spot", "After years of rivalry, the two firms finally buried the axe.", ["After years", "of rivalry", "finally buried", "the axe"], 3),
+  ("gap", "You should have applied last month — you've missed the ___.", "boat", []),
+  ("mcq", "We hit it ___ straight away at the party.", ["off", "on", "up", "out"], 0),
+  ("tf", "'Burn the candle at both ends' means to spend your money very carefully.", False),
+  ("mcq", "Losing that job was a blessing in ___ — I found a much better one.", ["disguise", "secret", "hiding", "costume"], 0),
+  ("wb", "Unscramble the missing word: You hit the ___ on the head — that's exactly the problem.", "NAIL"),
+])
+
+quiz("site-word-formation", lesson="/lessons/english-word-formation.html",
+  title="Word Formation — Lesson Quiz", category="Vocabulary",
+  desc="Prefixes, suffixes, word families and choosing the right part of speech",
+  tags=["word-formation", "lesson-quiz"], qs=[
+  ("gap", "She lacks ___ when speaking in public. (CONFIDENT)", "confidence", []),
+  ("mcq", "Which prefix makes the opposite of 'possible'?", ["im-", "un-", "in-", "dis-"], 0),
+  ("tf", "The adverb formed from 'basic' is 'basicly'.", False),
+  ("mcq", "The ___ of the project was questioned by investors.", ["sustainability", "sustainable", "sustain", "sustainably"], 0),
+  ("wb", "Unscramble the noun formed from 'create' + -ion.", "CREATION"),
+  ("spot", "The team worked very efficient to meet the deadline.", ["The team", "worked", "very efficient", "the deadline"], 2),
+  ("gap", "The results of the experiment were ___. (REMARK)", "remarkable", []),
+  ("mcq", "'Re-sign' (with a hyphen) means…", ["sign again", "leave your job", "sign for someone else", "refuse to sign"], 0),
+  ("mcq", "Which suffix turns the verb 'govern' into a noun?", ["-ment", "-ness", "-ity", "-ful"], 0),
+  ("tf", "In 'overestimate' and 'underestimate', the prefixes mean 'too much' and 'too little'.", True),
+  ("gap", "He's so ___ — he never meets a deadline. (RESPONSIBLE)", "irresponsible", []),
+  ("wb", "Unscramble the person noun formed from 'science': The ___ examined her new discovery.", "SCIENTIST"),
+])
