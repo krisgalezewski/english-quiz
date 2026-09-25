@@ -7,6 +7,7 @@ updates in place. lesson-quiz-links.json lists every quiz id + lesson URL.
 import json, random, sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 import common
+from art_slugs import ART_SLUGS
 for m in ["site1", "site2", "site3", "b1a", "b1b", "b1c", "b2a", "b2b", "b2c"]:
     __import__(m)
 Q = common.QUIZZES
@@ -57,13 +58,13 @@ def sql_for(group, title, extra=""):
     for q in group:
         out.append(f"\n-- {q['title']}\n-- Lesson: {q['lesson_url']}")
         out.append(
-            "insert into quizzes (id, title, description, tags, category, available_for_practice,\n"
+            "insert into quizzes (id, title, description, tags, category, slug, available_for_practice,\n"
             "                     learn_more_text, learn_more_link_text, learn_more_url)\n"
             f"values ({lit(q['id'])}, {lit(q['title'])}, {lit(q['description'])},\n"
-            f"        array[{', '.join(lit(t) for t in q['tags'])}], {lit(q['category'])}, true,\n"
+            f"        array[{', '.join(lit(t) for t in q['tags'])}], {lit(q['category'])}, {lit(ART_SLUGS[q['key']])}, true,\n"
             f"        {lit(q['learn_more']['text'])}, {lit(q['learn_more']['link_text'])}, {lit(q['learn_more']['url'])})\n"
             "on conflict (id) do update set title = excluded.title, description = excluded.description,\n"
-            "  tags = excluded.tags, category = excluded.category, available_for_practice = true,\n"
+            "  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,\n"
             "  learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,\n"
             "  learn_more_url = excluded.learn_more_url;")
         rows = []
@@ -106,6 +107,21 @@ for key, fname, title in groups:
     g = [q for q in Q if q["course"] == key]
     open(os.path.join(outdir, fname), "w").write(sql_for(g, title, EXTRA if key == "site" else ""))
     print(fname, len(g))
+
+assert set(ART_SLUGS) == {q["key"] for q in Q}, "every quiz needs an artwork slug"
+for q in Q:
+    assert os.path.exists(os.path.join(here, "..", "..", "assets", "art", ART_SLUGS[q["key"]] + ".html")), q["key"]
+
+# One-off file for databases where the seeds ran before the artwork existed.
+art_sql = ["-- Migration 013: artwork for the 57 lesson quizzes",
+           "-- Sets quizzes.slug so practice.html's grid loads assets/art/<slug>.html",
+           "-- (Claude Design handoff design_handoff_quiz_artwork). Only touches these",
+           "-- 57 quizzes, matched by their fixed ids. Safe to run more than once.",
+           "", "begin;"]
+for q in Q:
+    art_sql.append(f"update quizzes set slug = {lit(ART_SLUGS[q['key']])} where id = {lit(q['id'])};  -- {q['title']}")
+art_sql += ["commit;", ""]
+open(os.path.join(outdir, "migration-013-lesson-quiz-artwork.sql"), "w").write("\n".join(art_sql))
 
 links = {q["key"]: dict(id=q["id"], title=q["title"], course=q["course"], lesson=q["lesson_file"],
                         lesson_url=q["lesson_url"], quiz_url=PRACTICE + q["id"]) for q in Q}

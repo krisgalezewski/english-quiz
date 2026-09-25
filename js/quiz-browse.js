@@ -42,7 +42,7 @@ function loadArt(el, quiz) {
 
   function useFallback() {
     if (artCache[fallbackUrl]) {
-      el.innerHTML = artCache[fallbackUrl];
+      showArt(el, artCache[fallbackUrl]);
       return;
     }
     fetch(fallbackUrl)
@@ -50,7 +50,7 @@ function loadArt(el, quiz) {
       .then((svg) => {
         if (!svg) return;
         artCache[fallbackUrl] = svg;
-        el.innerHTML = svg;
+        showArt(el, svg);
       })
       .catch(() => {});
   }
@@ -60,7 +60,7 @@ function loadArt(el, quiz) {
     return;
   }
   if (artCache[primaryUrl]) {
-    el.innerHTML = artCache[primaryUrl];
+    showArt(el, artCache[primaryUrl]);
     return;
   }
   fetch(primaryUrl)
@@ -71,9 +71,32 @@ function loadArt(el, quiz) {
         return;
       }
       artCache[primaryUrl] = svg;
-      el.innerHTML = svg;
+      showArt(el, svg);
     })
     .catch(useFallback);
+}
+
+// Fixed-size art (.qz-art-fixed, 322x165 design box): scale it to fit the
+// panel it landed in, and again whenever the grid reflows (window resize,
+// column count change). Older flow-layout art has no .qz-art-fixed and is
+// left alone.
+const ART_W = 322;
+const ART_H = 165;
+function fitArt(panel) {
+  const box = panel.querySelector(".qz-art-fixed");
+  if (!box) return;
+  const w = panel.clientWidth;
+  const h = panel.clientHeight;
+  if (!w || !h) return;
+  box.style.setProperty("--art-scale", Math.min(w / ART_W, h / ART_H).toFixed(4));
+}
+const artObserver = typeof ResizeObserver === "function"
+  ? new ResizeObserver((entries) => entries.forEach((e) => fitArt(e.target)))
+  : null;
+function showArt(el, html) {
+  el.innerHTML = html;
+  fitArt(el);
+  if (artObserver) artObserver.observe(el);
 }
 
 function escapeHtml(s) {

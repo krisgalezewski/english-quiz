@@ -15,13 +15,13 @@ alter table quizzes add column if not exists learn_more_url text;
 
 -- Present Simple vs Present Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-01-present-simple-vs-continuous.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('4a959c34-91ab-5a88-83bb-2e762a7df476', 'Present Simple vs Present Continuous', 'Present simple (base verb + s) vs present continuous (am/is/are + -ing); stative verbs. Taught in Lesson 1 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-01', 'present-simple', 'present-continuous', 'stative-verbs'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-01', 'present-simple', 'present-continuous', 'stative-verbs'], 'Grammar', 'present-simple-vs-present-continuous', true,
         'Want to go further? This grammar is taught step by step in Lesson 1 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -67,13 +67,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Past Simple vs Past Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-02-past-simple-vs-continuous.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('6b38b8e6-03fc-5cd7-a2e7-88b51e953236', 'Past Simple vs Past Continuous', 'Past simple (verb + -ed / irregular) vs past continuous (was/were + -ing); interrupted actions and background scenes. Taught in Lesson 2 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-02', 'past-simple', 'past-continuous'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-02', 'past-simple', 'past-continuous'], 'Grammar', 'past-simple-vs-past-continuous', true,
         'Want to go further? This grammar is taught step by step in Lesson 2 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -119,13 +119,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Present Perfect vs Past Simple
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-03-present-perfect-vs-past-simple.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('9307db9e-29f0-560f-a5e9-f31f3892a631', 'Present Perfect vs Past Simple', 'Present perfect (have/has + past participle) vs past simple; for/since, ever/never, finished vs unfinished time. Taught in Lesson 3 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-03', 'present-perfect', 'past-simple'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-03', 'present-perfect', 'past-simple'], 'Grammar', 'present-perfect-vs-past-simple', true,
         'Want to go further? This grammar is taught step by step in Lesson 3 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -171,13 +171,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Present Perfect Simple vs Present Perfect Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-04-present-perfect-simple-vs-continuous.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('74bee7ca-1922-5948-9c15-f8ca69b43a54', 'Present Perfect Simple vs Present Perfect Continuous', 'Present perfect simple (have/has + past participle) for results vs present perfect continuous (have/has been + -ing) for activity. Taught in Lesson 4 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-04', 'present-perfect', 'present-perfect-continuous'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-04', 'present-perfect', 'present-perfect-continuous'], 'Grammar', 'present-perfect-simple-vs-continuous', true,
         'Want to go further? This grammar is taught step by step in Lesson 4 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -223,13 +223,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Past Perfect Simple vs Past Perfect Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-05-past-perfect-simple-vs-continuous.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('0b012328-f1d1-5018-bc08-e169e22f9fbd', 'Past Perfect Simple vs Past Perfect Continuous', 'Past perfect simple (had + past participle) vs past perfect continuous (had been + -ing); the past before the past. Taught in Lesson 5 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-05', 'past-perfect', 'past-perfect-continuous'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-05', 'past-perfect', 'past-perfect-continuous'], 'Grammar', 'past-perfect-simple-vs-continuous', true,
         'Want to go further? This grammar is taught step by step in Lesson 5 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -275,13 +275,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Future Forms: Will vs Going To vs Present Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-06-future-forms.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('1aa7c602-95fa-5f37-8feb-a8495b56c609', 'Future Forms: Will vs Going To vs Present Continuous', 'Will (decisions, promises, opinions) vs going to (evidence, plans) vs present continuous (fixed arrangements). Taught in Lesson 6 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-06', 'future-forms', 'will', 'going-to'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-06', 'future-forms', 'will', 'going-to'], 'Grammar', 'future-forms', true,
         'Want to go further? This grammar is taught step by step in Lesson 6 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -327,13 +327,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Future Perfect, Future Perfect Continuous & Future Continuous
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-07-future-perfect-vs-continuous.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('b570b9a4-847b-51d6-9f53-6c6756df4753', 'Future Perfect, Future Perfect Continuous & Future Continuous', 'Future perfect (will have + past participle), future perfect continuous (will have been + -ing), future continuous (will be + -ing); by vs at. Taught in Lesson 7 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-07', 'future-perfect', 'future-continuous'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-07', 'future-perfect', 'future-continuous'], 'Grammar', 'future-perfect-and-future-continuous', true,
         'Want to go further? This grammar is taught step by step in Lesson 7 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -379,13 +379,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Modals of Ability, Permission, Obligation & Prohibition
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-08-modals-ability-permission-obligation.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('dc94976e-f456-5fdf-a4fd-cbe3d463824a', 'Modals of Ability, Permission, Obligation & Prohibition', 'Can/could/be able to/managed to; may; must/have to/had to; mustn''t vs don''t have to. Taught in Lesson 8 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-08', 'modal-verbs', 'obligation', 'permission'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-08', 'modal-verbs', 'obligation', 'permission'], 'Grammar', 'modals-of-ability-permission-obligation', true,
         'Want to go further? This grammar is taught step by step in Lesson 8 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -431,13 +431,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Modals of Deduction & Speculation
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-09-modals-deduction-speculation.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('745a97bd-aa69-5661-ae06-5c1171a31b28', 'Modals of Deduction & Speculation', 'Must be / can''t be / might, could, may be; past: must have / can''t have / might have + past participle. Taught in Lesson 9 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-09', 'modal-verbs', 'deduction', 'speculation'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-09', 'modal-verbs', 'deduction', 'speculation'], 'Grammar', 'modals-of-deduction', true,
         'Want to go further? This grammar is taught step by step in Lesson 9 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -483,13 +483,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Modal Perfect: Should Have, Could Have, Would Have
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-10-modal-perfect.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('5c81ab0b-2094-506e-ba4b-b556c5239b04', 'Modal Perfect: Should Have, Could Have, Would Have', 'Should/shouldn''t have (regret, criticism), could have (missed opportunity), would have (hypothetical past) + past participle. Taught in Lesson 10 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-10', 'modal-perfect', 'should-have', 'could-have'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-10', 'modal-perfect', 'should-have', 'could-have'], 'Grammar', 'modal-perfect', true,
         'Want to go further? This grammar is taught step by step in Lesson 10 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -535,13 +535,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Passive Voice: Core Forms Across Tenses
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-11-passive-voice.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('df6f4cd6-18bf-52ba-aa1b-02e189fb71e1', 'Passive Voice: Core Forms Across Tenses', 'Be + past participle in every tense (is made, was built, has been written, is being built, will be announced, must be submitted); get-passive. Taught in Lesson 11 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-11', 'passive-voice'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-11', 'passive-voice'], 'Grammar', 'passive-voice', true,
         'Want to go further? This grammar is taught step by step in Lesson 11 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -587,13 +587,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Passive Extensions: Reporting Structures & Causative
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-12-passive-extensions.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('6fb834aa-617e-5902-9d5f-551b3eb3ea1f', 'Passive Extensions: Reporting Structures & Causative', 'It is said/thought that…; subject + is said/believed to (have) + verb; causative have/get something done. Taught in Lesson 12 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-12', 'passive-voice', 'reporting-structures', 'causative'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-12', 'passive-voice', 'reporting-structures', 'causative'], 'Grammar', 'passive-extensions', true,
         'Want to go further? This grammar is taught step by step in Lesson 12 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -639,13 +639,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Conditionals: Zero & First
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-13-conditionals-zero-first.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('24773652-cddf-5ebc-a8b7-2511ad65dafb', 'Conditionals: Zero & First', 'Zero conditional (if + present simple, present simple) and first conditional (if + present simple, will + verb); unless. Taught in Lesson 13 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-13', 'conditionals', 'zero-conditional', 'first-conditional'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-13', 'conditionals', 'zero-conditional', 'first-conditional'], 'Grammar', 'conditionals-zero-and-first', true,
         'Want to go further? This grammar is taught step by step in Lesson 13 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -691,13 +691,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Second Conditional
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-14-second-conditional.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('3b329ecb-0c7b-5f31-bbb0-22399172861d', 'Second Conditional', 'Second conditional (if + past simple, would/could/might + verb); If I were you. Taught in Lesson 14 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-14', 'conditionals', 'second-conditional'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-14', 'conditionals', 'second-conditional'], 'Grammar', 'second-conditional', true,
         'Want to go further? This grammar is taught step by step in Lesson 14 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -743,13 +743,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Third Conditional
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-15-third-conditional.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('93406a25-be3c-50e9-a452-0a47804ea8be', 'Third Conditional', 'Third conditional (if + past perfect, would/could/might have + past participle); contractions I''d / I''d have. Taught in Lesson 15 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-15', 'conditionals', 'third-conditional'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-15', 'conditionals', 'third-conditional'], 'Grammar', 'third-conditional', true,
         'Want to go further? This grammar is taught step by step in Lesson 15 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -795,13 +795,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Mixed Conditionals
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-16-mixed-conditionals.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('d754c54e-155f-5432-b42d-e380917f43f1', 'Mixed Conditionals', 'Past condition → present result (if + past perfect, would + verb); ongoing condition → past result (if + past simple, would have + past participle). Taught in Lesson 16 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-16', 'conditionals', 'mixed-conditionals'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-16', 'conditionals', 'mixed-conditionals'], 'Grammar', 'mixed-conditionals', true,
         'Want to go further? This grammar is taught step by step in Lesson 16 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -847,13 +847,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Wish / If Only
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-17-wish-if-only.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('549f02ed-96b4-5f2b-a01e-5795fae0146b', 'Wish / If Only', 'Wish/if only + past simple (present regret), + past perfect (past regret), + would (someone else''s behaviour). Taught in Lesson 17 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-17', 'wish', 'if-only', 'regret'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-17', 'wish', 'if-only', 'regret'], 'Grammar', 'wish-if-only', true,
         'Want to go further? This grammar is taught step by step in Lesson 17 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -899,13 +899,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Reported Speech
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-18-reported-speech.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('633a94b6-8f3a-5a3d-b929-76d4497db3f7', 'Reported Speech', 'Backshift in reported statements (said that…), reported questions (asked where/if…), commands (told someone to…). Taught in Lesson 18 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-18', 'reported-speech'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-18', 'reported-speech'], 'Grammar', 'reported-speech', true,
         'Want to go further? This grammar is taught step by step in Lesson 18 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -951,13 +951,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Relative Clauses: Defining vs Non-defining
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-19-relative-clauses.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('405b18be-1e1d-52d4-86b2-d0a4b91d30ea', 'Relative Clauses: Defining vs Non-defining', 'Defining vs non-defining relative clauses; who, which, that, whose, whom, where, when; commas. Taught in Lesson 19 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-19', 'relative-clauses'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-19', 'relative-clauses'], 'Grammar', 'relative-clauses', true,
         'Want to go further? This grammar is taught step by step in Lesson 19 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -1003,13 +1003,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Gerunds vs Infinitives
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-20-gerunds-vs-infinitives.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('cb489e52-754c-56de-9939-5c1ef05495c5', 'Gerunds vs Infinitives', 'Verb + -ing (enjoy, avoid) vs verb + to-infinitive (decide, want); preposition + -ing; remember/stop/forget + -ing vs to. Taught in Lesson 20 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-20', 'gerunds', 'infinitives', 'verb-patterns'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-20', 'gerunds', 'infinitives', 'verb-patterns'], 'Grammar', 'gerunds-vs-infinitives', true,
         'Want to go further? This grammar is taught step by step in Lesson 20 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -1055,13 +1055,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Articles & Determiners
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-21-articles-determiners.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('ec92a6de-c233-50f0-9ea1-2c780c5b3ea4', 'Articles & Determiners', 'A/an, the, zero article; quantifiers (much, many, a few, a little). Taught in Lesson 21 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-21', 'articles', 'determiners', 'quantifiers'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-21', 'articles', 'determiners', 'quantifiers'], 'Grammar', 'articles-and-determiners', true,
         'Want to go further? This grammar is taught step by step in Lesson 21 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -1107,13 +1107,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Linking Words, Hedging & Cleft Sentences
 -- Lesson: https://englishvoiced.com/english-plus-grammar-course/lesson-22-discourse-emphasis-capstone.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('987c3376-d8fc-5d69-b7f9-ce960419366b', 'Linking Words, Hedging & Cleft Sentences', 'Linking words (however, therefore, moreover), hedging (seem, appear, may), cleft sentences (It was… that / What… is). Taught in Lesson 22 of the English+ B1+/B2 Grammar Course.',
-        array['english-plus-b1-b2', 'lesson-22', 'linking-words', 'hedging', 'cleft-sentences'], 'Grammar', true,
+        array['english-plus-b1-b2', 'lesson-22', 'linking-words', 'hedging', 'cleft-sentences'], 'Grammar', 'linking-words-hedging-and-cleft-sentences', true,
         'Want to go further? This grammar is taught step by step in Lesson 22 of the English+ B1+/B2 Grammar Course.', 'See the course', 'https://englishvoiced.com/courses/english-plus-b1-b2/')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values

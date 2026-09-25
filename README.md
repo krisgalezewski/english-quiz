@@ -155,7 +155,7 @@ dropdown already worked.
 
 ### How the artwork itself works
 
-Each card's `.qz-tile__art` panel (fixed 160px tall, full-bleed at the top
+Each card's `.qz-tile__art` panel (fixed 165px tall, full-bleed at the top
 of the card, dot-texture background) is filled by fetching
 `assets/art/<slug>.html` and injecting its contents with `innerHTML` — the
 same technique `/lessons/` uses, just with a plain HTML/CSS fragment
@@ -173,6 +173,17 @@ JetBrains Mono 500 captions, cream `#F6EBDD` ink at various alphas, one
 real example as the focal element plus a couple of supporting details),
 save it as `assets/art/<slug>.html`, and set that quiz's `slug` column to
 match.
+
+### Fixed-size artwork (lesson quizzes)
+
+The 57 lesson-quiz artworks (second Claude Design handoff) are drawn on a
+fixed 322 × 165 px box with absolutely positioned pieces, so they can't reflow
+like the older flex-based art. Each fragment's root is
+`<div class="qz-art-fixed" aria-hidden="true">`; `js/quiz-browse.js` centres
+that box in the tile and scales it as a whole to fit (`--art-scale`),
+re-fitting whenever the grid resizes. Their slugs are set by the seed files
+(and by `sql/migration-013-lesson-quiz-artwork.sql` for a database seeded
+before the art existed); the slug list is in `tools/lesson-quizzes/art_slugs.py`.
 
 ## Adding a new question type later
 

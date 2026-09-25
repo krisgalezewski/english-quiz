@@ -62,16 +62,32 @@
 }
 .qz-tile:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgb(0 0 0 / 0.28); }
 
-/* Full-bleed artwork panel — fixed 160px height (not aspect-ratio) per the
+/* Full-bleed artwork panel — fixed 165px height (not aspect-ratio) per the
    design spec. The dot texture lives here rather than in each artwork
    fragment, since it's identical within a category; --tile-dot-alpha is
    set per tile (Use of English is very slightly brighter: .1 vs .09). */
 .qz-tile__art {
   position: relative;
-  height: 160px;
+  height: 165px; /* matches the 322x165 artwork box from the design handoff */
   overflow: hidden;
   background-image: radial-gradient(rgba(255, 255, 255, var(--tile-dot-alpha, 0.09)) 1px, transparent 1.2px);
   background-size: 14px 14px;
+}
+
+/* Lesson-quiz artwork (second Claude Design handoff) is drawn on a fixed
+   322x165 box with absolute px positions, so it can't reflow like the older
+   flex-based art. The box is centred in the panel and scaled as a whole —
+   js/quiz-browse.js sets --art-scale to fit the tile's actual size. */
+.qz-art-fixed {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 322px;
+  height: 165px;
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(var(--art-scale, 1));
+  transform-origin: center;
+  pointer-events: none;
 }
 
 .qz-tile__body {

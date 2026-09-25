@@ -15,13 +15,13 @@ alter table quizzes add column if not exists learn_more_url text;
 
 -- Phrasal Verbs — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-phrasal-verbs.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('272e449b-8135-5f3a-a021-ae04d6ea17d0', 'Phrasal Verbs — Lesson Quiz', 'High-frequency phrasal verbs with get, take, look, come, go, put, give, turn, break, call and set',
-        array['phrasal-verbs', 'lesson-quiz'], 'Vocabulary', true,
+        array['phrasal-verbs', 'lesson-quiz'], 'Vocabulary', 'phrasal-verbs-lq', true,
         'Want to go further? The free interactive lesson on Phrasal Verbs explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-phrasal-verbs.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -67,13 +67,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Confusable Pairs — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-confusable-pairs.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('91d7fbc9-4e2d-5b0c-a8aa-c2c57f4564a3', 'Confusable Pairs — Lesson Quiz', 'since/for, lend/borrow, rise/raise, say/tell, despite/although, -ed/-ing adjectives and more',
-        array['confusable-pairs', 'lesson-quiz'], 'Vocabulary', true,
+        array['confusable-pairs', 'lesson-quiz'], 'Vocabulary', 'confusable-pairs-lq', true,
         'Want to go further? The free interactive lesson on Confusable Pairs explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-confusable-pairs.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -119,13 +119,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Idioms — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-idioms.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('52329a05-2251-51bd-8585-ad5a1fff7e0f', 'Idioms — Lesson Quiz', 'High-frequency English idioms for money, health, opportunity, relationships and change',
-        array['idioms', 'lesson-quiz'], 'Vocabulary', true,
+        array['idioms', 'lesson-quiz'], 'Vocabulary', 'idioms-lq', true,
         'Want to go further? The free interactive lesson on Idioms explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-idioms.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -171,13 +171,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Word Formation — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-word-formation.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('551a7af4-2366-5a1a-b6f7-09bef210abe5', 'Word Formation — Lesson Quiz', 'Prefixes, suffixes, word families and choosing the right part of speech',
-        array['word-formation', 'lesson-quiz'], 'Vocabulary', true,
+        array['word-formation', 'lesson-quiz'], 'Vocabulary', 'word-formation-lq', true,
         'Want to go further? The free interactive lesson on Word Formation explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-word-formation.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -223,13 +223,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Collocations — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-collocations.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('cd55b686-7dfc-57aa-a1ac-d292ac8b039e', 'Collocations — Lesson Quiz', 'Words that go together — make/do, strong vs weak collocations and formal vs informal register',
-        array['collocations', 'lesson-quiz'], 'Vocabulary', true,
+        array['collocations', 'lesson-quiz'], 'Vocabulary', 'collocations-lq', true,
         'Want to go further? The free interactive lesson on Collocations explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-collocations.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -275,13 +275,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Determiners — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-determiners.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('656e117d-b008-5567-97ef-661b35e30c37', 'Determiners — Lesson Quiz', 'Articles (a/an, the, zero article), quantifiers, predeterminers and possessives',
-        array['determiners', 'articles', 'lesson-quiz'], 'Grammar', true,
+        array['determiners', 'articles', 'lesson-quiz'], 'Grammar', 'determiners-lq', true,
         'Want to go further? The free interactive lesson on Determiners explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-determiners.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -327,13 +327,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Sentences & Clauses — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-sentences-and-clauses.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('ddbe0ab5-1b8a-567b-9f80-4dc773ab8db8', 'Sentences & Clauses — Lesson Quiz', 'Simple, compound, complex and compound-complex sentences; main, subordinate and relative clauses',
-        array['sentences', 'clauses', 'lesson-quiz'], 'Grammar', true,
+        array['sentences', 'clauses', 'lesson-quiz'], 'Grammar', 'sentences-and-clauses-lq', true,
         'Want to go further? The free interactive lesson on Sentences & Clauses explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-sentences-and-clauses.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -379,13 +379,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Inversion & Negative Adverbials — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-inversion-negative-adverbials.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('ad02ea0d-4e10-5469-bf55-3f2961fdd0d4', 'Inversion & Negative Adverbials — Lesson Quiz', 'Formal inversion after never, rarely, seldom, not only, no sooner, hardly, only then, under no circumstances',
-        array['inversion', 'negative-adverbials', 'lesson-quiz'], 'Grammar', true,
+        array['inversion', 'negative-adverbials', 'lesson-quiz'], 'Grammar', 'inversion-and-negative-adverbials-lq', true,
         'Want to go further? The free interactive lesson on Inversion & Negative Adverbials explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-inversion-negative-adverbials.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -431,13 +431,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Cleft Sentences — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-cleft-sentences.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('ea11fb4c-1714-5afc-a754-c82f60e2e2a9', 'Cleft Sentences — Lesson Quiz', 'It-clefts, wh-clefts, reversed wh-clefts, all-clefts, there-clefts and negative clefts',
-        array['cleft-sentences', 'emphasis', 'lesson-quiz'], 'Grammar', true,
+        array['cleft-sentences', 'emphasis', 'lesson-quiz'], 'Grammar', 'cleft-sentences-lq', true,
         'Want to go further? The free interactive lesson on Cleft Sentences explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-cleft-sentences.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -483,13 +483,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Conditionals — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-conditionals.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('1f1a4e71-7efa-5ec3-a90a-9b7612c42d10', 'Conditionals — Lesson Quiz', 'Zero, first, second, third and mixed conditionals, unless, inversion (should/were/had) and I wish',
-        array['conditionals', 'lesson-quiz'], 'Grammar', true,
+        array['conditionals', 'lesson-quiz'], 'Grammar', 'conditionals-lq', true,
         'Want to go further? The free interactive lesson on Conditionals explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-conditionals.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -535,13 +535,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Verb Tenses — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-verb-tenses.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('d5369334-11c1-52c9-a704-b6f05a1fc4e3', 'Verb Tenses — Lesson Quiz', 'The 12 tenses, stative verbs, used to, time clauses and the passive across tenses',
-        array['verb-tenses', 'lesson-quiz'], 'Grammar', true,
+        array['verb-tenses', 'lesson-quiz'], 'Grammar', 'verb-tenses-lq', true,
         'Want to go further? The free interactive lesson on Verb Tenses explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-verb-tenses.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -587,13 +587,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Pronunciation — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-pronunciation.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('a99531d6-c60d-5af6-b0cb-bfcff53f77a5', 'Pronunciation — Lesson Quiz', 'IPA, the schwa, voiced and voiceless sounds, minimal pairs, word stress and connected speech (British English)',
-        array['pronunciation', 'ipa', 'lesson-quiz'], 'Use of English', true,
+        array['pronunciation', 'ipa', 'lesson-quiz'], 'Use of English', 'pronunciation-lq', true,
         'Want to go further? The free interactive lesson on Pronunciation explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-pronunciation.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -639,13 +639,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Transitional Words — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-transitional-words.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('5d74f5e6-a984-5605-8e83-6ab84c342e48', 'Transitional Words — Lesson Quiz', 'Connectives for addition, contrast, concession, cause, result, example and clarification',
-        array['transitional-words', 'linking-words', 'lesson-quiz'], 'Use of English', true,
+        array['transitional-words', 'linking-words', 'lesson-quiz'], 'Use of English', 'transitional-words-lq', true,
         'Want to go further? The free interactive lesson on Transitional Words explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-transitional-words.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -691,13 +691,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Hedging Language — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/english-hedging-language.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('bdb2d329-98c5-52fd-a906-fa05b74c4215', 'Hedging Language — Lesson Quiz', 'Softening claims with modals, tend to, appear/seem, adverbs, approximators and attribution',
-        array['hedging', 'academic-english', 'lesson-quiz'], 'Use of English', true,
+        array['hedging', 'academic-english', 'lesson-quiz'], 'Use of English', 'hedging-language-lq', true,
         'Want to go further? The free interactive lesson on Hedging Language explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/english-hedging-language.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
@@ -743,13 +743,13 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
 
 -- Workplace EQ — Lesson Quiz
 -- Lesson: https://englishvoiced.com/lessons/workplace-eq.html
-insert into quizzes (id, title, description, tags, category, available_for_practice,
+insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('b215141d-dd6f-57e8-b515-d3cb80bbb68f', 'Workplace EQ — Lesson Quiz', 'British workplace phrases — introductions, polite requests, understatement, emails and disagreeing diplomatically',
-        array['workplace', 'business-english', 'lesson-quiz'], 'Use of English', true,
+        array['workplace', 'business-english', 'lesson-quiz'], 'Use of English', 'workplace-eq-lq', true,
         'Want to go further? The free interactive lesson on Workplace EQ explains it all, with plenty more practice.', 'Open the lesson', 'https://englishvoiced.com/lessons/workplace-eq.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
-  tags = excluded.tags, category = excluded.category, available_for_practice = true,
+  tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
   learn_more_url = excluded.learn_more_url;
 insert into questions (id, quiz_id, position, type, prompt, payload, time_limit_seconds, points) values
