@@ -129,10 +129,11 @@ function renderGapFill(container, question, onSubmit) {
   }
 
   // On iPhones the first tap on Submit while the keyboard is open closes the
-  // keyboard, the page jumps, and the "click" never reaches the button — the
-  // answer was silently lost. Reacting on pointerdown (and keeping the input
-  // focused so nothing moves) makes one tap enough; click stays as a fallback.
-  submitBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); submit(); });
+  // keyboard, the page jumps, and the tap never reaches the button. Cancelling
+  // the touch's default keeps the input focused (keyboard stays, nothing moves),
+  // while the answer is still only sent on a completed tap ("click"), never
+  // when a finger merely lands on the button, e.g. to start scrolling.
+  submitBtn.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") e.preventDefault(); });
   submitBtn.addEventListener("click", submit);
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") { e.preventDefault(); submit(); }
@@ -199,7 +200,7 @@ function renderWordBuilder(container, question, onSubmit) {
     <div class="answer-preview"></div>
     <div class="scramble-tiles"></div>
     <div class="error-text" style="display:none"></div>
-    <button class="btn" type="button" data-role="submit" style="margin-top:4px" disabled>Submit</button>
+    <button class="btn" type="button" data-role="submit" style="margin-top:22px" disabled>Submit</button>
     <button class="btn btn-outline" type="button" data-role="clear" style="margin-left:8px">Clear</button>
   `;
   const preview = container.querySelector(".answer-preview");

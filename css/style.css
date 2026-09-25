@@ -374,6 +374,10 @@
 @media (hover: hover) and (pointer: fine) {
   .tile.placed:hover { opacity: 0.85; }
 }
+/* Phones: keep Submit well clear of the answer box so it isn't hit by accident */
+@media (max-width: 600px) {
+  .input-row .btn[data-role="submit"] { margin-top: 14px; }
+}
 
 .answer-preview {
   display: flex;

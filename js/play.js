@@ -346,11 +346,6 @@ function onSessionChange() {
     state.currentHandle = renderQuestion(questionContainer, currentQuestion(), handleSubmit);
     const seconds = state.session.time_limit_seconds || currentQuestion().time_limit_seconds || 20;
     state.stopTimer = startCountdown(timerEl, state.session.question_started_at, seconds, () => {
-      // Typed (or built) an answer but didn't manage to press Submit in time:
-      // send it anyway rather than counting it as "no answer".
-      const handle = state.currentHandle;
-      const pending = !state.hasAnsweredCurrent && handle && handle.pendingResponse && handle.pendingResponse();
-      if (pending) handleSubmit(pending);
       questionContainer.querySelectorAll("button, input").forEach((n) => (n.disabled = true));
     });
   } else if (state.session.status === "reveal") {
