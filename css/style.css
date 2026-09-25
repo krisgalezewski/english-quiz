@@ -376,7 +376,8 @@
 }
 /* Phones: keep Submit well clear of the answer box so it isn't hit by accident */
 @media (max-width: 600px) {
-  .input-row .btn[data-role="submit"] { margin-top: 14px; }
+  .input-row .input-wrap { flex: 1 1 100%; }
+  .input-row .btn[data-role="submit"] { flex: 1 1 100%; margin-top: 14px; min-height: 48px; }
 }
 
 .answer-preview {
