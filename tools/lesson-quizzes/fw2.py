@@ -8,7 +8,7 @@ FW2 = dict(key='english-plus-function-words-2', full='English+ Function Words II
           overview='https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
 
 quiz('fw2-01', course=FW2, n=1, lesson='lesson-01-preview-standalone.html',
-  name='Formal Relative Pronouns: By Which, Whom, Whereby',
+  name='Formal Relative Pronouns: By Which, Whom, Whereby', category='Function Words',
   structures='preposition + which / whom, whereby, sentence-level which and quantifier + of whom / of which in formal writing',
   tags=['relative-pronouns', 'formal-register', 'whom', 'whereby'], qs=[
   ('mcq', 'This is the process ___ applications are ranked.', ['by which', 'by that', 'which by', 'whereas'], 0),
@@ -26,7 +26,7 @@ quiz('fw2-01', course=FW2, n=1, lesson='lesson-01-preview-standalone.html',
 ])
 
 quiz('fw2-02', course=FW2, n=2, lesson='lesson-02-preview-standalone.html',
-  name='Generic One and This / That / Such Reference',
+  name='Generic One and This / That / Such Reference', category='Function Words',
   structures='generic one, this / these + summarising noun, that / those of in comparisons, and such (a) for reference across a text',
   tags=['reference', 'cohesion', 'generic-one', 'formal-writing'], qs=[
   ('mcq', '___ should always read a contract before signing it. (formal, people in general)', ['One', 'It', "Someone's", 'Ones'], 0),
@@ -44,7 +44,7 @@ quiz('fw2-02', course=FW2, n=2, lesson='lesson-02-preview-standalone.html',
 ])
 
 quiz('fw2-03', course=FW2, n=3, lesson='lesson-03-preview-standalone.html',
-  name='Multi-Word Prepositions: Due To, In Spite Of, With Regard To',
+  name='Multi-Word Prepositions: Due To, In Spite Of, With Regard To', category='Function Words',
   structures='multi-word prepositions (due to, owing to, in spite of, despite, with regard to, on behalf of, as opposed to, in accordance with) + noun, -ing or “the fact that”',
   tags=['prepositions', 'multi-word-prepositions', 'formal-register', 'despite'], qs=[
   ('mcq', '___ the heavy rain, the concert went ahead.', ['Despite', 'Although', 'Despite of', 'Even though'], 0),
@@ -62,7 +62,7 @@ quiz('fw2-03', course=FW2, n=3, lesson='lesson-03-preview-standalone.html',
 ])
 
 quiz('fw2-04', course=FW2, n=4, lesson='lesson-04-preview-standalone.html',
-  name='Stranded Prepositions and Register',
+  name='Stranded Prepositions and Register', category='Function Words',
   structures='stranded prepositions (the person I spoke to) vs fronted prepositions (the person to whom I spoke), and cases where the preposition must stay at the end',
   tags=['prepositions', 'stranded-prepositions', 'register', 'whom'], qs=[
   ('mcq', '(formal) The committee ___ the report was sent has not replied.', ['to which', 'which to', 'to that', 'that to'], 0),
@@ -80,7 +80,7 @@ quiz('fw2-04', course=FW2, n=4, lesson='lesson-04-preview-standalone.html',
 ])
 
 quiz('fw2-05', course=FW2, n=5, lesson='lesson-05-preview-standalone.html',
-  name='Phrasal Verb Particles: Up, Out, Off, Over, Through',
+  name='Phrasal Verb Particles: Up, Out, Off, Over, Through', category='Function Words',
   structures='phrasal verb particles as a system: up (completion, increase), out (thoroughly, removal), off (separation, fading, success), over (review, transfer) and through (start to finish, survival)',
   tags=['phrasal-verbs', 'particles', 'advanced-vocabulary'], qs=[
   ('mcq', 'After two days, they finally ___ an agreement. (reached it through long discussion)', ['hammered out', 'hammered off', 'hammered over', 'hammered up'], 0),
@@ -98,7 +98,7 @@ quiz('fw2-05', course=FW2, n=5, lesson='lesson-05-preview-standalone.html',
 ])
 
 quiz('fw2-06', course=FW2, n=6, lesson='lesson-06-preview-standalone.html',
-  name='Not Only … But Also, Whereas, Even Though, Given That',
+  name='Not Only … But Also, Whereas, Even Though, Given That', category='Function Words',
   structures='not only … but also (with inversion), whereas / while for contrast, even though / despite the fact that / much as for concession, and given that / in that / now that',
   tags=['conjunctions', 'not-only-but-also', 'inversion', 'whereas'], qs=[
   ('mcq', 'Not only ___ late, but he also forgot the documents.', ['did he arrive', 'he arrived', 'arrived he', 'he did arrive'], 0),
@@ -116,7 +116,7 @@ quiz('fw2-06', course=FW2, n=6, lesson='lesson-06-preview-standalone.html',
 ])
 
 quiz('fw2-07', course=FW2, n=7, lesson='lesson-07-preview-standalone.html',
-  name='Moreover, Nevertheless, Consequently: Transition Words and Punctuation',
+  name='Moreover, Nevertheless, Consequently: Transition Words and Punctuation', category='Function Words',
   structures='transition words for addition (moreover, furthermore), contrast and concession (however, nevertheless, nonetheless, conversely) and result (therefore, consequently, thus, hence), with semicolon and comma punctuation',
   tags=['linking-words', 'transition-words', 'punctuation', 'nevertheless'], qs=[
   ('mcq', 'The data is limited. ___, the conclusion is clear. (in spite of that)', ['Nevertheless', 'Moreover', 'Hence', 'Furthermore'], 0),
@@ -134,7 +134,7 @@ quiz('fw2-07', course=FW2, n=7, lesson='lesson-07-preview-standalone.html',
 ])
 
 quiz('fw2-08', course=FW2, n=8, lesson='lesson-08-preview-standalone.html',
-  name='Subsequently, Meanwhile, Namely, For Instance: Sequence and Examples',
+  name='Subsequently, Meanwhile, Namely, For Instance: Sequence and Examples', category='Function Words',
   structures='sequencing words (initially, subsequently, meanwhile, in the meantime, eventually) and exemplification (for instance, notably, e.g.) vs specification (namely, that is to say, i.e.)',
   tags=['linking-words', 'transition-words', 'e-g-vs-i-e', 'eventually'], qs=[
   ('mcq', 'The firm was founded in 2008 and ___ bought by a rival.', ['subsequently', 'meanwhile', 'namely', 'notably'], 0),
@@ -152,7 +152,7 @@ quiz('fw2-08', course=FW2, n=8, lesson='lesson-08-preview-standalone.html',
 ])
 
 quiz('fw2-09', course=FW2, n=9, lesson='lesson-09-preview-standalone.html',
-  name='Formal Quantifiers: A Number Of, The Majority Of, Few vs A Few',
+  name='Formal Quantifiers: A Number Of, The Majority Of, Few vs A Few', category='Function Words',
   structures='a number of (plural verb) vs the number of (singular verb), the majority / a proportion of + agreement, a great deal of, fewer vs less, and the attitude difference between few and a few',
   tags=['quantifiers', 'subject-verb-agreement', 'formal-writing', 'few-a-few'], qs=[
   ('mcq', 'A number of employees ___ asked for flexible hours.', ['have', 'has', 'is', 'was'], 0),
@@ -170,7 +170,7 @@ quiz('fw2-09', course=FW2, n=9, lesson='lesson-09-preview-standalone.html',
 ])
 
 quiz('fw2-10', course=FW2, n=10, lesson='lesson-10-preview-standalone.html',
-  name='Intensifiers and Degree Words: Very, Absolutely, Rather, Somewhat',
+  name='Intensifiers and Degree Words: Very, Absolutely, Rather, Somewhat', category='Function Words',
   structures='gradable vs extreme adjectives (very cold / absolutely freezing), softeners (fairly, rather, quite, somewhat) and collocations such as highly likely, deeply concerned, fully aware',
   tags=['intensifiers', 'adverbs-of-degree', 'collocations', 'gradable-adjectives'], qs=[
   ('mcq', 'After the night shift, she was ___ exhausted.', ['absolutely', 'very', 'fairly', 'slightly'], 0),
@@ -188,7 +188,7 @@ quiz('fw2-10', course=FW2, n=10, lesson='lesson-10-preview-standalone.html',
 ])
 
 quiz('fw2-11', course=FW2, n=11, lesson='lesson-11-preview-standalone.html',
-  name='The Former and the Latter, Respectively, Do So',
+  name='The Former and the Latter, Respectively, Do So', category='Function Words',
   structures='the former / the latter, respectively, the above / the following / below, and substitution with do so, the same and such',
   tags=['cohesion', 'reference', 'the-former-the-latter', 'respectively'], qs=[
   ('mcq', 'We considered renting and buying. ___ was cheaper, so we rented.', ['The former', 'The latter', 'The following', 'The above'], 0),

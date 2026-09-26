@@ -8,7 +8,7 @@ FW1 = dict(key='english-plus-function-words-1', full='English+ Function Words I 
           overview='https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
 
 quiz('fw1-01', course=FW1, n=1, lesson='lesson-01-preview-standalone.html',
-  name='Personal, Possessive & Reflexive Pronouns',
+  name='Personal, Possessive & Reflexive Pronouns', category='Function Words',
   structures='subject (I), object (me), possessive (my / mine) and reflexive (myself) pronouns, and when -self words are really needed',
   tags=['pronouns', 'reflexive-pronouns', 'possessive-pronouns'], qs=[
   ('mcq', 'Please send the final version to Tomasz or ___.', ['me', 'myself', 'I', 'mine'], 0),
@@ -26,7 +26,7 @@ quiz('fw1-01', course=FW1, n=1, lesson='lesson-01-preview-standalone.html',
 ])
 
 quiz('fw1-02', course=FW1, n=2, lesson='lesson-02-preview-standalone.html',
-  name='Demonstratives & Indefinite Pronouns',
+  name='Demonstratives & Indefinite Pronouns', category='Function Words',
   structures='this / that / these / those (including “that” for a whole idea) and some- / any- / no- / every- words with a singular verb',
   tags=['demonstratives', 'indefinite-pronouns', 'everyone-everybody'], qs=[
   ('mcq', 'Everyone in the office ___ a new password.', ['has', 'have', 'are having', 'having'], 0),
@@ -44,7 +44,7 @@ quiz('fw1-02', course=FW1, n=2, lesson='lesson-02-preview-standalone.html',
 ])
 
 quiz('fw1-03', course=FW1, n=3, lesson='lesson-03-preview-standalone.html',
-  name='Each, Every, Either, Neither & Each Other',
+  name='Each, Every, Either, Neither & Each Other', category='Function Words',
   structures='each, every, either and neither with singular nouns and verbs, and the reciprocal pronouns each other / one another',
   tags=['each-every', 'either-neither', 'each-other'], qs=[
   ('mcq', '___ employee must complete the safety training.', ['Every', 'All', 'Both', 'Each of'], 0),
@@ -62,7 +62,7 @@ quiz('fw1-03', course=FW1, n=3, lesson='lesson-03-preview-standalone.html',
 ])
 
 quiz('fw1-04', course=FW1, n=4, lesson='lesson-04-preview-standalone.html',
-  name='Who, Which, That, Whose — plus Question Tags',
+  name='Who, Which, That, Whose — plus Question Tags', category='Function Words',
   structures='choosing who, which, that and whose, plus question tags and emphatic do',
   tags=['relative-pronouns', 'question-tags', 'emphatic-do'], qs=[
   ('mcq', 'The engineer ___ fixed the server works from Kraków.', ['who', 'which', 'whose', 'what'], 0),
@@ -80,7 +80,7 @@ quiz('fw1-04', course=FW1, n=4, lesson='lesson-04-preview-standalone.html',
 ])
 
 quiz('fw1-05', course=FW1, n=5, lesson='lesson-05-preview-standalone.html',
-  name='In, On, At — Time & Place',
+  name='In, On, At — Time & Place', category='Function Words',
   structures='in, on and at for time and place, into / onto for movement, and phrases with no preposition (next week, last Monday)',
   tags=['prepositions', 'prepositions-of-time', 'prepositions-of-place'], qs=[
   ('mcq', 'The conference starts ___ 9:30.', ['at', 'on', 'in', 'by'], 0),
@@ -98,7 +98,7 @@ quiz('fw1-05', course=FW1, n=5, lesson='lesson-05-preview-standalone.html',
 ])
 
 quiz('fw1-06', course=FW1, n=6, lesson='lesson-06-preview-standalone.html',
-  name='Dependent Prepositions',
+  name='Dependent Prepositions', category='Function Words',
   structures='adjective, verb and noun + preposition pairs (interested in, good at, responsible for, depend on) and -ing after prepositions',
   tags=['dependent-prepositions', 'prepositions', 'look-forward-to'], qs=[
   ('mcq', "I'm very interested ___ the job you advertised.", ['in', 'on', 'for', 'at'], 0),
@@ -116,7 +116,7 @@ quiz('fw1-06', course=FW1, n=6, lesson='lesson-06-preview-standalone.html',
 ])
 
 quiz('fw1-07', course=FW1, n=7, lesson='lesson-07-preview-standalone.html',
-  name='A First Look at Phrasal Verb Particles',
+  name='A First Look at Phrasal Verb Particles', category='Function Words',
   structures='common phrasal verbs with up, down, out and off, what the particle often adds, and where the pronoun goes (turn it off)',
   tags=['phrasal-verbs', 'particles', 'separable-phrasal-verbs'], qs=[
   ('mcq', 'The concert was ___ because of the storm. (cancelled)', ['called off', 'called up', 'called out', 'called down'], 0),
@@ -134,7 +134,7 @@ quiz('fw1-07', course=FW1, n=7, lesson='lesson-07-preview-standalone.html',
 ])
 
 quiz('fw1-08', course=FW1, n=8, lesson='lesson-08-preview-standalone.html',
-  name='And, But, Or, So — plus Both … And, Either … Or, Neither … Nor',
+  name='And, But, Or, So — plus Both … And, Either … Or, Neither … Nor', category='Function Words',
   structures='and, but, or, so, and the pairs both … and, either … or, neither … nor (with verb agreement and no double negatives)',
   tags=['conjunctions', 'correlative-conjunctions', 'neither-nor'], qs=[
   ('mcq', 'The train was cancelled, ___ we took a taxi.', ['so', 'but', 'or', 'nor'], 0),
@@ -152,7 +152,7 @@ quiz('fw1-08', course=FW1, n=8, lesson='lesson-08-preview-standalone.html',
 ])
 
 quiz('fw1-09', course=FW1, n=9, lesson='lesson-09-preview-standalone.html',
-  name='Because, Although, While',
+  name='Because, Although, While', category='Function Words',
   structures='because (reason), although / even though (contrast), while (same time or contrast), and because of + noun',
   tags=['subordinating-conjunctions', 'because-although', 'while'], qs=[
   ('mcq', 'We cancelled the event ___ nobody signed up.', ['because', 'although', 'because of', 'while'], 0),
@@ -170,7 +170,7 @@ quiz('fw1-09', course=FW1, n=9, lesson='lesson-09-preview-standalone.html',
 ])
 
 quiz('fw1-10', course=FW1, n=10, lesson='lesson-10-preview-standalone.html',
-  name='Everyday Connecting Words',
+  name='Everyday Connecting Words', category='Function Words',
   structures='however, therefore, as a result, also, in addition, for example, such as and first / then / finally, with their punctuation',
   tags=['linking-words', 'connectors', 'however-therefore'], qs=[
   ('mcq', 'The hotel was beautiful. ___, it was far from the beach.', ['However', 'Therefore', 'For example', 'Such as'], 0),
@@ -188,7 +188,7 @@ quiz('fw1-10', course=FW1, n=10, lesson='lesson-10-preview-standalone.html',
 ])
 
 quiz('fw1-11', course=FW1, n=11, lesson='lesson-11-preview-standalone.html',
-  name='Quantifiers & Countability',
+  name='Quantifiers & Countability', category='Function Words',
   structures='much / many, a few / a little, few / little, some / any / most / none, and countable vs uncountable nouns like information and advice',
   tags=['quantifiers', 'countable-uncountable', 'much-many'], qs=[
   ('mcq', 'How ___ information do you need?', ['much', 'many', 'a few', 'several'], 0),

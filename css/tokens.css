@@ -47,6 +47,11 @@
   --cat-grammar: #a4193d;
   --cat-vocabulary: #116565;
   --cat-use-of-english: #9a7b12;
+  /* Function Words (the English+ Function Words courses): a violet that
+     sits between Grammar's crimson and Vocabulary's teal — "where
+     vocabulary meets grammar" — and stays clear of the magenta --quizzes
+     brand accent and Use of English's amber. */
+  --cat-function-words: #5b3f99;
   --cat-ink: #f2efe6;
 }
 

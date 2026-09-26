@@ -3,7 +3,7 @@
 //
 // Fetches every public quiz (available_for_practice = true), groups it into
 // the same three sections /lessons/ uses (Grammar / Vocabulary / Use of
-// English), and renders a card per quiz with an artwork panel — same tile
+// English) plus Function Words (the English+ Function Words courses), and renders a card per quiz with an artwork panel — same tile
 // shape as /lessons/'s LESSONS grid. This runs alongside, not instead of,
 // the existing dropdown/code logic in js/practice.js: both read the same
 // `quizzes` table independently, so nothing here touches that file.
@@ -19,12 +19,14 @@ import { supabase } from "./supabase-client.js";
 const CATS = [
   { key: "Grammar", grid: "gridGrammar", count: "countGrammar", card: "var(--cat-grammar)", dotAlpha: "0.09" },
   { key: "Vocabulary", grid: "gridVocabulary", count: "countVocabulary", card: "var(--cat-vocabulary)", dotAlpha: "0.09" },
+  { key: "Function Words", grid: "gridFunctionWords", count: "countFunctionWords", card: "var(--cat-function-words)", dotAlpha: "0.09" },
   { key: "Use of English", grid: "gridUseOfEnglish", count: "countUseOfEnglish", card: "var(--cat-use-of-english)", dotAlpha: "0.1" },
 ];
 
 function categoryFallbackSlug(category) {
   if (category === "Grammar") return "_placeholder-grammar";
   if (category === "Vocabulary") return "_placeholder-vocabulary";
+  if (category === "Function Words") return "_placeholder-function-words";
   return "_placeholder-use-of-english";
 }
 
