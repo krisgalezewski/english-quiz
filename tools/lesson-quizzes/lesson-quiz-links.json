@@ -454,5 +454,181 @@
     "lesson": "lesson-20-discourse-capstone.html",
     "lesson_url": "https://englishvoiced.com/english-plus-b2-c1-grammar-course/lesson-20-discourse-capstone.html",
     "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b71e930a-d2d5-510a-92e7-434dfd91181c"
+  },
+  "fw1-01": {
+    "id": "b440f71f-2800-5f0e-8a77-2a4a91bb78f6",
+    "title": "Personal, Possessive & Reflexive Pronouns",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-01-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-01-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b440f71f-2800-5f0e-8a77-2a4a91bb78f6"
+  },
+  "fw1-02": {
+    "id": "b3c8e206-87c3-5ad8-b566-fa3bcec87995",
+    "title": "Demonstratives & Indefinite Pronouns",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-02-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-02-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b3c8e206-87c3-5ad8-b566-fa3bcec87995"
+  },
+  "fw1-03": {
+    "id": "4593f2a0-76d8-5308-960d-a31929efde17",
+    "title": "Each, Every, Either, Neither & Each Other",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-03-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-03-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=4593f2a0-76d8-5308-960d-a31929efde17"
+  },
+  "fw1-04": {
+    "id": "7d4b7a56-1612-56fe-929d-feecd2691283",
+    "title": "Who, Which, That, Whose — plus Question Tags",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-04-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-04-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=7d4b7a56-1612-56fe-929d-feecd2691283"
+  },
+  "fw1-05": {
+    "id": "0146c7e0-93fc-5eb8-b64d-c6182bdf3918",
+    "title": "In, On, At — Time & Place",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-05-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-05-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=0146c7e0-93fc-5eb8-b64d-c6182bdf3918"
+  },
+  "fw1-06": {
+    "id": "dcd390d1-0835-5bd2-8fdb-f6296ed927e9",
+    "title": "Dependent Prepositions",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-06-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-06-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=dcd390d1-0835-5bd2-8fdb-f6296ed927e9"
+  },
+  "fw1-07": {
+    "id": "40df3ae6-7a11-5a4a-ae2c-35f6c95e7c5d",
+    "title": "A First Look at Phrasal Verb Particles",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-07-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-07-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=40df3ae6-7a11-5a4a-ae2c-35f6c95e7c5d"
+  },
+  "fw1-08": {
+    "id": "06fa64d9-7a61-50a9-9a98-72cf2c421304",
+    "title": "And, But, Or, So — plus Both … And, Either … Or, Neither … Nor",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-08-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-08-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=06fa64d9-7a61-50a9-9a98-72cf2c421304"
+  },
+  "fw1-09": {
+    "id": "661e806c-74b8-56e6-a12e-8dded1148a26",
+    "title": "Because, Although, While",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-09-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-09-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=661e806c-74b8-56e6-a12e-8dded1148a26"
+  },
+  "fw1-10": {
+    "id": "a6a8f64a-290a-54f8-99ae-4b616f15cfa9",
+    "title": "Everyday Connecting Words",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-10-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-10-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=a6a8f64a-290a-54f8-99ae-4b616f15cfa9"
+  },
+  "fw1-11": {
+    "id": "f0fe510e-17ed-5981-ae22-3958bde7d9ce",
+    "title": "Quantifiers & Countability",
+    "course": "english-plus-function-words-1",
+    "lesson": "lesson-11-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-1/lesson-11-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=f0fe510e-17ed-5981-ae22-3958bde7d9ce"
+  },
+  "fw2-01": {
+    "id": "d6d75263-7c33-5e34-87df-dd2dbd9d45de",
+    "title": "Formal Relative Pronouns: By Which, Whom, Whereby",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-01-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-01-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=d6d75263-7c33-5e34-87df-dd2dbd9d45de"
+  },
+  "fw2-02": {
+    "id": "b9d3713f-d3dc-5f8a-9263-d66d43088f71",
+    "title": "Generic One and This / That / Such Reference",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-02-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-02-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=b9d3713f-d3dc-5f8a-9263-d66d43088f71"
+  },
+  "fw2-03": {
+    "id": "69ccf599-004c-5038-a266-a5e6d6879412",
+    "title": "Multi-Word Prepositions: Due To, In Spite Of, With Regard To",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-03-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-03-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=69ccf599-004c-5038-a266-a5e6d6879412"
+  },
+  "fw2-04": {
+    "id": "97154a39-f6e4-54f1-9f90-41f39d4f2854",
+    "title": "Stranded Prepositions and Register",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-04-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-04-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=97154a39-f6e4-54f1-9f90-41f39d4f2854"
+  },
+  "fw2-05": {
+    "id": "fa9f524d-3bab-510a-b08d-129c153ec7f9",
+    "title": "Phrasal Verb Particles: Up, Out, Off, Over, Through",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-05-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-05-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=fa9f524d-3bab-510a-b08d-129c153ec7f9"
+  },
+  "fw2-06": {
+    "id": "f1dfb462-22a4-53d3-97a2-66ed348d70bb",
+    "title": "Not Only … But Also, Whereas, Even Though, Given That",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-06-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-06-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=f1dfb462-22a4-53d3-97a2-66ed348d70bb"
+  },
+  "fw2-07": {
+    "id": "969ad4c0-09c5-5ffc-8d61-de8074959055",
+    "title": "Moreover, Nevertheless, Consequently: Transition Words and Punctuation",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-07-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-07-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=969ad4c0-09c5-5ffc-8d61-de8074959055"
+  },
+  "fw2-08": {
+    "id": "97180203-0e76-5099-a422-93c46f2c0f8c",
+    "title": "Subsequently, Meanwhile, Namely, For Instance: Sequence and Examples",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-08-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-08-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=97180203-0e76-5099-a422-93c46f2c0f8c"
+  },
+  "fw2-09": {
+    "id": "951e1368-cd65-57c6-bd75-cd80bb424f81",
+    "title": "Formal Quantifiers: A Number Of, The Majority Of, Few vs A Few",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-09-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-09-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=951e1368-cd65-57c6-bd75-cd80bb424f81"
+  },
+  "fw2-10": {
+    "id": "2cb7ea16-9457-5449-9227-7af3ae9d3ce0",
+    "title": "Intensifiers and Degree Words: Very, Absolutely, Rather, Somewhat",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-10-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-10-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=2cb7ea16-9457-5449-9227-7af3ae9d3ce0"
+  },
+  "fw2-11": {
+    "id": "70466d79-8cf1-586b-bb4c-6d7ce2200576",
+    "title": "The Former and the Latter, Respectively, Do So",
+    "course": "english-plus-function-words-2",
+    "lesson": "lesson-11-preview-standalone.html",
+    "lesson_url": "https://englishvoiced.com/english-plus-function-words-2/lesson-11-preview-standalone.html",
+    "quiz_url": "https://englishvoiced.com/english-quiz/practice.html?quiz=70466d79-8cf1-586b-bb4c-6d7ce2200576"
   }
 }
