@@ -14,12 +14,12 @@ alter table quizzes add column if not exists learn_more_url text;
 
 
 -- Formal Relative Pronouns: By Which, Whom, Whereby
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-01-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/lesson-01-preview-standalone.html
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('d6d75263-7c33-5e34-87df-dd2dbd9d45de', 'Formal Relative Pronouns: By Which, Whom, Whereby', 'Preposition + which / whom, whereby, sentence-level which and quantifier + of whom / of which in formal writing. Taught in Lesson 1 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-01', 'relative-pronouns', 'formal-register', 'whom', 'whereby'], 'Function Words', 'fw2-formal-relative-pronouns-by-which-whom-whereby', true,
-        'Want to go further? This grammar is taught step by step in Lesson 1 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 1 of the English+ Function Words II course (B2+/C1), and that lesson is free to try.', 'Open Lesson 1 free', 'https://englishvoiced.com/courses/english-plus-function-words-2/lesson-01-preview-standalone.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -66,12 +66,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Generic One and This / That / Such Reference
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-02-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=2
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('b9d3713f-d3dc-5f8a-9263-d66d43088f71', 'Generic One and This / That / Such Reference', 'Generic one, this / these + summarising noun, that / those of in comparisons, and such (a) for reference across a text. Taught in Lesson 2 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-02', 'reference', 'cohesion', 'generic-one', 'formal-writing'], 'Function Words', 'fw2-generic-one-and-this-that-such-reference', true,
-        'Want to go further? This grammar is taught step by step in Lesson 2 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 2 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=2')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -118,12 +118,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Multi-Word Prepositions: Due To, In Spite Of, With Regard To
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-03-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=3
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('69ccf599-004c-5038-a266-a5e6d6879412', 'Multi-Word Prepositions: Due To, In Spite Of, With Regard To', 'Multi-word prepositions (due to, owing to, in spite of, despite, with regard to, on behalf of, as opposed to, in accordance with) + noun, -ing or “the fact that”. Taught in Lesson 3 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-03', 'prepositions', 'multi-word-prepositions', 'formal-register', 'despite'], 'Function Words', 'fw2-multi-word-prepositions-due-to-in-spite-of-with-regard-to', true,
-        'Want to go further? This grammar is taught step by step in Lesson 3 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 3 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=3')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -170,12 +170,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Stranded Prepositions and Register
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-04-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=4
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('97154a39-f6e4-54f1-9f90-41f39d4f2854', 'Stranded Prepositions and Register', 'Stranded prepositions (the person I spoke to) vs fronted prepositions (the person to whom I spoke), and cases where the preposition must stay at the end. Taught in Lesson 4 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-04', 'prepositions', 'stranded-prepositions', 'register', 'whom'], 'Function Words', 'fw2-stranded-prepositions-and-register', true,
-        'Want to go further? This grammar is taught step by step in Lesson 4 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 4 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=4')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -222,12 +222,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Phrasal Verb Particles: Up, Out, Off, Over, Through
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-05-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=5
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('fa9f524d-3bab-510a-b08d-129c153ec7f9', 'Phrasal Verb Particles: Up, Out, Off, Over, Through', 'Phrasal verb particles as a system: up (completion, increase), out (thoroughly, removal), off (separation, fading, success), over (review, transfer) and through (start to finish, survival). Taught in Lesson 5 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-05', 'phrasal-verbs', 'particles', 'advanced-vocabulary'], 'Function Words', 'fw2-phrasal-verb-particles-up-out-off-over-through', true,
-        'Want to go further? This grammar is taught step by step in Lesson 5 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 5 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=5')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -274,12 +274,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Not Only … But Also, Whereas, Even Though, Given That
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-06-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=6
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('f1dfb462-22a4-53d3-97a2-66ed348d70bb', 'Not Only … But Also, Whereas, Even Though, Given That', 'Not only … but also (with inversion), whereas / while for contrast, even though / despite the fact that / much as for concession, and given that / in that / now that. Taught in Lesson 6 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-06', 'conjunctions', 'not-only-but-also', 'inversion', 'whereas'], 'Function Words', 'fw2-not-only-but-also-whereas-even-though-given-that', true,
-        'Want to go further? This grammar is taught step by step in Lesson 6 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 6 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=6')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -326,12 +326,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Moreover, Nevertheless, Consequently: Transition Words and Punctuation
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-07-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=7
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('969ad4c0-09c5-5ffc-8d61-de8074959055', 'Moreover, Nevertheless, Consequently: Transition Words and Punctuation', 'Transition words for addition (moreover, furthermore), contrast and concession (however, nevertheless, nonetheless, conversely) and result (therefore, consequently, thus, hence), with semicolon and comma punctuation. Taught in Lesson 7 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-07', 'linking-words', 'transition-words', 'punctuation', 'nevertheless'], 'Function Words', 'fw2-moreover-nevertheless-consequently-transition-words-and-punctuation', true,
-        'Want to go further? This grammar is taught step by step in Lesson 7 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 7 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=7')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -378,12 +378,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Subsequently, Meanwhile, Namely, For Instance: Sequence and Examples
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-08-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=8
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('97180203-0e76-5099-a422-93c46f2c0f8c', 'Subsequently, Meanwhile, Namely, For Instance: Sequence and Examples', 'Sequencing words (initially, subsequently, meanwhile, in the meantime, eventually) and exemplification (for instance, notably, e.g.) vs specification (namely, that is to say, i.e.). Taught in Lesson 8 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-08', 'linking-words', 'transition-words', 'e-g-vs-i-e', 'eventually'], 'Function Words', 'fw2-subsequently-meanwhile-namely-for-instance-sequence-and-examples', true,
-        'Want to go further? This grammar is taught step by step in Lesson 8 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 8 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=8')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -430,12 +430,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Formal Quantifiers: A Number Of, The Majority Of, Few vs A Few
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-09-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=9
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('951e1368-cd65-57c6-bd75-cd80bb424f81', 'Formal Quantifiers: A Number Of, The Majority Of, Few vs A Few', 'A number of (plural verb) vs the number of (singular verb), the majority / a proportion of + agreement, a great deal of, fewer vs less, and the attitude difference between few and a few. Taught in Lesson 9 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-09', 'quantifiers', 'subject-verb-agreement', 'formal-writing', 'few-a-few'], 'Function Words', 'fw2-formal-quantifiers-a-number-of-the-majority-of-few-vs-a-few', true,
-        'Want to go further? This grammar is taught step by step in Lesson 9 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 9 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=9')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -482,12 +482,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Intensifiers and Degree Words: Very, Absolutely, Rather, Somewhat
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-10-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=10
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('2cb7ea16-9457-5449-9227-7af3ae9d3ce0', 'Intensifiers and Degree Words: Very, Absolutely, Rather, Somewhat', 'Gradable vs extreme adjectives (very cold / absolutely freezing), softeners (fairly, rather, quite, somewhat) and collocations such as highly likely, deeply concerned, fully aware. Taught in Lesson 10 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-10', 'intensifiers', 'adverbs-of-degree', 'collocations', 'gradable-adjectives'], 'Function Words', 'fw2-intensifiers-and-degree-words-very-absolutely-rather-somewhat', true,
-        'Want to go further? This grammar is taught step by step in Lesson 10 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 10 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=10')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -534,12 +534,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- The Former and the Latter, Respectively, Do So
--- Lesson: https://englishvoiced.com/english-plus-function-words-2/lesson-11-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-2/?locked=11
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('70466d79-8cf1-586b-bb4c-6d7ce2200576', 'The Former and the Latter, Respectively, Do So', 'The former / the latter, respectively, the above / the following / below, and substitution with do so, the same and such. Taught in Lesson 11 of the English+ Function Words II course (B2+/C1).',
         array['english-plus-function-words-2', 'lesson-11', 'cohesion', 'reference', 'the-former-the-latter', 'respectively'], 'Function Words', 'fw2-the-former-and-the-latter-respectively-do-so', true,
-        'Want to go further? This grammar is taught step by step in Lesson 11 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-2/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 11 of the English+ Function Words II course (B2+/C1).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-2/?locked=11')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,

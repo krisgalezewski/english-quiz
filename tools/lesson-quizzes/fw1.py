@@ -4,8 +4,9 @@ that repo (lessons_section*.py, "quiz" key) and re-export rather than here."""
 from common import quiz
 
 FW1 = dict(key='english-plus-function-words-1', full='English+ Function Words I course (B1+/B2)',
-          base='https://englishvoiced.com/english-plus-function-words-1/',
-          overview='https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+          base='https://englishvoiced.com/courses/english-plus-function-words-1/',
+          overview='https://englishvoiced.com/courses/english-plus-function-words-1/',
+          preview_open=1)
 
 quiz('fw1-01', course=FW1, n=1, lesson='lesson-01-preview-standalone.html',
   name='Personal, Possessive & Reflexive Pronouns', category='Function Words',

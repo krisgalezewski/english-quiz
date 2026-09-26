@@ -104,6 +104,12 @@ pointing to the free lesson or to the course overview page. A quiz without a
 `learn_more_url` shows nothing extra, and if the columns don't exist yet the
 page simply works as before.
 
+The Function Words quizzes point to the free previews on
+englishvoiced.com/courses/: the Lesson 1 quizzes open Lesson 1 there, and the
+others open the preview's course page with `?locked=N`, which says that lesson
+is in the full course and how to contact Kris
+(`sql/migration-015-function-words-preview-links.sql`).
+
 ### Editing the lesson quizzes
 
 The content lives in `tools/lesson-quizzes/` (one Python file per group of

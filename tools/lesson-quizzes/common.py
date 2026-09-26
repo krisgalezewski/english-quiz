@@ -29,6 +29,18 @@ def quiz(key, qs, lesson, tags, title=None, desc=None, category="Grammar", cours
         lesson_url = course["base"] + lesson
         learn = dict(text=f"Want to go further? This grammar is taught step by step in Lesson {n} of the {course['full']}.",
                      link_text="See the course", url=course["overview"])
+        if "preview_open" in course:
+            # Courses whose public preview on englishvoiced.com/courses/ opens
+            # only the first lessons: an open lesson links straight to it; any
+            # other lesson links to the preview's course page with ?locked=N,
+            # which explains it's in the full course (contact Kris).
+            if n <= course["preview_open"]:
+                learn = dict(text=f"Want to go further? This grammar is taught step by step in Lesson {n} of the {course['full']}, and that lesson is free to try.",
+                             link_text=f"Open Lesson {n} free", url=lesson_url)
+            else:
+                lesson_url = course["overview"] + f"?locked={n}"
+                learn = dict(text=f"Want to go further? This grammar is taught step by step in Lesson {n} of the {course['full']}.",
+                             link_text="See the course", url=lesson_url)
     else:
         lesson_url = "https://englishvoiced.com" + lesson
         topic = title.replace(" — Lesson Quiz", "")

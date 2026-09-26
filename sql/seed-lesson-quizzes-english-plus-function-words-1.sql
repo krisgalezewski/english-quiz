@@ -14,12 +14,12 @@ alter table quizzes add column if not exists learn_more_url text;
 
 
 -- Personal, Possessive & Reflexive Pronouns
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-01-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/lesson-01-preview-standalone.html
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('b440f71f-2800-5f0e-8a77-2a4a91bb78f6', 'Personal, Possessive & Reflexive Pronouns', 'Subject (I), object (me), possessive (my / mine) and reflexive (myself) pronouns, and when -self words are really needed. Taught in Lesson 1 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-01', 'pronouns', 'reflexive-pronouns', 'possessive-pronouns'], 'Function Words', 'fw1-personal-possessive-and-reflexive-pronouns', true,
-        'Want to go further? This grammar is taught step by step in Lesson 1 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 1 of the English+ Function Words I course (B1+/B2), and that lesson is free to try.', 'Open Lesson 1 free', 'https://englishvoiced.com/courses/english-plus-function-words-1/lesson-01-preview-standalone.html')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -66,12 +66,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Demonstratives & Indefinite Pronouns
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-02-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=2
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('b3c8e206-87c3-5ad8-b566-fa3bcec87995', 'Demonstratives & Indefinite Pronouns', 'This / that / these / those (including “that” for a whole idea) and some- / any- / no- / every- words with a singular verb. Taught in Lesson 2 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-02', 'demonstratives', 'indefinite-pronouns', 'everyone-everybody'], 'Function Words', 'fw1-demonstratives-and-indefinite-pronouns', true,
-        'Want to go further? This grammar is taught step by step in Lesson 2 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 2 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=2')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -118,12 +118,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Each, Every, Either, Neither & Each Other
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-03-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=3
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('4593f2a0-76d8-5308-960d-a31929efde17', 'Each, Every, Either, Neither & Each Other', 'Each, every, either and neither with singular nouns and verbs, and the reciprocal pronouns each other / one another. Taught in Lesson 3 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-03', 'each-every', 'either-neither', 'each-other'], 'Function Words', 'fw1-each-every-either-neither-and-each-other', true,
-        'Want to go further? This grammar is taught step by step in Lesson 3 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 3 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=3')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -170,12 +170,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Who, Which, That, Whose — plus Question Tags
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-04-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=4
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('7d4b7a56-1612-56fe-929d-feecd2691283', 'Who, Which, That, Whose — plus Question Tags', 'Choosing who, which, that and whose, plus question tags and emphatic do. Taught in Lesson 4 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-04', 'relative-pronouns', 'question-tags', 'emphatic-do'], 'Function Words', 'fw1-who-which-that-whose-plus-question-tags', true,
-        'Want to go further? This grammar is taught step by step in Lesson 4 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 4 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=4')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -222,12 +222,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- In, On, At — Time & Place
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-05-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=5
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('0146c7e0-93fc-5eb8-b64d-c6182bdf3918', 'In, On, At — Time & Place', 'In, on and at for time and place, into / onto for movement, and phrases with no preposition (next week, last Monday). Taught in Lesson 5 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-05', 'prepositions', 'prepositions-of-time', 'prepositions-of-place'], 'Function Words', 'fw1-in-on-at-time-and-place', true,
-        'Want to go further? This grammar is taught step by step in Lesson 5 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 5 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=5')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -274,12 +274,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Dependent Prepositions
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-06-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=6
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('dcd390d1-0835-5bd2-8fdb-f6296ed927e9', 'Dependent Prepositions', 'Adjective, verb and noun + preposition pairs (interested in, good at, responsible for, depend on) and -ing after prepositions. Taught in Lesson 6 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-06', 'dependent-prepositions', 'prepositions', 'look-forward-to'], 'Function Words', 'fw1-dependent-prepositions', true,
-        'Want to go further? This grammar is taught step by step in Lesson 6 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 6 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=6')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -326,12 +326,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- A First Look at Phrasal Verb Particles
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-07-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=7
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('40df3ae6-7a11-5a4a-ae2c-35f6c95e7c5d', 'A First Look at Phrasal Verb Particles', 'Common phrasal verbs with up, down, out and off, what the particle often adds, and where the pronoun goes (turn it off). Taught in Lesson 7 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-07', 'phrasal-verbs', 'particles', 'separable-phrasal-verbs'], 'Function Words', 'fw1-a-first-look-at-phrasal-verb-particles', true,
-        'Want to go further? This grammar is taught step by step in Lesson 7 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 7 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=7')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -378,12 +378,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- And, But, Or, So — plus Both … And, Either … Or, Neither … Nor
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-08-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=8
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('06fa64d9-7a61-50a9-9a98-72cf2c421304', 'And, But, Or, So — plus Both … And, Either … Or, Neither … Nor', 'And, but, or, so, and the pairs both … and, either … or, neither … nor (with verb agreement and no double negatives). Taught in Lesson 8 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-08', 'conjunctions', 'correlative-conjunctions', 'neither-nor'], 'Function Words', 'fw1-and-but-or-so-plus-both-and-either-or-neither-nor', true,
-        'Want to go further? This grammar is taught step by step in Lesson 8 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 8 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=8')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -430,12 +430,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Because, Although, While
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-09-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=9
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('661e806c-74b8-56e6-a12e-8dded1148a26', 'Because, Although, While', 'Because (reason), although / even though (contrast), while (same time or contrast), and because of + noun. Taught in Lesson 9 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-09', 'subordinating-conjunctions', 'because-although', 'while'], 'Function Words', 'fw1-because-although-while', true,
-        'Want to go further? This grammar is taught step by step in Lesson 9 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 9 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=9')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -482,12 +482,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Everyday Connecting Words
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-10-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=10
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('a6a8f64a-290a-54f8-99ae-4b616f15cfa9', 'Everyday Connecting Words', 'However, therefore, as a result, also, in addition, for example, such as and first / then / finally, with their punctuation. Taught in Lesson 10 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-10', 'linking-words', 'connectors', 'however-therefore'], 'Function Words', 'fw1-everyday-connecting-words', true,
-        'Want to go further? This grammar is taught step by step in Lesson 10 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 10 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=10')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
@@ -534,12 +534,12 @@ on conflict (id) do update set position = excluded.position, type = excluded.typ
   time_limit_seconds = excluded.time_limit_seconds, points = excluded.points;
 
 -- Quantifiers & Countability
--- Lesson: https://englishvoiced.com/english-plus-function-words-1/lesson-11-preview-standalone.html
+-- Lesson: https://englishvoiced.com/courses/english-plus-function-words-1/?locked=11
 insert into quizzes (id, title, description, tags, category, slug, available_for_practice,
                      learn_more_text, learn_more_link_text, learn_more_url)
 values ('f0fe510e-17ed-5981-ae22-3958bde7d9ce', 'Quantifiers & Countability', 'Much / many, a few / a little, few / little, some / any / most / none, and countable vs uncountable nouns like information and advice. Taught in Lesson 11 of the English+ Function Words I course (B1+/B2).',
         array['english-plus-function-words-1', 'lesson-11', 'quantifiers', 'countable-uncountable', 'much-many'], 'Function Words', 'fw1-quantifiers-and-countability', true,
-        'Want to go further? This grammar is taught step by step in Lesson 11 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/english-plus-function-words-1/index-standalone.html')
+        'Want to go further? This grammar is taught step by step in Lesson 11 of the English+ Function Words I course (B1+/B2).', 'See the course', 'https://englishvoiced.com/courses/english-plus-function-words-1/?locked=11')
 on conflict (id) do update set title = excluded.title, description = excluded.description,
   tags = excluded.tags, category = excluded.category, slug = excluded.slug, available_for_practice = true,
   learn_more_text = excluded.learn_more_text, learn_more_link_text = excluded.learn_more_link_text,
