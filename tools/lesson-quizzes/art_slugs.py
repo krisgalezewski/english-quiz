@@ -59,26 +59,26 @@ ART_SLUGS = {
     'site-verb-tenses': 'verb-tenses-lq',  # G28
     'site-word-formation': 'word-formation-lq',  # V04
     'site-workplace-eq': 'workplace-eq-lq',  # U01
-    'fw1-01': 'fw1-personal-possessive-and-reflexive-pronouns',  # (no artwork yet — placeholder)
-    'fw1-02': 'fw1-demonstratives-and-indefinite-pronouns',  # (no artwork yet — placeholder)
-    'fw1-03': 'fw1-each-every-either-neither-and-each-other',  # (no artwork yet — placeholder)
-    'fw1-04': 'fw1-who-which-that-whose-plus-question-tags',  # (no artwork yet — placeholder)
-    'fw1-05': 'fw1-in-on-at-time-and-place',  # (no artwork yet — placeholder)
-    'fw1-06': 'fw1-dependent-prepositions',  # (no artwork yet — placeholder)
-    'fw1-07': 'fw1-a-first-look-at-phrasal-verb-particles',  # (no artwork yet — placeholder)
-    'fw1-08': 'fw1-and-but-or-so-plus-both-and-either-or-neither-nor',  # (no artwork yet — placeholder)
-    'fw1-09': 'fw1-because-although-while',  # (no artwork yet — placeholder)
-    'fw1-10': 'fw1-everyday-connecting-words',  # (no artwork yet — placeholder)
-    'fw1-11': 'fw1-quantifiers-and-countability',  # (no artwork yet — placeholder)
-    'fw2-01': 'fw2-formal-relative-pronouns-by-which-whom-whereby',  # (no artwork yet — placeholder)
-    'fw2-02': 'fw2-generic-one-and-this-that-such-reference',  # (no artwork yet — placeholder)
-    'fw2-03': 'fw2-multi-word-prepositions-due-to-in-spite-of-with-regard-to',  # (no artwork yet — placeholder)
-    'fw2-04': 'fw2-stranded-prepositions-and-register',  # (no artwork yet — placeholder)
-    'fw2-05': 'fw2-phrasal-verb-particles-up-out-off-over-through',  # (no artwork yet — placeholder)
-    'fw2-06': 'fw2-not-only-but-also-whereas-even-though-given-that',  # (no artwork yet — placeholder)
-    'fw2-07': 'fw2-moreover-nevertheless-consequently-transition-words-and-punctuation',  # (no artwork yet — placeholder)
-    'fw2-08': 'fw2-subsequently-meanwhile-namely-for-instance-sequence-and-examples',  # (no artwork yet — placeholder)
-    'fw2-09': 'fw2-formal-quantifiers-a-number-of-the-majority-of-few-vs-a-few',  # (no artwork yet — placeholder)
-    'fw2-10': 'fw2-intensifiers-and-degree-words-very-absolutely-rather-somewhat',  # (no artwork yet — placeholder)
-    'fw2-11': 'fw2-the-former-and-the-latter-respectively-do-so',  # (no artwork yet — placeholder)
+    'fw1-01': 'fw1-personal-possessive-and-reflexive-pronouns',  # design_handoff_function_words
+    'fw1-02': 'fw1-demonstratives-and-indefinite-pronouns',  # design_handoff_function_words
+    'fw1-03': 'fw1-each-every-either-neither-and-each-other',  # design_handoff_function_words
+    'fw1-04': 'fw1-who-which-that-whose-plus-question-tags',  # design_handoff_function_words
+    'fw1-05': 'fw1-in-on-at-time-and-place',  # design_handoff_function_words
+    'fw1-06': 'fw1-dependent-prepositions',  # design_handoff_function_words
+    'fw1-07': 'fw1-a-first-look-at-phrasal-verb-particles',  # design_handoff_function_words
+    'fw1-08': 'fw1-and-but-or-so-plus-both-and-either-or-neither-nor',  # design_handoff_function_words
+    'fw1-09': 'fw1-because-although-while',  # design_handoff_function_words
+    'fw1-10': 'fw1-everyday-connecting-words',  # design_handoff_function_words
+    'fw1-11': 'fw1-quantifiers-and-countability',  # design_handoff_function_words
+    'fw2-01': 'fw2-formal-relative-pronouns-by-which-whom-whereby',  # design_handoff_function_words
+    'fw2-02': 'fw2-generic-one-and-this-that-such-reference',  # design_handoff_function_words
+    'fw2-03': 'fw2-multi-word-prepositions-due-to-in-spite-of-with-regard-to',  # design_handoff_function_words
+    'fw2-04': 'fw2-stranded-prepositions-and-register',  # design_handoff_function_words
+    'fw2-05': 'fw2-phrasal-verb-particles-up-out-off-over-through',  # design_handoff_function_words
+    'fw2-06': 'fw2-not-only-but-also-whereas-even-though-given-that',  # design_handoff_function_words
+    'fw2-07': 'fw2-moreover-nevertheless-consequently-transition-words-and-punctuation',  # design_handoff_function_words
+    'fw2-08': 'fw2-subsequently-meanwhile-namely-for-instance-sequence-and-examples',  # design_handoff_function_words
+    'fw2-09': 'fw2-formal-quantifiers-a-number-of-the-majority-of-few-vs-a-few',  # design_handoff_function_words
+    'fw2-10': 'fw2-intensifiers-and-degree-words-very-absolutely-rather-somewhat',  # design_handoff_function_words
+    'fw2-11': 'fw2-the-former-and-the-latter-respectively-do-so',  # design_handoff_function_words
 }
